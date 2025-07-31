@@ -47,14 +47,14 @@ export default function SynopsisSection() {
   }, [shortSynopsis])
 
   return (
-    <section ref={sectionRef} className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 relative" data-section="synopsis">
+    <section ref={sectionRef} className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 relative">
       <div className="container mx-auto max-w-4xl">
         {isVisible && (
           <div className="fade-in-sequence">
             <div className="system-panel p-6 sm:p-8 hologram-effect">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 lg:mb-8 gap-4">
                 <div className="flex items-center space-x-3">
-                  <FileText size={20} sm:size={24} className="text-neon-cyan flex-shrink-0" />
+                  <FileText size={20} className="text-neon-cyan flex-shrink-0" />
                   <span className="text-lg sm:text-xl font-orbitron text-neon-cyan">SINOPSIS_SISTEMA</span>
                 </div>
                 <div className="flex items-center space-x-2 text-xs font-space-mono">

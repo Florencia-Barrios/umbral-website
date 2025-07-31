@@ -110,19 +110,9 @@ export default function ScanningSequence({ onComplete }: ScanningSequenceProps) 
           <div className="relative p-6 sm:p-8 lg:p-12 max-h-screen overflow-hidden">
             {/* Header */}
             <div className="text-center mb-8">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-center mb-4 gap-2 sm:gap-0">
-                <Eye
-                  size={20}
-                  className="sm:w-6 sm:h-6 text-electric-pink animate-pulse flex-shrink-0 mx-auto sm:mx-0 sm:mr-3"
-                />
-                <span
-                  className="font-orbitron text-lg sm:text-xl lg:text-2xl text-electric-pink text-center"
-                  style={{
-                    wordBreak: "keep-all",
-                    overflowWrap: "break-word",
-                    hyphens: "none",
-                  }}
-                >
+              <div className="flex items-center justify-center mb-4">
+                <Eye size={20} className="sm:w-6 sm:h-6 text-electric-pink mr-3 animate-pulse flex-shrink-0" />
+                <span className="font-orbitron text-lg sm:text-xl lg:text-2xl text-electric-pink break-words">
                   PROTOCOLO DE IDENTIFICACIÓN
                 </span>
               </div>
@@ -132,22 +122,14 @@ export default function ScanningSequence({ onComplete }: ScanningSequenceProps) 
             <div className="space-y-6 mb-8">
               {/* Current scan line */}
               <div className="bg-void/50 border border-neon-cyan/20 rounded-lg p-4 sm:p-6">
-                <div
-                  className="font-space-mono text-sm sm:text-base lg:text-lg text-ghost leading-relaxed flex items-start sm:items-center"
-                  style={{
-                    wordBreak: "keep-all",
-                    overflowWrap: "break-word",
-                    hyphens: "none",
-                    whiteSpace: "normal",
-                  }}
-                >
-                  <span className="text-electric-pink mr-2 flex-shrink-0 mt-0.5 sm:mt-0">{">"}</span>
-                  <span className="flex-1 min-w-0 break-words">
+                <div className="font-space-mono text-sm sm:text-base lg:text-lg text-ghost leading-relaxed break-words flex items-center">
+                  <span className="text-electric-pink mr-2">{">"}</span>
+                  <span className="flex-1">
                     {typedText}
                     {currentStep < scanningSteps.length && <span className="system-cursor"></span>}
                   </span>
                   {currentStep < scanningSteps.length && typedText === scanningSteps[currentStep] && (
-                    <span className="text-electric-pink ml-2 flex-shrink-0">✔</span>
+                    <span className="text-electric-pink ml-2">✔</span>
                   )}
                 </div>
               </div>
@@ -158,15 +140,9 @@ export default function ScanningSequence({ onComplete }: ScanningSequenceProps) 
                   {completedSteps.map((step, index) => (
                     <div
                       key={index}
-                      className="font-space-mono text-xs sm:text-sm text-neon-cyan/60 flex items-start break-words"
-                      style={{
-                        wordBreak: "keep-all",
-                        overflowWrap: "break-word",
-                        hyphens: "none",
-                        whiteSpace: "normal",
-                      }}
+                      className="font-space-mono text-xs sm:text-sm text-neon-cyan/60 flex items-center break-words"
                     >
-                      <span className="text-electric-pink mr-2 flex-shrink-0 mt-0.5">{">"}</span>
+                      <span className="text-electric-pink mr-2">{">"}</span>
                       <span className="flex-1 min-w-0">{step}</span>
                       <span className="ml-2 text-electric-pink flex-shrink-0">✔</span>
                     </div>

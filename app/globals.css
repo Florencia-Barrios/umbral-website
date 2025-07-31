@@ -75,9 +75,6 @@
     box-shadow: 0 0 30px rgba(0, 250, 255, 0.1), inset 0 1px 0 rgba(0, 250, 255, 0.1);
     word-wrap: break-word;
     overflow-wrap: break-word;
-    /* Asegurar que los contenedores se ajusten dinámicamente */
-    min-height: fit-content;
-    height: auto;
   }
 
   .neon-glow {
@@ -233,13 +230,6 @@
     display: none; /* WebKit */
   }
 
-  /* Mejoras para manejo de texto en mobile */
-  .overflow-wrap-anywhere {
-    overflow-wrap: anywhere;
-    word-break: keep-all;
-    hyphens: none;
-  }
-
   @media (max-width: 768px) {
     .desktop-only {
       display: none;
@@ -253,9 +243,6 @@
       @apply p-4;
       max-width: 100%;
       overflow-x: hidden;
-      /* Altura dinámica para acomodar texto */
-      min-height: auto;
-      height: auto;
     }
 
     .container {
@@ -293,31 +280,12 @@
 
     /* Fix for long text in mobile */
     .font-space-mono {
-      word-break: keep-all;
+      word-break: break-all;
       overflow-wrap: anywhere;
-      hyphens: none;
-      white-space: normal;
     }
 
     .typing-container {
       min-height: 100px; /* Smaller reserved height on mobile */
-    }
-
-    /* Asegurar que los flex containers no corten texto */
-    .flex {
-      flex-wrap: wrap;
-      align-items: flex-start;
-    }
-
-    .flex.items-center {
-      align-items: flex-start;
-    }
-
-    /* Solo en pantallas más grandes mantener items-center */
-    @media (min-width: 640px) {
-      .flex.sm\:items-center {
-        align-items: center;
-      }
     }
   }
 

@@ -67,7 +67,7 @@ export default function SystemInterface() {
               <Shield size={12} className="sm:w-3.5 sm:h-3.5 text-electric-pink" />
               <span className="text-ghost text-xs whitespace-nowrap">SEGURO</span>
             </div>
-            <span className="text-neon-cyan text-xs whitespace-nowrap" data-clock="true">
+            <span className="text-neon-cyan text-xs whitespace-nowrap" data-clock>
               {time}
             </span>
           </div>
@@ -93,7 +93,7 @@ export default function SystemInterface() {
               <Wifi size={12} className="text-neon-cyan flex-shrink-0" />
               <span className="text-ghost text-xs whitespace-nowrap">CONECTADO</span>
             </div>
-            <span className="text-neon-cyan text-xs whitespace-nowrap" data-clock="true">
+            <span className="text-neon-cyan text-xs whitespace-nowrap" data-clock>
               {time}
             </span>
           </div>

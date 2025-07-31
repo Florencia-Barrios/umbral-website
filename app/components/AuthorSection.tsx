@@ -33,7 +33,7 @@ export default function AuthorSection() {
             <div className="system-panel p-6 sm:p-8 hologram-effect">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 lg:mb-8 gap-4">
                 <div className="flex items-center space-x-3">
-                  <Database size={20} sm:size={24} className="text-neon-cyan flex-shrink-0" />
+                  <Database size={20} className="text-neon-cyan flex-shrink-0" />
                   <span className="text-lg sm:text-xl font-orbitron text-neon-cyan">PERFIL_AUTOR</span>
                 </div>
                 <div className="flex items-center space-x-2 text-xs font-space-mono">
@@ -98,17 +98,17 @@ export default function AuthorSection() {
 
                   <div className="grid grid-cols-3 gap-3 lg:gap-4">
                     <div className="system-panel p-3 lg:p-4 bg-neon-cyan/5 border-neon-cyan/20 text-center">
-                      <BookOpen size={16} sm:size={20} className="text-neon-cyan mx-auto mb-2" />
+                      <BookOpen size={16} className="text-neon-cyan mx-auto mb-2" />
                       <div className="text-xs font-space-mono text-neon-cyan mb-1">OBRAS</div>
                       <div className="text-lg font-orbitron text-neon-cyan">1</div>
                     </div>
                     <div className="system-panel p-3 lg:p-4 bg-electric-pink/5 border-electric-pink/20 text-center">
-                      <Code size={16} sm:size={20} className="text-electric-pink mx-auto mb-2" />
+                      <Code size={16} className="text-electric-pink mx-auto mb-2" />
                       <div className="text-xs font-space-mono text-electric-pink mb-1">GÉNERO</div>
                       <div className="text-sm font-orbitron text-electric-pink">TECH-FIC</div>
                     </div>
                     <div className="system-panel p-3 lg:p-4 bg-ghost/5 border-ghost/20 text-center">
-                      <User size={16} sm:size={20} className="text-ghost mx-auto mb-2" />
+                      <User size={16} className="text-ghost mx-auto mb-2" />
                       <div className="text-xs font-space-mono text-ghost mb-1">ESTADO</div>
                       <div className="text-sm font-orbitron text-ghost">ACTIVO</div>
                     </div>

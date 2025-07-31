@@ -83,14 +83,14 @@ export default function HeroSection() {
     setSystemReady(true)
     setShowScanning(false)
 
-    // Smooth scroll to main content (first section after hero)
+    // Smooth scroll to main content
     setTimeout(() => {
-      const synopsisSection =
-        document.querySelector('[data-section="synopsis"]') || document.querySelector("section:nth-of-type(2)")
-      if (synopsisSection) {
-        synopsisSection.scrollIntoView({
+      const mainContent = document.querySelector("main")
+      if (mainContent) {
+        const heroHeight = window.innerHeight
+        window.scrollTo({
+          top: heroHeight,
           behavior: "smooth",
-          block: "start",
         })
       }
     }, 100)
@@ -142,9 +142,7 @@ export default function HeroSection() {
                 <div className="mb-6">
                   <div className="flex items-center justify-center mb-4">
                     <div className="w-3 h-3 bg-neon-cyan rounded-full mr-3 animate-pulse"></div>
-                    <span className="text-neon-cyan font-space-mono text-sm break-words overflow-wrap-anywhere">
-                      SISTEMA_UMBRAL_v2.1.0
-                    </span>
+                    <span className="text-neon-cyan font-space-mono text-sm">SISTEMA_UMBRAL_v2.1.0</span>
                   </div>
                 </div>
 
@@ -153,22 +151,16 @@ export default function HeroSection() {
                   {systemSteps.map((step, index) => (
                     <div
                       key={index}
-                      className={`text-left font-space-mono text-sm transition-all duration-500 flex items-center break-words overflow-wrap-anywhere ${
+                      className={`text-left font-space-mono text-sm transition-all duration-500 flex items-center ${
                         index < currentStep
                           ? "text-neon-cyan opacity-70"
                           : index === currentStep
                             ? "text-neon-cyan"
                             : "text-ghost/30"
                       }`}
-                      style={{
-                        wordBreak: "keep-all",
-                        overflowWrap: "break-word",
-                        hyphens: "none",
-                        whiteSpace: "normal",
-                      }}
                     >
-                      <span className="text-electric-pink mr-2 flex-shrink-0">{">"}</span>
-                      <span className="flex-1 min-w-0">
+                      <span className="text-electric-pink mr-2">{">"}</span>
+                      <span className="flex-1">
                         {index === currentStep ? (
                           <>
                             {typedText}
@@ -178,7 +170,7 @@ export default function HeroSection() {
                           step
                         )}
                       </span>
-                      {index < currentStep && <span className="text-electric-pink ml-2 flex-shrink-0">✔</span>}
+                      {index < currentStep && <span className="text-electric-pink ml-2">✔</span>}
                     </div>
                   ))}
                 </div>
@@ -210,18 +202,10 @@ export default function HeroSection() {
                     {showSkipButton && (
                       <button
                         onClick={handleSkipToContent}
-                        className="bg-transparent border-none text-neon-cyan px-4 py-2 rounded font-space-mono text-sm transition-all duration-300 hover:scale-105 cursor-pointer mx-auto block"
+                        className="bg-transparent border-none text-neon-cyan px-4 py-2 rounded font-space-mono text-sm transition-all duration-300 hover:text-electric-pink hover:underline hover:shadow-lg hover:shadow-neon-cyan/20 cursor-pointer mx-auto block"
                         style={{
-                          textShadow: "0 0 5px rgba(0, 250, 255, 0.3)",
+                          textShadow: "0 0 10px rgba(0, 250, 255, 0.3)",
                           marginTop: "1rem",
-                        }}
-                        onMouseEnter={(e) => {
-                          const target = e.currentTarget as HTMLButtonElement
-                          target.style.textShadow = "0 0 5px #00faff, 0 0 10px #00faff, 0 0 15px #00faff"
-                        }}
-                        onMouseLeave={(e) => {
-                          const target = e.currentTarget as HTMLButtonElement
-                          target.style.textShadow = "0 0 5px rgba(0, 250, 255, 0.3)"
                         }}
                       >
                         <div className="flex items-center justify-center space-x-2">
@@ -246,10 +230,7 @@ export default function HeroSection() {
                     <span className="text-neon-cyan break-all">
                       {showBackCover ? "CONTRATAPA_OFICIAL.png" : "PORTADA_OFICIAL.png"}
                     </span>
-                    <div className="flex items-center space-x-2">
-                      <div className="w-2 h-2 bg-electric-pink rounded-full animate-pulse flex-shrink-0"></div>
-                      <span className="text-electric-pink">CARGADO</span>
-                    </div>
+
                   </div>
 
                   {/* Image Container - Shared for both images */}

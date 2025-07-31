@@ -90,10 +90,9 @@ export default function PodcastSection() {
                       width="100%"
                       height="152"
                       frameBorder="0"
-                      allowFullScreen
+                      allowFullScreen={true}
                       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                       loading="lazy"
-                      title="Spotify Player - UMBRAL Podcast"
                     />
                   </div>
                 </div>
@@ -104,7 +103,6 @@ export default function PodcastSection() {
                     window.open(
                       "https://open.spotify.com/intl-es/artist/2M44BSyBkxIRKLmMdIrMfi?si=KwOzm6LNSW2JkJPesDkV8Q",
                       "_blank",
-                      "noopener,noreferrer",
                     )
                   }
                   className="w-full bg-electric-pink/10 hover:bg-electric-pink/20 border border-electric-pink text-electric-pink px-6 sm:px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center justify-center space-x-3 group electric-glow"
