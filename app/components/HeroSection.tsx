@@ -310,7 +310,7 @@ export default function HeroSection() {
                     <div className="mb-8">
                       <div className="text-xs text-electric-pink mb-2 font-space-mono">ARCHIVO_PRINCIPAL:</div>
                       <h1 className="glitch-text font-orbitron text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 text-ghost leading-tight break-words">
-                        UMBRAL.exe
+                        UMBRAL
                       </h1>
                     </div>
 
