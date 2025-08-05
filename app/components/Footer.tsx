@@ -80,7 +80,7 @@ export default function Footer() {
               <Terminal size={14} className="text-neon-cyan" />
               <span>SISTEMA UMBRAL v2.1.0</span>
             </div>
-            <div>© 2024 Federico Daniel Ara | TODOS LOS DERECHOS RESERVADOS</div>
+            <div>© 2025 Federico Daniel Ara | TODOS LOS DERECHOS RESERVADOS</div>
             <div className="text-neon-cyan">INTERFAZ WEB OPTIMIZADA | EXPERIENCIA INMERSIVA ACTIVADA</div>
           </div>
         </div>
