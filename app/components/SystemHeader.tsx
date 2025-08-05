@@ -26,7 +26,7 @@ export default function SystemHeader() {
     <div className="fixed top-0 left-0 right-0 z-50 bg-secondary/90 backdrop-blur-sm border-b border-terminal-green/30">
       <div className="container mx-auto px-4 py-2 flex justify-between items-center text-xs font-mono">
         <div className="flex items-center space-x-4">
-          <span className="text-terminal-green">UMBRAL.exe</span>
+          <span className="text-terminal-green">UMBRAL</span>
           <span className="text-terminal-cyan">v2.1.0</span>
           <span
             className={`${systemStatus === "ACTIVE" ? "text-terminal-green" : systemStatus === "MONITORING" ? "text-terminal-cyan" : "text-error"}`}
