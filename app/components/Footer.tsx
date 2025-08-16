@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Terminal, Github, Twitter, Instagram } from "lucide-react"
+import { Terminal, Linkedin, Github, Youtube, ShoppingCart } from 'lucide-react'
 import { useClock } from "../../hooks/useClock"
 
 export default function Footer() {
@@ -39,14 +39,17 @@ export default function Footer() {
             <div className="system-panel p-3 lg:p-4 bg-neon-cyan/5 border-neon-cyan/20 text-center min-h-[80px] flex flex-col justify-center w-full">
               <div className="text-xs font-space-mono text-neon-cyan mb-2">CONEXIONES</div>
               <div className="flex justify-center space-x-2 lg:space-x-3">
-                <a href="#" className="text-neon-cyan hover:text-electric-pink transition-colors p-1">
-                  <Twitter size={14} className="sm:w-4 sm:h-4" />
+                <a href="https://www.linkedin.com/in/federico-daniel-ara/" className="text-neon-cyan hover:text-electric-pink transition-colors p-1">
+                  <Linkedin size={14} className="sm:w-4 sm:h-4" />
                 </a>
-                <a href="#" className="text-neon-cyan hover:text-electric-pink transition-colors p-1">
-                  <Instagram size={14} className="sm:w-4 sm:h-4" />
-                </a>
-                <a href="#" className="text-neon-cyan hover:text-electric-pink transition-colors p-1">
+                <a href="https://github.com/Lartweib" className="text-neon-cyan hover:text-electric-pink transition-colors p-1">
                   <Github size={14} className="sm:w-4 sm:h-4" />
+                </a>
+                <a href="https://www.youtube.com/@federicodanielara2060" className="text-neon-cyan hover:text-electric-pink transition-colors p-1">
+                  <Youtube size={14} className="sm:w-4 sm:h-4" />
+                </a>
+                <a href="https://www.amazon.es/stores/Robin-Sharma/author/B000APEZCE" className="text-neon-cyan hover:text-electric-pink transition-colors p-1">
+                  <ShoppingCart size={14} className="sm:w-4 sm:h-4" />
                 </a>
               </div>
             </div>
@@ -69,8 +72,23 @@ export default function Footer() {
             {/* Timestamp */}
             <div className="system-panel p-3 lg:p-4 bg-void/30 border-neon-cyan/10 text-center min-h-[80px] flex flex-col justify-center w-full max-w-full">
               <div className="text-xs font-space-mono text-neon-cyan mb-2">TIMESTAMP</div>
-              <div className="text-xs font-space-mono text-neon-cyan break-all leading-tight" data-timestamp>
-                {timestamp}
+              <div 
+                className="text-xs font-space-mono text-neon-cyan leading-tight" 
+                data-timestamp
+                style={{
+                  wordBreak: 'keep-all',
+                  overflowWrap: 'break-word',
+                  whiteSpace: 'normal'
+                }}
+              >
+                {/* Mobile-specific layout for screens ≤ 460px */}
+                <span className="hidden max-[460px]:block">
+                  {timestamp.split(' ')[0]}<br />{timestamp.split(' ')[1]}
+                </span>
+                {/* Desktop and larger mobile layout */}
+                <span className="max-[460px]:hidden">
+                  {timestamp}
+                </span>
               </div>
             </div>
           </div>

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import Image from "next/image"
-import { Download, Headphones, ChevronRight, Play, Maximize2, SkipForward } from "lucide-react"
+import { Download, Headphones, ChevronRight, Play, Maximize2 } from 'lucide-react'
 import ScanningSequence from "./ScanningSequence"
 
 export default function HeroSection() {
@@ -78,21 +78,17 @@ export default function HeroSection() {
   }
 
   const handleSkipToContent = () => {
-    // Skip scanning and go directly to main content
+    // Skip scanning and go directly to main content (portada section)
     document.body.style.overflow = "unset"
     setSystemReady(true)
     setShowScanning(false)
 
-    // Smooth scroll to main content
+    // Smooth scroll to the beginning of main content (not synopsis)
     setTimeout(() => {
-      const mainContent = document.querySelector("main")
-      if (mainContent) {
-        const heroHeight = window.innerHeight
-        window.scrollTo({
-          top: heroHeight,
-          behavior: "smooth",
-        })
-      }
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      })
     }, 100)
   }
 
@@ -158,9 +154,15 @@ export default function HeroSection() {
                             ? "text-neon-cyan"
                             : "text-ghost/30"
                       }`}
+                      style={{ 
+                        wordBreak: 'keep-all', 
+                        overflowWrap: 'break-word', 
+                        whiteSpace: 'normal',
+                        hyphens: 'none'
+                      }}
                     >
-                      <span className="text-electric-pink mr-2">{">"}</span>
-                      <span className="flex-1">
+                      <span className="text-electric-pink mr-2 flex-shrink-0">{">"}</span>
+                      <span className="flex-1 min-w-0">
                         {index === currentStep ? (
                           <>
                             {typedText}
@@ -170,7 +172,7 @@ export default function HeroSection() {
                           step
                         )}
                       </span>
-                      {index < currentStep && <span className="text-electric-pink ml-2">✔</span>}
+                      {index < currentStep && <span className="text-electric-pink ml-2 flex-shrink-0">✔</span>}
                     </div>
                   ))}
                 </div>
@@ -198,20 +200,13 @@ export default function HeroSection() {
                       />
                     </button>
 
-                    {/* Skip Button - Only shown if user has experienced before */}
+                    {/* Skip Button - Rediseñado */}
                     {showSkipButton && (
                       <button
                         onClick={handleSkipToContent}
-                        className="bg-transparent border-none text-neon-cyan px-4 py-2 rounded font-space-mono text-sm transition-all duration-300 hover:text-electric-pink hover:underline hover:shadow-lg hover:shadow-neon-cyan/20 cursor-pointer mx-auto block"
-                        style={{
-                          textShadow: "0 0 10px rgba(0, 250, 255, 0.3)",
-                          marginTop: "1rem",
-                        }}
+                        className="bg-transparent text-gray-400 px-4 py-2 rounded font-space-mono text-sm transition-colors duration-300 hover:text-neon-cyan cursor-pointer mx-auto block"
                       >
-                        <div className="flex items-center justify-center space-x-2">
-                          <SkipForward size={14} />
-                          <span>Ingresar sin iniciar protocolo</span>
-                        </div>
+                        Ingresar sin iniciar protocolo
                       </button>
                     )}
                   </div>
@@ -226,17 +221,27 @@ export default function HeroSection() {
               {/* Book Cover with Manual Controls */}
               <div className="order-2 lg:order-1 fade-in-sequence">
                 <div className="system-panel p-6 sm:p-8 bg-void/90 backdrop-blur-xl hologram-effect">
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 text-xs font-space-mono gap-2">
-                    <span className="text-neon-cyan break-all">
-                      {showBackCover ? "CONTRATAPA_OFICIAL.png" : "PORTADA_OFICIAL.png"}
-                    </span>
+                  {/* Nueva barra de controles superior */}
+                  <div className="flex items-center justify-between mb-4 text-xs font-space-mono">
+                    <button
+                      onClick={toggleCover}
+                      className="text-ghost hover:text-neon-cyan transition-colors duration-300 cursor-pointer"
+                    >
+                      <span>{">"} [{showBackCover ? "VER PORTADA" : "VER CONTRATAPA"}]</span>
+                    </button>
 
+                    <button
+                      onClick={openModal}
+                      className="text-ghost hover:text-electric-pink transition-colors duration-300 cursor-pointer p-1"
+                    >
+                      <Maximize2 size={14} />
+                    </button>
                   </div>
 
-                  {/* Image Container - Shared for both images */}
-                  <div className="relative mb-6">
+                  {/* Image Container - ajustado */}
+                  <div className="relative mb-4">
                     <div className="relative group">
-                      <div className="absolute -inset-4 bg-gradient-to-r from-neon-cyan/20 to-electric-pink/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg"></div>
+                      <div className="absolute -inset-2 bg-gradient-to-r from-neon-cyan/20 to-electric-pink/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg"></div>
                       <div className="relative">
                         {/* Pre-loaded images - only one visible at a time */}
                         <div className="relative w-full max-w-sm mx-auto">
@@ -260,33 +265,13 @@ export default function HeroSection() {
                               showBackCover ? "opacity-100" : "opacity-0 absolute inset-0"
                             }`}
                             style={{ objectFit: "contain" }}
+                            style={{ objectFit: "contain" }}
                             priority
                           />
                         </div>
                         <div className="absolute inset-0 bg-gradient-to-t from-neon-cyan/5 to-electric-pink/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg"></div>
                       </div>
                     </div>
-                  </div>
-
-                  {/* Control Buttons - Clear and Visible */}
-                  <div className="flex flex-col sm:flex-row gap-3 mb-6">
-                    {/* Toggle Cover Button */}
-                    <button
-                      onClick={toggleCover}
-                      className="flex-1 bg-neon-cyan/10 hover:bg-neon-cyan/20 border border-neon-cyan text-neon-cyan px-4 py-3 rounded-lg font-semibold text-sm transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center justify-center space-x-2 group neon-glow"
-                    >
-                      <span className="text-lg">⭮</span>
-                      <span>{showBackCover ? "VER PORTADA" : "VER CONTRATAPA"}</span>
-                    </button>
-
-                    {/* Expand Button */}
-                    <button
-                      onClick={openModal}
-                      className="bg-electric-pink/10 hover:bg-electric-pink/20 border border-electric-pink text-electric-pink px-4 py-3 rounded-lg font-semibold text-sm transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center justify-center space-x-2 group electric-glow"
-                    >
-                      <Maximize2 size={16} className="group-hover:scale-110 transition-transform" />
-                      <span>EXPANDIR</span>
-                    </button>
                   </div>
 
                   <div className="data-stream space-y-1 text-xs break-words">
@@ -309,7 +294,8 @@ export default function HeroSection() {
 
                     <div className="mb-8">
                       <div className="text-xs text-electric-pink mb-2 font-space-mono">ARCHIVO_PRINCIPAL:</div>
-                      <h1 className="glitch-text font-orbitron text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 text-ghost leading-tight break-words">
+                      {/* Título con efecto glitch mejorado */}
+                      <h1 className="system-glitch font-orbitron text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 text-ghost leading-tight break-words" data-text="UMBRAL">
                         UMBRAL
                       </h1>
                     </div>
@@ -342,21 +328,20 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Modal for image expansion */}
+      {/* Modal for image expansion - Corregido */}
       {modalImage && (
         <div
-          className="fixed inset-0 bg-void/95 backdrop-blur-xl z-50 flex items-center justify-center p-4 sm:p-6"
+          className="fixed inset-0 bg-void/95 backdrop-blur-xl z-50 flex items-center justify-center p-4"
           onClick={closeModal}
         >
-          <div className="relative max-w-6xl max-h-full w-full flex items-center justify-center">
+          <div className="relative max-w-4xl w-full flex items-center justify-center">
             <button
               onClick={closeModal}
-              className="absolute -top-16 right-4 sm:-top-12 sm:right-0 w-12 h-12 bg-electric-pink/20 border border-electric-pink text-electric-pink rounded-full flex items-center justify-center hover:bg-electric-pink/30 hover:scale-110 transition-all duration-300 z-10 text-xl font-bold"
-              style={{ margin: "16px" }}
+              className="absolute top-4 right-4 w-8 h-8 bg-transparent border border-electric-pink/50 text-electric-pink rounded-full flex items-center justify-center hover:border-[#ff00c8] hover:text-[#ff00c8] transition-all duration-300 z-10 text-sm font-bold"
             >
               ×
             </button>
-            <div className="relative inline-block">
+            <div className="relative">
               <Image
                 src={modalImage || "/placeholder.svg"}
                 alt="UMBRAL - Vista ampliada"

@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Eye, Shield } from "lucide-react"
+import { Eye, Shield } from 'lucide-react'
 
 interface ScanningSequenceProps {
   onComplete: () => void
@@ -59,7 +59,7 @@ export default function ScanningSequence({ onComplete }: ScanningSequenceProps) 
         setScanComplete(true)
         setTimeout(() => {
           onComplete()
-        }, 1500) // Shorter wait time
+        }, 4500) // Shorter wait time + 3000ms delay
       }, 1500) // Additional delay to see the third step in the lower panel
     }
 
@@ -122,7 +122,7 @@ export default function ScanningSequence({ onComplete }: ScanningSequenceProps) 
             <div className="space-y-6 mb-8">
               {/* Current scan line */}
               <div className="bg-void/50 border border-neon-cyan/20 rounded-lg p-4 sm:p-6">
-                <div className="font-space-mono text-sm sm:text-base lg:text-lg text-ghost leading-relaxed break-words flex items-center">
+                <div className="font-space-mono text-sm sm:text-base lg:text-lg text-ghost leading-relaxed break-words flex items-center" style={{ wordBreak: 'keep-all', overflowWrap: 'break-word', whiteSpace: 'normal' }}>
                   <span className="text-electric-pink mr-2">{">"}</span>
                   <span className="flex-1">
                     {typedText}
@@ -140,7 +140,7 @@ export default function ScanningSequence({ onComplete }: ScanningSequenceProps) 
                   {completedSteps.map((step, index) => (
                     <div
                       key={index}
-                      className="font-space-mono text-xs sm:text-sm text-neon-cyan/60 flex items-center break-words"
+                      className="font-space-mono text-xs sm:text-sm text-neon-cyan/60 flex items-center break-words" style={{ wordBreak: 'keep-all', overflowWrap: 'break-word', whiteSpace: 'normal' }}
                     >
                       <span className="text-electric-pink mr-2">{">"}</span>
                       <span className="flex-1 min-w-0">{step}</span>
@@ -170,11 +170,11 @@ export default function ScanningSequence({ onComplete }: ScanningSequenceProps) 
               <div className="text-center fade-in-sequence">
                 <div className="flex items-center justify-center mb-4">
                   <Shield size={20} className="sm:w-6 sm:h-6 text-electric-pink mr-3 flex-shrink-0" />
-                  <span className="font-orbitron text-lg sm:text-xl text-electric-pink break-words">
+                  <span className="font-orbitron text-lg sm:text-xl text-electric-pink break-words" style={{ wordBreak: 'keep-all', overflowWrap: 'break-word', whiteSpace: 'normal' }}>
                     IDENTIDAD VÁLIDA
                   </span>
                 </div>
-                <div className="font-space-mono text-xs sm:text-sm text-neon-cyan mb-4 break-words">
+                <div className="font-space-mono text-xs sm:text-sm text-neon-cyan mb-4 break-words" style={{ wordBreak: 'keep-all', overflowWrap: 'break-word', whiteSpace: 'normal' }}>
                   Desplegando entorno...
                 </div>
                 <div className="w-6 h-6 sm:w-8 sm:h-8 border-2 border-neon-cyan border-t-transparent rounded-full animate-spin mx-auto"></div>
