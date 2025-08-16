@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
-import { User, Database, Code, BookOpen } from "lucide-react"
+import { User, Database, Code, BookOpen } from 'lucide-react'
 
 export default function AuthorSection() {
   const [isVisible, setIsVisible] = useState(false)
@@ -96,21 +96,22 @@ export default function AuthorSection() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-3 gap-3 lg:gap-4">
-                    <div className="system-panel p-3 lg:p-4 bg-neon-cyan/5 border-neon-cyan/20 text-center">
-                      <BookOpen size={16} className="text-neon-cyan mx-auto mb-2" />
+                  {/* Tarjetas estadísticas - CORREGIDAS para ancho uniforme en mobile */}
+                  <div className="flex gap-2 sm:gap-3 lg:gap-4">
+                    <div className="flex-1 system-panel p-2 sm:p-3 lg:p-4 bg-neon-cyan/5 border-neon-cyan/20 text-center min-h-[80px] flex flex-col justify-center">
+                      <BookOpen size={12} className="sm:w-4 sm:h-4 text-neon-cyan mx-auto mb-1 sm:mb-2 flex-shrink-0" />
                       <div className="text-xs font-space-mono text-neon-cyan mb-1">OBRAS</div>
-                      <div className="text-lg font-orbitron text-neon-cyan">1</div>
+                      <div className="text-sm sm:text-lg font-orbitron text-neon-cyan">1</div>
                     </div>
-                    <div className="system-panel p-3 lg:p-4 bg-electric-pink/5 border-electric-pink/20 text-center">
-                      <Code size={16} className="text-electric-pink mx-auto mb-2" />
+                    <div className="flex-1 system-panel p-2 sm:p-3 lg:p-4 bg-electric-pink/5 border-electric-pink/20 text-center min-h-[80px] flex flex-col justify-center">
+                      <Code size={12} className="sm:w-4 sm:h-4 text-electric-pink mx-auto mb-1 sm:mb-2 flex-shrink-0" />
                       <div className="text-xs font-space-mono text-electric-pink mb-1">GÉNERO</div>
-                      <div className="text-sm font-orbitron text-electric-pink">TECH-FIC</div>
+                      <div className="text-xs sm:text-sm font-orbitron text-electric-pink">TECH-FIC</div>
                     </div>
-                    <div className="system-panel p-3 lg:p-4 bg-ghost/5 border-ghost/20 text-center">
-                      <User size={16} className="text-ghost mx-auto mb-2" />
+                    <div className="flex-1 system-panel p-2 sm:p-3 lg:p-4 bg-ghost/5 border-ghost/20 text-center min-h-[80px] flex flex-col justify-center">
+                      <User size={12} className="sm:w-4 sm:h-4 text-ghost mx-auto mb-1 sm:mb-2 flex-shrink-0" />
                       <div className="text-xs font-space-mono text-ghost mb-1">ESTADO</div>
-                      <div className="text-sm font-orbitron text-ghost">ACTIVO</div>
+                      <div className="text-xs sm:text-sm font-orbitron text-ghost">ACTIVO</div>
                     </div>
                   </div>
                 </div>

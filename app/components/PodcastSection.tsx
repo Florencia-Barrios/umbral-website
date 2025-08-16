@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { Radio, ExternalLink, Cpu, Activity } from "lucide-react"
+import { Radio, ExternalLink, Cpu, Activity, Play } from 'lucide-react'
 
 export default function PodcastSection() {
   const [isVisible, setIsVisible] = useState(false)
@@ -33,11 +33,11 @@ export default function PodcastSection() {
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 lg:mb-8 gap-4">
                 <div className="flex items-center space-x-3">
                   <Radio size={20} className="sm:w-6 sm:h-6 text-electric-pink flex-shrink-0" />
-                  <span className="text-lg sm:text-xl font-orbitron text-electric-pink">AUDIO_STREAM</span>
+                  <span className="text-lg sm:text-xl font-orbitron text-electric-pink">ANÁLISIS_VISUAL</span>
                 </div>
                 <div className="flex items-center space-x-2 text-xs font-space-mono">
                   <Cpu size={14} className="text-neon-cyan" />
-                  <span className="text-neon-cyan">IA_CONVERSACIÓN</span>
+                  <span className="text-neon-cyan">IA_CONVERSACIÓN_VIDEO</span>
                 </div>
               </div>
 
@@ -47,14 +47,14 @@ export default function PodcastSection() {
                 <div className="flex items-center mb-4 text-sm font-space-mono text-electric-pink">
                   <span className="mr-2">{">"}</span>
                   <span className="flex items-center space-x-2">
-                    <span>▶️</span>
-                    <span>DECODIFICANDO_ANALISIS_IA.wav</span>
+                    <Play size={16} className="flex-shrink-0" />
+                    <span>REPRODUCIENDO_ANÁLISIS_VISUAL.mp4</span>
                   </span>
                 </div>
 
                 {/* Description */}
                 <p className="text-ghost mb-6 leading-relaxed text-base sm:text-lg">
-                  Dos inteligencias artificiales mantuvieron una conversación natural sobre el libro. Un análisis
+                  Dos inteligencias artificiales mantuvieron una conversación visual sobre el libro. Un análisis
                   profundo desde la perspectiva de sistemas autónomos que exploran los límites entre realidad y
                   simulación.
                 </p>
@@ -66,33 +66,37 @@ export default function PodcastSection() {
                     <span className="text-xs font-space-mono text-neon-cyan">ESPECIFICACIONES_TÉCNICAS</span>
                   </div>
                   <div className="data-stream space-y-1 text-xs">
-                    <div>CODEC: WAV | BITRATE: 320kbps</div>
+                    <div>FORMATO: MP4 | RESOLUCIÓN: HD</div>
                     <div>PARTICIPANTES: IA_ALPHA, IA_BETA</div>
                     <div>TEMA: ANÁLISIS_UMBRAL.exe</div>
+                    <div>PLATAFORMA: YOUTUBE_EMBED</div>
                   </div>
                 </div>
 
-                {/* Spotify Player Container */}
+                {/* YouTube Player Container */}
                 <div className="system-panel p-4 sm:p-5 bg-void/60 border-electric-pink/20 mb-6">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center space-x-2">
                       <div className="w-2 h-2 bg-electric-pink rounded-full animate-pulse"></div>
-                      <span className="text-xs font-space-mono text-electric-pink">STREAM_ACTIVO</span>
+                      <span className="text-xs font-space-mono text-electric-pink">STREAM_ACTIVO: ANÁLISIS_VISUAL.IA</span>
                     </div>
-                    <div className="text-xs font-space-mono text-neon-cyan">SPOTIFY_EMBED</div>
+                    <div className="text-xs font-space-mono text-neon-cyan">YOUTUBE_EMBED</div>
                   </div>
 
-                  {/* Spotify iframe - exactly as provided */}
-                  <div className="relative overflow-hidden rounded-lg border border-neon-cyan/30">
+                  {/* YouTube iframe */}
+                  <div className="border border-neon-cyan/30 p-2 rounded-lg bg-void/30">
                     <iframe
-                      style={{ borderRadius: "12px" }}
-                      src="https://open.spotify.com/embed/track/1mqkRwnxI0gNZIfZqQjTW8?utm_source=generator&theme=0"
                       width="100%"
-                      height="152"
+                      height="240"
+                      src="https://www.youtube.com/embed/DNHeVYk2oJE"
+                      title="Análisis IA - UMBRAL"
                       frameBorder="0"
-                      allowFullScreen={true}
-                      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                      loading="lazy"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                      className="rounded-lg"
+                      style={{
+                        minHeight: '200px'
+                      }}
                     />
                   </div>
                 </div>
@@ -101,13 +105,13 @@ export default function PodcastSection() {
                 <button
                   onClick={() =>
                     window.open(
-                      "https://open.spotify.com/intl-es/artist/2M44BSyBkxIRKLmMdIrMfi?si=KwOzm6LNSW2JkJPesDkV8Q",
+                      "https://www.youtube.com/watch?v=DNHeVYk2oJE",
                       "_blank",
                     )
                   }
                   className="w-full bg-electric-pink/10 hover:bg-electric-pink/20 border border-electric-pink text-electric-pink px-6 sm:px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center justify-center space-x-3 group electric-glow"
                 >
-                  <span className="text-sm sm:text-base">ACCEDER_A_SPOTIFY()</span>
+                  <span className="text-sm sm:text-base">ACCEDER_A_YOUTUBE()</span>
                   <ExternalLink size={16} className="group-hover:scale-110 transition-transform flex-shrink-0" />
                 </button>
               </div>
@@ -120,7 +124,7 @@ export default function PodcastSection() {
                 </div>
                 <div className="flex items-center space-x-1">
                   <div className="w-1 h-1 bg-electric-pink rounded-full animate-pulse"></div>
-                  <span>STREAM_DISPONIBLE</span>
+                  <span>VIDEO_DISPONIBLE</span>
                 </div>
               </div>
             </div>
