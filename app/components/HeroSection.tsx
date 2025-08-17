@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import Image from "next/image"
-import { Download, Headphones, ChevronRight, Play, Maximize2, ChevronLeft, X } from "lucide-react"
+import { ChevronRight, Play, ChevronLeft, X } from "lucide-react"
 import ScanningSequence from "./ScanningSequence"
 
 export default function HeroSection() {
@@ -16,6 +16,10 @@ export default function HeroSection() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [heroTypedText, setHeroTypedText] = useState("")
   const [showMainQuestion, setShowMainQuestion] = useState(false)
+  const [currentText, setCurrentText] = useState("")
+  const [showCursor, setShowCursor] = useState(true)
+  const [isFlipped, setIsFlipped] = useState(false)
+  const [showButtons, setShowButtons] = useState(false) // Declare setShowButtons and showButtons
 
   const systemSteps = [
     "INICIALIZANDO SISTEMA UMBRAL...",
@@ -38,6 +42,7 @@ export default function HeroSection() {
   ]
 
   const heroPrompt = "UMBRAL> Entrar? [s/n] "
+  const targetText = "UMBRAL> Entrar? [s/n] "
 
   useEffect(() => {
     // Disable scroll initially
@@ -88,26 +93,36 @@ export default function HeroSection() {
     }
   }, [])
 
-  // Hero typing effect after system is ready
+  useEffect(() => {
+    let index = 0
+    const typingInterval = setInterval(() => {
+      if (index < targetText.length) {
+        setCurrentText(targetText.slice(0, index + 1))
+        index++
+      } else {
+        clearInterval(typingInterval)
+        setTimeout(() => setShowMainQuestion(true), 500)
+        setTimeout(() => setShowButtons(true), 1000)
+      }
+    }, 100)
+
+    return () => clearInterval(typingInterval)
+  }, [])
+
+  useEffect(() => {
+    const cursorInterval = setInterval(() => {
+      setShowCursor((prev) => !prev)
+    }, 500)
+
+    return () => clearInterval(cursorInterval)
+  }, [])
+
   useEffect(() => {
     if (systemReady) {
-      let charIndex = 0
-      const typeInterval = setInterval(() => {
-        if (charIndex < heroPrompt.length) {
-          setHeroTypedText(heroPrompt.slice(0, charIndex + 1))
-          charIndex++
-        } else {
-          clearInterval(typeInterval)
-          // Show main question after prompt is complete
-          setTimeout(() => setShowMainQuestion(true), 500)
-        }
-      }, 80)
-
-      return () => clearInterval(typeInterval)
+      // Additional logic if needed
     }
-  }, [systemReady, heroPrompt])
+  }, [systemReady])
 
-  // Image Modal Keyboard Navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (showImageModal) {
@@ -131,7 +146,6 @@ export default function HeroSection() {
     return () => document.removeEventListener("keydown", handleKeyDown)
   }, [showImageModal, currentImageIndex])
 
-  // Touch/Swipe handling for mobile
   useEffect(() => {
     if (!showImageModal) return
 
@@ -198,6 +212,7 @@ export default function HeroSection() {
 
   const toggleCover = () => {
     setShowBackCover(!showBackCover)
+    setIsFlipped(!isFlipped)
   }
 
   const openImageModal = () => {
@@ -215,6 +230,7 @@ export default function HeroSection() {
   const navigateImage = (direction: number) => {
     const newIndex = (currentImageIndex + direction + images.length) % images.length
     setCurrentImageIndex(newIndex)
+    setIsFlipped(newIndex === 1)
   }
 
   const scrollToSection = (sectionId: string) => {
@@ -326,121 +342,108 @@ export default function HeroSection() {
               {/* Terminal Prompt and Main Question */}
               <div className="order-1 lg:order-1 space-y-6 lg:space-y-8">
                 <div className="fade-in-sequence">
-                  <div className="system-panel p-6 sm:p-8 bg-void/90 backdrop-blur-xl">
-                    {/* Terminal Prompt */}
-                    <div className="mb-8">
-                      <div className="font-space-mono text-lg sm:text-xl text-neon-cyan mb-6">
-                        {heroTypedText}
-                        {heroTypedText.length < heroPrompt.length && <span className="system-cursor"></span>}
+                  <div className="system-panel p-8 hologram-effect">
+                    <div className="space-y-6">
+                      {/* System Header */}
+                      <div className="flex items-center justify-between border-b border-neon-cyan/20 pb-4">
+                        <div className="flex items-center space-x-2">
+                          <div className="w-3 h-3 rounded-full bg-error"></div>
+                          <div className="w-3 h-3 rounded-full bg-warning"></div>
+                          <div className="w-3 h-3 rounded-full bg-terminal-green"></div>
+                        </div>
+                        <span className="font-space-mono text-xs text-ghost/60">SISTEMA_NEURAL_v2.1</span>
                       </div>
 
-                      {/* Main Question */}
-                      {showMainQuestion && (
-                        <div className="fade-in-sequence">
-                          <h1 className="font-orbitron text-3xl sm:text-4xl lg:text-5xl font-bold text-ghost leading-tight mb-6">
-                            ¿Te atreverías a cruzar el umbral?
-                          </h1>
+                      {/* Terminal Content */}
+                      <div className="space-y-4">
+                        <div className="font-space-mono text-sm text-neon-cyan">
+                          <div>INICIANDO PROTOCOLO DE ACCESO...</div>
+                          <div>VERIFICANDO CREDENCIALES...</div>
+                          <div className="text-terminal-green">✓ ACCESO AUTORIZADO</div>
                         </div>
-                      )}
+
+                        {/* Main Prompt */}
+                        <div className="font-space-mono text-lg text-ghost">
+                          {heroTypedText}
+                          {heroTypedText.length < heroPrompt.length && <span className="system-cursor"></span>}
+                        </div>
+
+                        {/* Question */}
+                        {showMainQuestion && (
+                          <div className="fade-in-sequence">
+                            <h1 className="text-4xl md:text-6xl font-orbitron font-bold text-ghost leading-tight">
+                              <span className="system-glitch" data-text="¿Te atreverías">
+                                ¿Te atreverías
+                              </span>
+                              <br />
+                              <span className="text-neon-cyan">a cruzar</span>
+                              <br />
+                              <span className="text-electric-pink">el umbral?</span>
+                            </h1>
+                          </div>
+                        )}
+
+                        {/* CTA Buttons */}
+                        {showButtons && (
+                          <div className="fade-in-sequence space-y-4 pt-6">
+                            <a
+                              href="https://amazon.com/dp/B0DJJQX8QY"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="cta-button-amazon inline-block px-8 py-4 rounded-lg font-orbitron font-semibold text-void transition-all duration-300 hover:scale-105 focus:scale-105"
+                            >
+                              LEER EN AMAZON
+                            </a>
+                            <button
+                              onClick={() => scrollToSection("podcast")}
+                              className="cta-button-guide block w-full px-8 py-4 rounded-lg font-orbitron font-semibold text-neon-cyan transition-all duration-300 hover:scale-105 focus:scale-105"
+                            >
+                              ESCUCHAR EL PODCAST
+                            </button>
+                          </div>
+                        )}
+                      </div>
                     </div>
-
-                    {/* CTA Buttons */}
-                    {showMainQuestion && (
-                      <div className="space-y-4 fade-in-sequence">
-                        <div className="max-w-[600px]">
-                          {/* Primary CTA */}
-                          <button
-                            onClick={() => window.open("https://amazon.com", "_blank")}
-                            className="w-full cta-button-amazon text-void px-6 py-4 h-14 rounded-lg font-semibold text-base transition-all duration-300 flex items-center justify-center space-x-3 group border border-transparent mb-4"
-                          >
-                            <Download size={20} className="flex-shrink-0" />
-                            <span>Leer en Amazon</span>
-                            <ChevronRight
-                              size={16}
-                              className="group-hover:translate-x-1 transition-transform flex-shrink-0"
-                            />
-                          </button>
-
-                          {/* Secondary CTA */}
-                          <button
-                            onClick={() => scrollToSection("podcast")}
-                            className="w-full cta-button-podcast text-electric-pink px-6 py-4 h-14 rounded-lg font-semibold text-base transition-all duration-300 flex items-center justify-center space-x-3 group border border-electric-pink bg-electric-pink/10"
-                          >
-                            <Headphones size={20} className="flex-shrink-0" />
-                            <span>Escuchar el podcast</span>
-                            <ChevronRight
-                              size={16}
-                              className="group-hover:translate-x-1 transition-transform flex-shrink-0"
-                            />
-                          </button>
-                        </div>
-                      </div>
-                    )}
                   </div>
                 </div>
               </div>
 
               {/* Book Cover with 3D Flip Effect */}
-              <div className="order-2 lg:order-2 fade-in-sequence">
-                <div className="system-panel p-6 sm:p-8 bg-void/90 backdrop-blur-xl hologram-effect">
-                  <div className="flex items-center justify-between mb-4 text-xs font-space-mono">
-                    <button
-                      onClick={toggleCover}
-                      className="text-ghost hover:text-neon-cyan transition-colors duration-300 cursor-pointer"
-                    >
-                      <span>
-                        {">"} [{showBackCover ? "VER PORTADA" : "VER CONTRATAPA"}]
-                      </span>
-                    </button>
-
-                    <button
-                      onClick={openImageModal}
-                      className="text-ghost hover:text-electric-pink transition-colors duration-300 cursor-pointer p-1"
-                    >
-                      <Maximize2 size={14} />
-                    </button>
-                  </div>
-
-                  <div className="relative mb-4">
-                    <div className="relative group">
-                      <div className="absolute -inset-2 bg-gradient-to-r from-neon-cyan/20 to-electric-pink/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg"></div>
-                      <div className="relative">
-                        <div className="book-3d-container w-full max-w-sm mx-auto">
-                          <div className={`book-3d-inner ${showBackCover ? "is-flipped" : ""}`}>
-                            <div className="book-face book-front">
-                              <Image
-                                src="/images/UMBRAL_PORTADA_OFICIAL.png"
-                                alt="UMBRAL - Portada Oficial"
-                                width={400}
-                                height={600}
-                                className="w-full rounded-lg shadow-2xl border border-neon-cyan/30"
-                                style={{ objectFit: "contain" }}
-                                priority
-                              />
-                            </div>
-                            <div className="book-face book-back">
-                              <Image
-                                src="/images/CONTRATAPA_UMBRAL_OFICIAL.png"
-                                alt="UMBRAL - Contratapa Oficial"
-                                width={400}
-                                height={600}
-                                className="w-full rounded-lg shadow-2xl border border-neon-cyan/30"
-                                style={{ objectFit: "contain" }}
-                                priority
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <div className="absolute inset-0 bg-gradient-to-t from-neon-cyan/5 to-electric-pink/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg"></div>
-                      </div>
+              <div className="order-2 lg:order-2 flex justify-center">
+                <div className="book-3d-container w-80 max-w-full">
+                  <div
+                    className={`book-3d-inner ${isFlipped ? "is-flipped" : ""}`}
+                    onClick={() => toggleCover()}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault()
+                        toggleCover()
+                      }
+                    }}
+                    aria-label="Voltear libro para ver la contratapa"
+                  >
+                    {/* Front Cover */}
+                    <div className="book-face book-front">
+                      <Image
+                        src="/images/UMBRAL_PORTADA_OFICIAL.png"
+                        alt="Portada del libro UMBRAL"
+                        fill
+                        className="object-cover rounded-lg shadow-2xl"
+                        priority
+                      />
                     </div>
-                  </div>
 
-                  <div className="data-stream space-y-1 text-xs break-words">
-                    <div>FORMATO: PNG | RESOLUCIÓN: ALTA</div>
-                    <div>ESTADO: PORTAL_ACTIVO</div>
-                    <div>AUTOR: FEDERICO_DANIEL_ARA</div>
-                    <div>VISTA: {showBackCover ? "CONTRATAPA" : "PORTADA"}</div>
+                    {/* Back Cover */}
+                    <div className="book-face book-back">
+                      <Image
+                        src="/images/CONTRATAPA_UMBRAL_OFICIAL.png"
+                        alt="Contratapa del libro UMBRAL"
+                        fill
+                        className="object-cover rounded-lg shadow-2xl"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>

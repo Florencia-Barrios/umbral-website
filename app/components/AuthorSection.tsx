@@ -1,104 +1,64 @@
-"use client"
-
-import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
-import { User, Database } from "lucide-react"
 
 export default function AuthorSection() {
-  const [isVisible, setIsVisible] = useState(false)
-  const sectionRef = useRef<HTMLElement>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      { threshold: 0.1 },
-    )
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
-
-    return () => observer.disconnect()
-  }, [])
-
   return (
-    <section id="autor" ref={sectionRef} className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-void/50">
+    <section id="autor" className="py-20 px-4 bg-void/50">
       <div className="container mx-auto max-w-4xl">
-        {isVisible && (
-          <div className="fade-in-sequence">
-            <div className="system-panel p-8 sm:p-10 hologram-effect">
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8 gap-4">
-                <div className="flex items-center space-x-3">
-                  <Database size={24} className="text-neon-cyan flex-shrink-0" />
-                  <span className="text-xl sm:text-2xl font-orbitron text-neon-cyan">PERFIL_AUTOR</span>
-                </div>
-                <div className="flex items-center space-x-2 text-xs font-space-mono">
-                  <div className="w-2 h-2 bg-electric-pink rounded-full animate-pulse"></div>
-                  <span className="text-electric-pink">CONECTADO</span>
+        <div className="system-panel p-8 md:p-12">
+          <div className="text-center space-y-8">
+            <h2 className="text-3xl md:text-4xl font-orbitron font-bold text-neon-cyan">AUTOR</h2>
+
+            <div className="flex flex-col md:flex-row items-center gap-8">
+              {/* Author Photo */}
+              <div className="flex-shrink-0">
+                <div className="w-48 h-48 relative rounded-full overflow-hidden grayscale">
+                  <Image src="/placeholder-user.jpg" alt="Federico Daniel Ara" fill className="object-cover" />
                 </div>
               </div>
 
-              <div className="grid md:grid-cols-3 gap-8">
-                {/* Author Photo */}
-                <div className="flex justify-center md:justify-start">
-                  <div className="relative group">
-                    <div className="absolute -inset-3 bg-gradient-to-r from-neon-cyan/20 to-electric-pink/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg"></div>
-                    <div className="relative system-panel p-3 bg-void/50">
-                      <Image
-                        src="/placeholder.svg?height=300&width=300&text=Federico+Daniel+Ara"
-                        alt="Federico Daniel Ara - Autor"
-                        width={300}
-                        height={300}
-                        className="w-full rounded-lg grayscale hover:grayscale-0 transition-all duration-500"
-                      />
-                      <div className="absolute bottom-3 left-3 bg-void/90 px-3 py-1 rounded text-xs font-space-mono text-neon-cyan border border-neon-cyan/30">
-                        ID: FDA_001
-                      </div>
-                    </div>
+              {/* Author Info */}
+              <div className="flex-1 space-y-6 text-left md:text-left">
+                <div className="space-y-4">
+                  <p className="text-xl text-ghost leading-relaxed">
+                    <strong>No soy escritor. Soy desarrollador.</strong> Esta es mi primera novela.
+                  </p>
+
+                  <p className="text-lg text-ghost/80 leading-relaxed">
+                    Nació de observar cómo la tecnología se pegó a lo cotidiano… a la mente, a las emociones, a lo real.
+                  </p>
+                </div>
+
+                {/* Technical Profile */}
+                <div className="space-y-3 font-space-mono text-sm">
+                  <div className="flex items-center gap-2">
+                    <span className="text-neon-cyan">{">"}</span>
+                    <span className="text-ghost">Federico Daniel Ara</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-neon-cyan">{">"}</span>
+                    <span className="text-ghost">Desarrollador Full Stack</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-neon-cyan">{">"}</span>
+                    <span className="text-ghost">Primera novela: UMBRAL (2024)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-neon-cyan">{">"}</span>
+                    <span className="text-ghost">Especialidad: Thriller psicológico + Tech</span>
                   </div>
                 </div>
 
-                {/* Author Info */}
-                <div className="md:col-span-2 space-y-6">
-                  <div className="system-panel p-6 bg-void/30">
-                    <div className="flex items-center mb-4">
-                      <User size={20} className="text-electric-pink mr-3 flex-shrink-0" />
-                      <span className="font-space-mono text-sm text-electric-pink">DATOS_USUARIO</span>
-                    </div>
-                    <h3 className="text-2xl font-orbitron font-bold text-ghost mb-4">Federico Daniel Ara</h3>
-                    <div className="font-space-mono text-xs text-neon-cyan mb-4 space-y-1">
-                      <div>CLASIFICACIÓN: DESARROLLADOR_ESCRITOR</div>
-                      <div>NIVEL: ACTIVO</div>
-                      <div>ESTADO: ONLINE</div>
-                      <div>ESPECIALIZACIÓN: NARRATIVA_TECNOLÓGICA</div>
-                    </div>
-                  </div>
-
-                  <div className="system-panel p-6 bg-void/30 hologram-effect">
-                    <div className="flex items-center mb-4 text-sm font-space-mono text-neon-cyan">
-                      <span className="mr-2">{">"}</span>
-                      <span>cat biografia_autor.txt</span>
-                    </div>
-                    <div className="space-y-4 text-ghost leading-relaxed text-base sm:text-lg">
-                      <p>
-                        <span className="text-electric-pink font-semibold">No soy escritor. Soy desarrollador.</span>{" "}
-                        Esta es mi primera novela.
-                      </p>
-                      <p>
-                        Nació de observar cómo la tecnología se pegó a lo cotidiano… a la mente, a las emociones, a lo
-                        real.
-                      </p>
-                    </div>
+                <div className="pt-4">
+                  <div className="inline-block px-4 py-2 border border-electric-pink/30 rounded">
+                    <span className="font-space-mono text-xs text-electric-pink">
+                      STATUS: ESCRIBIENDO_SEGUNDA_NOVELA.exe
+                    </span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        )}
+        </div>
       </div>
     </section>
   )

@@ -1,198 +1,167 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState } from "react"
 import Image from "next/image"
-import { Download, X, ExternalLink } from "lucide-react"
+import { X, Download, ExternalLink } from "lucide-react"
 
 export default function DownloadSection() {
-  const [isVisible, setIsVisible] = useState(false)
   const [showModal, setShowModal] = useState(false)
-  const sectionRef = useRef<HTMLElement>(null)
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      { threshold: 0.1 },
-    )
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
-
-    return () => observer.disconnect()
-  }, [])
-
-  const openModal = () => {
-    setShowModal(true)
-    document.body.style.overflow = "hidden"
-  }
-
-  const closeModal = () => {
-    setShowModal(false)
-    document.body.style.overflow = "unset"
-  }
-
-  // Close modal on Escape key
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && showModal) {
-        closeModal()
-      }
-    }
-
-    document.addEventListener("keydown", handleKeyDown)
-    return () => document.removeEventListener("keydown", handleKeyDown)
-  }, [showModal])
+  const openModal = () => setShowModal(true)
+  const closeModal = () => setShowModal(false)
 
   return (
-    <section id="descarga" ref={sectionRef} className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-void/50">
-      <div className="container mx-auto max-w-4xl">
-        {isVisible && (
-          <div className="fade-in-sequence">
-            <div className="system-panel p-8 sm:p-10 hologram-effect">
-              <div className="text-center mb-8">
-                <h2 className="text-2xl sm:text-3xl font-orbitron text-neon-cyan mb-4">
-                  ¿Cómo conseguir UMBRAL gratis?
-                </h2>
-              </div>
+    <>
+      <section id="descarga" className="py-20 px-4 bg-void/50">
+        <div className="container mx-auto max-w-4xl">
+          <div className="system-panel p-8 md:p-12">
+            <div className="text-center space-y-8">
+              <h2 className="text-3xl md:text-4xl font-orbitron font-bold text-neon-cyan">CÓMO LEERLO</h2>
 
-              <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div className="flex flex-col md:flex-row items-center gap-8">
                 {/* Book Cover Miniature */}
-                <div className="flex justify-center">
-                  <div className="relative group">
-                    <div className="absolute -inset-2 bg-gradient-to-r from-neon-cyan/20 to-electric-pink/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg"></div>
-                    <div className="relative system-panel p-4 bg-void/50 max-w-xs">
-                      <Image
-                        src="/images/UMBRAL_PORTADA_OFICIAL.png"
-                        alt="UMBRAL - Portada del libro"
-                        width={300}
-                        height={450}
-                        className="w-full rounded-lg shadow-2xl border border-neon-cyan/30"
-                        style={{ objectFit: "contain" }}
-                      />
-                    </div>
+                <div className="flex-shrink-0">
+                  <div className="w-32 h-48 relative">
+                    <Image
+                      src="/images/UMBRAL_PORTADA_OFICIAL.png"
+                      alt="Portada del libro UMBRAL"
+                      fill
+                      className="object-cover rounded-lg shadow-xl"
+                    />
                   </div>
                 </div>
 
-                {/* Download Info */}
-                <div className="space-y-6">
-                  <div className="system-panel p-6 bg-void/30 border-neon-cyan/10">
-                    <div className="flex items-center mb-4 text-sm font-space-mono text-neon-cyan">
-                      <span className="mr-2">{">"}</span>
-                      <span>info_descarga.txt</span>
-                    </div>
-                    <p className="text-ghost leading-relaxed text-base sm:text-lg mb-6">
-                      Durante el período de lanzamiento, UMBRAL está disponible{" "}
-                      <span className="text-electric-pink font-semibold">completamente gratis</span> en Amazon Kindle.
-                      También disponible en formato físico con envío internacional.
-                    </p>
-                  </div>
+                {/* Content */}
+                <div className="flex-1 space-y-6">
+                  <h3 className="text-2xl font-orbitron font-semibold text-ghost">
+                    ¿Cómo conseguir <span className="text-electric-pink italic">Umbral</span> gratis?
+                  </h3>
 
-                  <button
-                    onClick={openModal}
-                    className="w-full bg-neon-cyan/10 hover:bg-neon-cyan/20 border border-neon-cyan text-neon-cyan px-8 py-4 rounded-lg font-semibold text-base transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center justify-center space-x-3 group"
-                  >
-                    <Download size={20} className="flex-shrink-0" />
-                    <span>Ver guía de descarga</span>
-                    <ExternalLink size={16} className="group-hover:scale-110 transition-transform flex-shrink-0" />
-                  </button>
+                  <p className="text-ghost/80 text-lg">
+                    Durante los días de promoción, podés descargar el libro completamente gratis desde Amazon Kindle.
+                  </p>
+
+                  <div className="space-y-4">
+                    <button
+                      onClick={openModal}
+                      className="cta-button-guide w-full md:w-auto px-8 py-4 rounded-lg font-orbitron font-semibold transition-all duration-300 hover:scale-105 focus:scale-105 flex items-center justify-center gap-2"
+                    >
+                      <Download size={20} />
+                      VER GUÍA DE DESCARGA
+                    </button>
+
+                    <a
+                      href="https://amazon.com/dp/B0DJJQX8QY"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="cta-button-amazon inline-flex items-center gap-2 px-8 py-4 rounded-lg font-orbitron font-semibold text-void transition-all duration-300 hover:scale-105 focus:scale-105"
+                    >
+                      <ExternalLink size={20} />
+                      IR A AMAZON AHORA
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      </section>
 
-      {/* Download Guide Modal */}
+      {/* Modal */}
       {showModal && (
         <div
-          className="fixed inset-0 bg-void/95 backdrop-blur-xl z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-void/90 backdrop-blur-sm"
           onClick={closeModal}
         >
           <div
-            className="relative w-full max-w-4xl max-h-[90vh] bg-void/90 border border-neon-cyan/30 rounded-2xl shadow-2xl overflow-hidden"
+            className="system-panel max-w-2xl w-full max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="guide-title"
           >
-            {/* Header */}
-            <div className="sticky top-0 bg-void/95 backdrop-blur-xl border-b border-neon-cyan/20 p-6 flex items-center justify-between z-10">
-              <div className="flex items-center space-x-3">
-                <div className="w-3 h-3 bg-neon-cyan rounded-full animate-pulse"></div>
-                <h2 id="guide-title" className="text-xl font-orbitron text-neon-cyan">
+            <div className="p-6 md:p-8">
+              {/* Header */}
+              <div className="flex items-center justify-between mb-6 pb-4 border-b border-neon-cyan/20">
+                <h3 className="text-xl font-orbitron font-bold text-neon-cyan">
                   GUÍA PARA DESCARGAR UMBRAL GRATIS EN AMAZON
-                </h2>
+                </h3>
+                <button
+                  onClick={closeModal}
+                  className="p-2 text-ghost hover:text-electric-pink transition-colors"
+                  aria-label="Cerrar modal"
+                >
+                  <X size={24} />
+                </button>
               </div>
-              <button
-                onClick={closeModal}
-                className="w-11 h-11 bg-void/60 hover:bg-void/80 border border-neon-cyan/30 hover:border-neon-cyan/50 text-ghost hover:text-neon-cyan rounded-full flex items-center justify-center transition-all duration-300 transform hover:-translate-y-px focus:outline-none focus:ring-2 focus:ring-neon-cyan/50"
-                aria-label="Cerrar guía"
-              >
-                <X size={20} />
-              </button>
-            </div>
 
-            {/* Content */}
-            <div className="overflow-y-auto max-h-[calc(90vh-80px)] p-6">
-              <div className="system-panel p-6 bg-void/50 border-neon-cyan/10">
-                <div className="flex items-center mb-6 text-sm font-space-mono text-neon-cyan">
-                  <span className="mr-2">{">"}</span>
-                  <span>cat guia_descarga_amazon.txt</span>
+              {/* Steps */}
+              <div className="space-y-6 font-space-mono">
+                <div className="space-y-4">
+                  <div className="flex gap-4">
+                    <span className="flex-shrink-0 w-8 h-8 bg-neon-cyan text-void rounded-full flex items-center justify-center font-bold text-sm">
+                      1
+                    </span>
+                    <div>
+                      <p className="text-ghost">
+                        <strong>Crea una cuenta en Amazon</strong> (si aún no tenés una).
+                      </p>
+                      <p className="text-ghost/70 text-sm mt-1">Podés usar cualquier correo electrónico.</p>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-4">
+                    <span className="flex-shrink-0 w-8 h-8 bg-neon-cyan text-void rounded-full flex items-center justify-center font-bold text-sm">
+                      2
+                    </span>
+                    <div>
+                      <p className="text-ghost">
+                        <strong>Descargá la app Kindle</strong> (gratis) en tu celular o computadora.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-4">
+                    <span className="flex-shrink-0 w-8 h-8 bg-neon-cyan text-void rounded-full flex items-center justify-center font-bold text-sm">
+                      3
+                    </span>
+                    <div>
+                      <p className="text-ghost">
+                        Inicia sesión en Amazon y buscá <strong>"Umbral Federico Daniel Ara"</strong>.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-4">
+                    <span className="flex-shrink-0 w-8 h-8 bg-neon-cyan text-void rounded-full flex items-center justify-center font-bold text-sm">
+                      4
+                    </span>
+                    <div>
+                      <p className="text-ghost">
+                        Seleccioná la edición Kindle y hacé clic en <strong>"Comprar en 1 clic"</strong>.
+                      </p>
+                      <p className="text-electric-pink text-sm mt-1">
+                        Durante los días de promoción el precio será 0 € / 0 $.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-4">
+                    <span className="flex-shrink-0 w-8 h-8 bg-neon-cyan text-void rounded-full flex items-center justify-center font-bold text-sm">
+                      5
+                    </span>
+                    <div>
+                      <p className="text-ghost">
+                        <strong>Abrí la app Kindle</strong>: el libro ya estará disponible en tu biblioteca.
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="space-y-8 font-space-mono text-sm leading-relaxed text-ghost">
-                  {/* Step by step guide */}
-                  <div className="space-y-6">
-                    <div className="border-l-2 border-neon-cyan/30 pl-4">
-                      <div className="text-neon-cyan font-semibold mb-2">PASO 1</div>
-                      <p>
-                        Crea una cuenta en Amazon (si aún no tenés una).
-                        <br />
-                        Podés usar cualquier correo electrónico.
-                      </p>
-                    </div>
-
-                    <div className="border-l-2 border-neon-cyan/30 pl-4">
-                      <div className="text-neon-cyan font-semibold mb-2">PASO 2</div>
-                      <p>Descargá la app Kindle (gratis) en tu celular o computadora.</p>
-                    </div>
-
-                    <div className="border-l-2 border-neon-cyan/30 pl-4">
-                      <div className="text-neon-cyan font-semibold mb-2">PASO 3</div>
-                      <p>Inicia sesión en Amazon y buscá "Umbral Federico Daniel Ara".</p>
-                    </div>
-
-                    <div className="border-l-2 border-neon-cyan/30 pl-4">
-                      <div className="text-neon-cyan font-semibold mb-2">PASO 4</div>
-                      <p>
-                        Seleccioná la edición Kindle y hacé clic en "Comprar en 1 clic".
-                        <br />
-                        <span className="text-electric-pink">
-                          Durante los días de promoción el precio será 0 € / 0 $.
-                        </span>
-                      </p>
-                    </div>
-
-                    <div className="border-l-2 border-neon-cyan/30 pl-4">
-                      <div className="text-neon-cyan font-semibold mb-2">PASO 5</div>
-                      <p>Abrí la app Kindle: el libro ya estará disponible en tu biblioteca.</p>
-                    </div>
-                  </div>
-
-                  {/* Tip section */}
-                  <div className="system-panel p-4 bg-electric-pink/5 border-electric-pink/20">
-                    <div className="text-electric-pink font-semibold mb-2">💡 TIP</div>
-                    <p>
-                      Si preferís, también podés pedir la versión en tapa blanda o tapa dura,
-                      <br />
-                      con envío a tu país desde Amazon.
-                    </p>
-                  </div>
+                {/* Tip Section */}
+                <div className="border-l-4 border-electric-pink pl-4 py-2 bg-electric-pink/10 rounded-r">
+                  <p className="text-electric-pink font-semibold text-sm">TIP:</p>
+                  <p className="text-ghost text-sm">
+                    Si preferís, también podés pedir la versión en tapa blanda o tapa dura, con envío a tu país desde
+                    Amazon.
+                  </p>
                 </div>
               </div>
 
@@ -200,7 +169,7 @@ export default function DownloadSection() {
               <div className="mt-8 text-center">
                 <button
                   onClick={closeModal}
-                  className="bg-neon-cyan/10 hover:bg-neon-cyan/20 border border-neon-cyan text-neon-cyan px-8 py-3 rounded-lg font-semibold text-sm transition-all duration-300 transform hover:-translate-y-px focus:outline-none focus:ring-2 focus:ring-neon-cyan/50 font-space-mono"
+                  className="cta-button-guide px-8 py-3 rounded-lg font-orbitron font-semibold transition-all duration-300 hover:scale-105 focus:scale-105"
                 >
                   CERRAR GUÍA
                 </button>
@@ -209,6 +178,6 @@ export default function DownloadSection() {
           </div>
         </div>
       )}
-    </section>
+    </>
   )
 }

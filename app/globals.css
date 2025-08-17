@@ -1,7 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -30,23 +26,50 @@ html {
 body {
   color: var(--ghost);
   background: var(--void);
-  font-family: var(--font-inter), sans-serif;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Typography */
-.font-inter {
-  font-family: var(--font-inter), sans-serif;
+/* Custom color classes */
+.bg-void {
+  background-color: var(--void);
 }
-
-.font-orbitron {
-  font-family: var(--font-orbitron), monospace;
+.bg-ghost {
+  background-color: var(--ghost);
 }
-
-.font-space-mono {
-  font-family: var(--font-space-mono), monospace;
+.text-void {
+  color: var(--void);
+}
+.text-ghost {
+  color: var(--ghost);
+}
+.text-neon-cyan {
+  color: var(--neon-cyan);
+}
+.text-electric-pink {
+  color: var(--electric-pink);
+}
+.text-terminal-green {
+  color: var(--terminal-green);
+}
+.text-terminal-cyan {
+  color: var(--terminal-cyan);
+}
+.text-error {
+  color: var(--error);
+}
+.text-warning {
+  color: var(--warning);
+}
+.border-neon-cyan {
+  border-color: var(--neon-cyan);
+}
+.border-electric-pink {
+  border-color: var(--electric-pink);
+}
+.border-terminal-green {
+  border-color: var(--terminal-green);
 }
 
 /* System Panel Styles */
@@ -183,13 +206,6 @@ body {
   }
 }
 
-/* Data Stream Effect */
-.data-stream {
-  font-family: var(--font-space-mono), monospace;
-  color: var(--neon-cyan);
-  opacity: 0.8;
-}
-
 /* Fade In Sequence */
 .fade-in-sequence {
   animation: fade-in-up 0.8s ease-out forwards;
@@ -268,15 +284,6 @@ body {
 
 .cta-button-podcast:hover {
   background: rgba(255, 0, 128, 0.2);
-}
-
-/* Electric Glow Effect */
-.electric-glow {
-  box-shadow: 0 0 20px rgba(255, 0, 128, 0.3);
-}
-
-.electric-glow:hover {
-  box-shadow: 0 0 30px rgba(255, 0, 128, 0.5);
 }
 
 /* 3D Book Flip Effect */
