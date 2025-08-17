@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { Radio, ExternalLink, Cpu, Activity, Play } from 'lucide-react'
+import { Radio, ExternalLink, Cpu, Activity, Play } from "lucide-react"
 
 export default function PodcastSection() {
   const [isVisible, setIsVisible] = useState(false)
@@ -25,38 +25,37 @@ export default function PodcastSection() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-void/50">
+    <section id="podcast" ref={sectionRef} className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
       <div className="container mx-auto max-w-4xl">
         {isVisible && (
           <div className="fade-in-sequence">
-            <div className="system-panel p-6 sm:p-8 hologram-effect">
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 lg:mb-8 gap-4">
+            <div className="system-panel p-8 sm:p-10 hologram-effect border-neon-cyan/20">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8 gap-4">
                 <div className="flex items-center space-x-3">
-                  <Radio size={20} className="sm:w-6 sm:h-6 text-electric-pink flex-shrink-0" />
-                  <span className="text-lg sm:text-xl font-orbitron text-electric-pink">ANÁLISIS_VISUAL</span>
+                  <Radio size={24} className="text-electric-pink flex-shrink-0" />
+                  <span className="text-xl sm:text-2xl font-orbitron text-electric-pink">
+                    UMBRAL: conversación entre IAs
+                  </span>
                 </div>
                 <div className="flex items-center space-x-2 text-xs font-space-mono">
                   <Cpu size={14} className="text-neon-cyan" />
-                  <span className="text-neon-cyan">IA_CONVERSACIÓN_VIDEO</span>
+                  <span className="text-neon-cyan">IA_CONVERSACIÓN_ACTIVA</span>
                 </div>
               </div>
 
-              {/* AI Analysis Module */}
-              <div className="system-panel p-4 sm:p-6 mb-6 lg:mb-8 bg-void/30 border-electric-pink/10">
-                {/* Header */}
+              {/* Description */}
+              <div className="system-panel p-6 sm:p-8 mb-8 bg-void/30 border-electric-pink/10">
                 <div className="flex items-center mb-4 text-sm font-space-mono text-electric-pink">
                   <span className="mr-2">{">"}</span>
                   <span className="flex items-center space-x-2">
                     <Play size={16} className="flex-shrink-0" />
-                    <span>REPRODUCIENDO_ANÁLISIS_VISUAL.mp4</span>
+                    <span>descripcion_podcast.txt</span>
                   </span>
                 </div>
 
-                {/* Description */}
-                <p className="text-ghost mb-6 leading-relaxed text-base sm:text-lg">
-                  Dos inteligencias artificiales mantuvieron una conversación visual sobre el libro. Un análisis
-                  profundo desde la perspectiva de sistemas autónomos que exploran los límites entre realidad y
-                  simulación.
+                <p className="text-ghost mb-6 leading-relaxed text-lg sm:text-xl text-center">
+                  Un episodio especial que abre la discusión: ¿qué queda de lo humano cuando la máquina te lee por
+                  dentro?
                 </p>
 
                 {/* Technical Info Panel */}
@@ -78,7 +77,9 @@ export default function PodcastSection() {
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center space-x-2">
                       <div className="w-2 h-2 bg-electric-pink rounded-full animate-pulse"></div>
-                      <span className="text-xs font-space-mono text-electric-pink">STREAM_ACTIVO: ANÁLISIS_VISUAL.IA</span>
+                      <span className="text-xs font-space-mono text-electric-pink">
+                        STREAM_ACTIVO: ANÁLISIS_VISUAL.IA
+                      </span>
                     </div>
                     <div className="text-xs font-space-mono text-neon-cyan">YOUTUBE_EMBED</div>
                   </div>
@@ -95,7 +96,7 @@ export default function PodcastSection() {
                       allowFullScreen
                       className="rounded-lg"
                       style={{
-                        minHeight: '200px'
+                        minHeight: "200px",
                       }}
                     />
                   </div>
@@ -103,15 +104,10 @@ export default function PodcastSection() {
 
                 {/* Access Button */}
                 <button
-                  onClick={() =>
-                    window.open(
-                      "https://www.youtube.com/watch?v=DNHeVYk2oJE",
-                      "_blank",
-                    )
-                  }
-                  className="w-full bg-electric-pink/10 hover:bg-electric-pink/20 border border-electric-pink text-electric-pink px-6 sm:px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center justify-center space-x-3 group electric-glow"
+                  onClick={() => window.open("https://www.youtube.com/watch?v=DNHeVYk2oJE", "_blank")}
+                  className="w-full bg-electric-pink/10 hover:bg-electric-pink/20 border border-electric-pink text-electric-pink px-8 py-4 rounded-lg font-semibold text-base transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center justify-center space-x-3 group"
                 >
-                  <span className="text-sm sm:text-base">ACCEDER_A_YOUTUBE()</span>
+                  <span>Escuchar ahora</span>
                   <ExternalLink size={16} className="group-hover:scale-110 transition-transform flex-shrink-0" />
                 </button>
               </div>
