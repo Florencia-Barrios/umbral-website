@@ -49,6 +49,12 @@ export default function SystemInterface() {
             >
               CÓMO LEERLO
             </button>
+            <button
+              onClick={() => scrollToSection("how-to-read")}
+              className="text-ghost hover:text-neon-cyan transition-colors duration-300 text-xs whitespace-nowrap cursor-pointer"
+            >
+              HOW TO READ
+            </button>
           </div>
           <div className="flex flex-wrap items-center gap-2 sm:gap-6">
             <div className="flex items-center space-x-2">
@@ -96,6 +102,12 @@ export default function SystemInterface() {
               className="chip text-xs cursor-pointer hover:bg-electric-pink/20 transition-colors"
             >
               CÓMO LEERLO
+            </button>
+            <button
+              onClick={() => scrollToSection("how-to-read")}
+              className="chip text-xs cursor-pointer hover:bg-electric-pink/20 transition-colors"
+            >
+              HOW TO READ
             </button>
           </div>
         </div>
