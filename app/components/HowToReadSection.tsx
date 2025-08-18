@@ -41,7 +41,7 @@ export default function HowToReadSection() {
       }`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
-        <div className="umbralPanel">
+        <div className="umbral-panel">
           {/* Header */}
           <div className="flex items-center mb-6 text-sm font-space-mono">
             <div className="w-3 h-3 bg-neon-cyan rounded-full mr-3 animate-pulse flex-shrink-0"></div>
@@ -76,7 +76,7 @@ export default function HowToReadSection() {
               href="https://amazon.com/dp/B0DJJQX8VH"
               target="_blank"
               rel="noopener noreferrer"
-              className="cta-button-amazon text-void px-6 py-4 rounded-lg font-semibold text-sm transition-all duration-300 flex items-center justify-center space-x-2 group border border-transparent hover:scale-105 active:scale-95"
+              className="neon-button-amazon text-void px-6 py-4 rounded-lg font-semibold text-sm transition-all duration-300 flex items-center justify-center space-x-2 group border border-transparent hover:scale-105 active:scale-95"
             >
               <ExternalLink size={18} className="flex-shrink-0" />
               <span>IR A AMAZON</span>
@@ -84,7 +84,7 @@ export default function HowToReadSection() {
             </a>
 
             <div className="relative group">
-              <button className="cta-button-guide w-full text-void px-6 py-4 rounded-lg font-semibold text-sm transition-all duration-300 flex items-center justify-center space-x-2 border border-transparent hover:scale-105 active:scale-95">
+              <button className="neon-button-kindle w-full text-void px-6 py-4 rounded-lg font-semibold text-sm transition-all duration-300 flex items-center justify-center space-x-2 border border-transparent hover:scale-105 active:scale-95">
                 <ExternalLink size={18} className="flex-shrink-0" />
                 <span>DESCARGAR APP KINDLE</span>
                 <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform flex-shrink-0" />

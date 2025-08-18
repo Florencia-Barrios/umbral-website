@@ -37,12 +37,12 @@ export default function PodcastSection() {
       ref={sectionRef}
       role="region"
       aria-labelledby="podcast_title"
-      className={`py-16 sm:py-20 lg:py-24 transition-all duration-1000 ${
+      className={`py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       }`}
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
-        <div className="umbralPanel podcast-box">
+      <div className="container mx-auto max-w-4xl">
+        <div className="umbral-panel podcast-box">
           {/* Header */}
           <div className="flex items-center mb-6 text-sm font-space-mono">
             <div className="w-3 h-3 bg-neon-cyan rounded-full mr-3 animate-pulse flex-shrink-0"></div>
