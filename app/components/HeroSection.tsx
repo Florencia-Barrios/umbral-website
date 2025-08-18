@@ -324,7 +324,7 @@ export default function HeroSection() {
           {/* Main Interface */}
           {systemReady && (
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-              {/* Book Cover with Manual Controls */}
+              {/* Book Cover with Manual Controls and 3D Flip Effect */}
               <div className="order-2 lg:order-1 fade-in-sequence">
                 <div className="system-panel p-6 sm:p-8 bg-void/90 backdrop-blur-xl hologram-effect">
                   {/* Nueva barra de controles superior */}
@@ -346,35 +346,39 @@ export default function HeroSection() {
                     </button>
                   </div>
 
-                  {/* Image Container - ajustado */}
+                  {/* 3D Flip Container */}
                   <div className="relative mb-4">
                     <div className="relative group">
                       <div className="absolute -inset-2 bg-gradient-to-r from-neon-cyan/20 to-electric-pink/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg"></div>
                       <div className="relative">
-                        {/* Pre-loaded images - only one visible at a time */}
-                        <div className="relative w-full max-w-sm mx-auto">
-                          <Image
-                            src="/images/UMBRAL_PORTADA_OFICIAL.png"
-                            alt="UMBRAL - Portada Oficial"
-                            width={400}
-                            height={600}
-                            className={`w-full rounded-lg shadow-2xl border border-neon-cyan/30 transition-all duration-500 ${
-                              showBackCover ? "opacity-0 absolute inset-0" : "opacity-100"
-                            }`}
-                            style={{ objectFit: "contain" }}
-                            priority
-                          />
-                          <Image
-                            src="/images/CONTRATAPA_UMBRAL_OFICIAL.png"
-                            alt="UMBRAL - Contratapa Oficial"
-                            width={400}
-                            height={600}
-                            className={`w-full rounded-lg shadow-2xl border border-neon-cyan/30 transition-all duration-500 ${
-                              showBackCover ? "opacity-100" : "opacity-0 absolute inset-0"
-                            }`}
-                            style={{ objectFit: "contain" }}
-                            priority
-                          />
+                        {/* 3D Flip Book Container */}
+                        <div className="book-3d-container w-full max-w-sm mx-auto">
+                          <div className={`book-3d-inner ${showBackCover ? "is-flipped" : ""}`}>
+                            {/* Front Face - Portada */}
+                            <div className="book-face book-front">
+                              <Image
+                                src="/images/UMBRAL_PORTADA_OFICIAL.png"
+                                alt="UMBRAL - Portada Oficial"
+                                width={400}
+                                height={600}
+                                className="w-full rounded-lg shadow-2xl border border-neon-cyan/30"
+                                style={{ objectFit: "contain" }}
+                                priority
+                              />
+                            </div>
+                            {/* Back Face - Contratapa */}
+                            <div className="book-face book-back">
+                              <Image
+                                src="/images/CONTRATAPA_UMBRAL_OFICIAL.png"
+                                alt="UMBRAL - Contratapa Oficial"
+                                width={400}
+                                height={600}
+                                className="w-full rounded-lg shadow-2xl border border-neon-cyan/30"
+                                style={{ objectFit: "contain" }}
+                                priority
+                              />
+                            </div>
+                          </div>
                         </div>
                         <div className="absolute inset-0 bg-gradient-to-t from-neon-cyan/5 to-electric-pink/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg"></div>
                       </div>
