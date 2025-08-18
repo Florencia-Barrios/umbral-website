@@ -89,7 +89,6 @@ export default function HeroSection() {
     }
   }, [])
 
-  // Image Modal Keyboard Navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (showImageModal) {
@@ -106,6 +105,17 @@ export default function HeroSection() {
             navigateImage(1)
             break
         }
+      } else if (systemReady) {
+        switch (e.key) {
+          case "ArrowLeft":
+            e.preventDefault()
+            setShowBackCover(false)
+            break
+          case "ArrowRight":
+            e.preventDefault()
+            setShowBackCover(true)
+            break
+        }
       }
 
       if (e.key === "Escape" && showGuideModal) {
@@ -115,9 +125,52 @@ export default function HeroSection() {
 
     document.addEventListener("keydown", handleKeyDown)
     return () => document.removeEventListener("keydown", handleKeyDown)
-  }, [showImageModal, showGuideModal, currentImageIndex])
+  }, [showImageModal, showGuideModal, currentImageIndex, systemReady])
 
-  // Touch/Swipe handling for mobile
+  useEffect(() => {
+    if (!systemReady) return
+
+    let startX = 0
+    let startY = 0
+
+    const handleTouchStart = (e: TouchEvent) => {
+      startX = e.touches[0].clientX
+      startY = e.touches[0].clientY
+    }
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      if (!startX || !startY) return
+
+      const endX = e.changedTouches[0].clientX
+      const endY = e.changedTouches[0].clientY
+      const diffX = startX - endX
+      const diffY = startY - endY
+
+      // Only trigger if horizontal swipe is more significant than vertical and threshold is met
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 30) {
+        if (diffX > 0) {
+          // Swipe left - show back cover
+          setShowBackCover(true)
+        } else {
+          // Swipe right - show front cover
+          setShowBackCover(false)
+        }
+      }
+
+      startX = 0
+      startY = 0
+    }
+
+    document.addEventListener("touchstart", handleTouchStart, { passive: true })
+    document.addEventListener("touchend", handleTouchEnd, { passive: true })
+
+    return () => {
+      document.removeEventListener("touchstart", handleTouchStart)
+      document.removeEventListener("touchend", handleTouchEnd)
+    }
+  }, [systemReady])
+
+  // Touch/Swipe handling for image modal
   useEffect(() => {
     if (!showImageModal) return
 
@@ -326,12 +379,13 @@ export default function HeroSection() {
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
               {/* Book Cover with Manual Controls and 3D Flip Effect */}
               <div className="order-2 lg:order-1 fade-in-sequence">
-                <div className="system-panel p-6 sm:p-8 bg-void/90 backdrop-blur-xl hologram-effect">
+                <div className="system-panel p-6 sm:p-8 bg-void/90 backdrop-blur-xl hologram-effect" aria-live="polite">
                   {/* Nueva barra de controles superior */}
                   <div className="flex items-center justify-between mb-4 text-xs font-space-mono">
                     <button
                       onClick={toggleCover}
                       className="text-ghost hover:text-neon-cyan transition-colors duration-300 cursor-pointer"
+                      aria-pressed={showBackCover ? "true" : "false"}
                     >
                       <span>
                         {">"} [{showBackCover ? "VER PORTADA" : "VER CONTRATAPA"}]
@@ -346,39 +400,36 @@ export default function HeroSection() {
                     </button>
                   </div>
 
-                  {/* 3D Flip Container */}
                   <div className="relative mb-4">
                     <div className="relative group">
                       <div className="absolute -inset-2 bg-gradient-to-r from-neon-cyan/20 to-electric-pink/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg"></div>
                       <div className="relative">
-                        {/* 3D Flip Book Container */}
-                        <div className="book-3d-container w-full max-w-sm mx-auto">
-                          <div className={`book-3d-inner ${showBackCover ? "is-flipped" : ""}`}>
-                            {/* Front Face - Portada */}
-                            <div className="book-face book-front">
-                              <Image
-                                src="/images/UMBRAL_PORTADA_OFICIAL.png"
-                                alt="UMBRAL - Portada Oficial"
-                                width={400}
-                                height={600}
-                                className="w-full rounded-lg shadow-2xl border border-neon-cyan/30"
-                                style={{ objectFit: "contain" }}
-                                priority
-                              />
-                            </div>
-                            {/* Back Face - Contratapa */}
-                            <div className="book-face book-back">
-                              <Image
-                                src="/images/CONTRATAPA_UMBRAL_OFICIAL.png"
-                                alt="UMBRAL - Contratapa Oficial"
-                                width={400}
-                                height={600}
-                                className="w-full rounded-lg shadow-2xl border border-neon-cyan/30"
-                                style={{ objectFit: "contain" }}
-                                priority
-                              />
-                            </div>
-                          </div>
+                        {/* UMBRAL Flip Container */}
+                        <div className={`umbral-flip-stage ${showBackCover ? "isBack" : ""}`}>
+                          {/* Front Face - Portada */}
+                          <figure className="umbral-flip-card front">
+                            <Image
+                              src="/images/UMBRAL_PORTADA_OFICIAL.png"
+                              alt="UMBRAL - Portada Oficial"
+                              width={400}
+                              height={600}
+                              className="w-full rounded-lg shadow-2xl border border-neon-cyan/30"
+                              style={{ objectFit: "contain" }}
+                              priority
+                            />
+                          </figure>
+                          {/* Back Face - Contratapa */}
+                          <figure className="umbral-flip-card back">
+                            <Image
+                              src="/images/CONTRATAPA_UMBRAL_OFICIAL.png"
+                              alt="UMBRAL - Contratapa Oficial"
+                              width={400}
+                              height={600}
+                              className="w-full rounded-lg shadow-2xl border border-neon-cyan/30"
+                              style={{ objectFit: "contain" }}
+                              priority
+                            />
+                          </figure>
                         </div>
                         <div className="absolute inset-0 bg-gradient-to-t from-neon-cyan/5 to-electric-pink/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg"></div>
                       </div>
@@ -579,7 +630,6 @@ export default function HeroSection() {
                   priority={false}
                   placeholder="blur"
                   blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
-                  sizes="(max-width: 767px) 92vw, (max-width: 1200px) 80vw, 980px"
                 />
               </div>
             </div>
@@ -688,48 +738,50 @@ export default function HeroSection() {
                         <div>6. Para leer sin conexión: abrí el libro y dejá que se descargue por completo.</div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Visual Divider */}
-                  <div className="w-full h-px bg-neon-cyan/25 my-4"></div>
+                    {/* Visual Divider */}
+                    <div className="w-full h-px bg-neon-cyan/25 my-4"></div>
 
-                  <div>
-                    <div className="text-electric-pink mb-3">Opción 2 – Libro en Papel</div>
-                    <div className="space-y-1">
-                      <div>• Disponible con envío internacional (desde USA o España).</div>
-                      <div>• Necesitás cuenta de Amazon para comprar.</div>
-                      <div>
-                        • Completá tu dirección real para que Amazon calcule el costo y confirme el envío antes de
-                        pagar.
+                    <div>
+                      <div className="text-electric-pink mb-3">Opción 2 – Libro en Papel</div>
+                      <div className="space-y-1">
+                        <div>• Disponible con envío internacional (desde USA o España).</div>
+                        <div>• Necesitás cuenta de Amazon para comprar.</div>
+                        <div>
+                          • Completá tu dirección real para que Amazon calcule el costo y confirme el envío antes de
+                          pagar.
+                        </div>
+                        <div>
+                          • El precio final (incluyendo posibles costos de importación) se muestra antes de confirmar la
+                          compra.
+                        </div>
+                        <div>
+                          • Disponibilidad y costos pueden variar según tu ubicación y el stock del marketplace.
+                        </div>
                       </div>
-                      <div>
-                        • El precio final (incluyendo posibles costos de importación) se muestra antes de confirmar la
-                        compra.
-                      </div>
-                      <div>• Disponibilidad y costos pueden variar según tu ubicación y el stock del marketplace.</div>
                     </div>
-                  </div>
 
-                  {/* Visual Divider */}
-                  <div className="w-full h-px bg-neon-cyan/25 my-4"></div>
+                    {/* Visual Divider */}
+                    <div className="w-full h-px bg-neon-cyan/25 my-4"></div>
 
-                  <div>
-                    <div className="text-neon-cyan">
-                      {">"} Nota: No necesitás un Kindle físico. La app Kindle es gratis y funciona en celular, tablet o
-                      PC.
+                    <div>
+                      <div className="text-neon-cyan">
+                        {">"} Nota: No necesitás un Kindle físico. La app Kindle es gratis y funciona en celular, tablet
+                        o PC.
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Close Button */}
-              <div className="mt-6 text-center">
-                <button
-                  onClick={closeGuideModal}
-                  className="bg-neon-cyan/10 hover:bg-neon-cyan/20 border border-neon-cyan text-neon-cyan px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-300 transform hover:-translate-y-px focus:outline-none focus:ring-2 focus:ring-neon-cyan/50 font-space-mono"
-                >
-                  CERRAR
-                </button>
+                {/* Close Button */}
+                <div className="mt-6 text-center">
+                  <button
+                    onClick={closeGuideModal}
+                    className="bg-neon-cyan/10 hover:bg-neon-cyan/20 border border-neon-cyan text-neon-cyan px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-300 transform hover:-translate-y-px focus:outline-none focus:ring-2 focus:ring-neon-cyan/50 font-space-mono"
+                  >
+                    CERRAR
+                  </button>
+                </div>
               </div>
             </div>
           </div>
