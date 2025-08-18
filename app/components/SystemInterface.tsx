@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Activity, Wifi, Shield } from "lucide-react"
+import { Activity, Wifi, Shield } from 'lucide-react'
 import { useClock } from "../../hooks/useClock"
 
 export default function SystemInterface() {
@@ -22,13 +22,6 @@ export default function SystemInterface() {
     })
   }, [])
 
-  const scrollToSection = (sectionId: string) => {
-    const section = document.getElementById(sectionId)
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" })
-    }
-  }
-
   return (
     <div className="fixed top-0 left-0 right-0 z-50 bg-void/90 backdrop-blur-xl border-b border-neon-cyan/20">
       <div className="container mx-auto px-4 py-3">
@@ -43,18 +36,6 @@ export default function SystemInterface() {
               <Activity size={12} className="sm:w-3.5 sm:h-3.5 text-electric-pink" />
               <span className="text-electric-pink text-xs whitespace-nowrap">{systemStatus}</span>
             </div>
-            <button
-              onClick={() => scrollToSection("como-leerlo")}
-              className="text-ghost hover:text-neon-cyan transition-colors duration-300 text-xs whitespace-nowrap cursor-pointer"
-            >
-              CÓMO LEERLO
-            </button>
-            <button
-              onClick={() => scrollToSection("how-to-read")}
-              className="text-ghost hover:text-neon-cyan transition-colors duration-300 text-xs whitespace-nowrap cursor-pointer"
-            >
-              HOW TO READ
-            </button>
           </div>
           <div className="flex flex-wrap items-center gap-2 sm:gap-6">
             <div className="flex items-center space-x-2">
@@ -94,21 +75,6 @@ export default function SystemInterface() {
             <span className="text-neon-cyan text-xs whitespace-nowrap" data-clock>
               {time}
             </span>
-          </div>
-
-          <div className="flex items-center space-x-2 pt-1">
-            <button
-              onClick={() => scrollToSection("como-leerlo")}
-              className="chip text-xs cursor-pointer hover:bg-electric-pink/20 transition-colors"
-            >
-              CÓMO LEERLO
-            </button>
-            <button
-              onClick={() => scrollToSection("how-to-read")}
-              className="chip text-xs cursor-pointer hover:bg-electric-pink/20 transition-colors"
-            >
-              HOW TO READ
-            </button>
           </div>
         </div>
       </div>

@@ -12,7 +12,6 @@ export default function HeroSection() {
   const [showScanning, setShowScanning] = useState(false)
   const [showBackCover, setShowBackCover] = useState(false)
   const [showSkipButton, setShowSkipButton] = useState(false)
-  const [showTooltip, setShowTooltip] = useState(false)
 
   // New Image Viewer Modal States
   const [showImageModal, setShowImageModal] = useState(false)
@@ -74,7 +73,7 @@ export default function HeroSection() {
                 }
               }, 30) // Faster typing
             },
-            i === 0 ? 500 : 800, // Faster sequence
+            i === 0 ? 500 : 800, // Faster sequence,
           )
         })
       }
@@ -121,49 +120,6 @@ export default function HeroSection() {
     document.addEventListener("keydown", handleKeyDown)
     return () => document.removeEventListener("keydown", handleKeyDown)
   }, [showImageModal, currentImageIndex, systemReady])
-
-  useEffect(() => {
-    if (!systemReady) return
-
-    let startX = 0
-    let startY = 0
-
-    const handleTouchStart = (e: TouchEvent) => {
-      startX = e.touches[0].clientX
-      startY = e.touches[0].clientY
-    }
-
-    const handleTouchEnd = (e: TouchEvent) => {
-      if (!startX || !startY) return
-
-      const endX = e.changedTouches[0].clientX
-      const endY = e.changedTouches[0].clientY
-      const diffX = startX - endX
-      const diffY = startY - endY
-
-      // Only trigger if horizontal swipe is more significant than vertical and threshold is met
-      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 30) {
-        if (diffX > 0) {
-          // Swipe left - show back cover
-          setShowBackCover(true)
-        } else {
-          // Swipe right - show front cover
-          setShowBackCover(false)
-        }
-      }
-
-      startX = 0
-      startY = 0
-    }
-
-    document.addEventListener("touchstart", handleTouchStart, { passive: true })
-    document.addEventListener("touchend", handleTouchEnd, { passive: true })
-
-    return () => {
-      document.removeEventListener("touchstart", handleTouchStart)
-      document.removeEventListener("touchend", handleTouchEnd)
-    }
-  }, [systemReady])
 
   // Touch/Swipe handling for image modal
   useEffect(() => {
@@ -256,13 +212,6 @@ export default function HeroSection() {
   const navigateImage = (direction: number) => {
     const newIndex = (currentImageIndex + direction + images.length) % images.length
     setCurrentImageIndex(newIndex)
-  }
-
-  const scrollToPodcast = () => {
-    const podcastSection = document.getElementById("podcast")
-    if (podcastSection) {
-      podcastSection.scrollIntoView({ behavior: "smooth" })
-    }
   }
 
   // Show scanning sequence
@@ -368,8 +317,8 @@ export default function HeroSection() {
 
           {/* Main Interface */}
           {systemReady && (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 items-center max-w-6xl mx-auto">
-              {/* Book Cover with Manual Controls and 3D Effects */}
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+              {/* Book Cover with Manual Controls and 3D Flip Effect */}
               <div className="order-2 lg:order-1 fade-in-sequence">
                 <div className="system-panel p-6 sm:p-8 bg-void/90 backdrop-blur-xl hologram-effect" aria-live="polite">
                   {/* Nueva barra de controles superior */}
@@ -393,7 +342,8 @@ export default function HeroSection() {
                   </div>
 
                   <div className="relative mb-4">
-                    <div className="cover-card group">
+                    <div className="relative group">
+                      <div className="absolute -inset-2 bg-gradient-to-r from-neon-cyan/20 to-electric-pink/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg"></div>
                       <div className="relative">
                         {/* New umbral-flip-stage structure */}
                         <div className={`umbral-flip-stage ${showBackCover ? "isBack" : ""}`}>
@@ -401,10 +351,11 @@ export default function HeroSection() {
                           <figure className="umbral-flip-card front">
                             <Image
                               src="/images/UMBRAL_PORTADA_OFICIAL.png"
-                              alt="Portada de UMBRAL"
+                              alt="UMBRAL - Portada Oficial"
                               width={400}
                               height={600}
-                              className="w-full h-full object-contain"
+                              className="w-full rounded-lg shadow-2xl border border-neon-cyan/30"
+                              style={{ objectFit: "contain" }}
                               priority
                             />
                           </figure>
@@ -412,14 +363,16 @@ export default function HeroSection() {
                           <figure className="umbral-flip-card back">
                             <Image
                               src="/images/CONTRATAPA_UMBRAL_OFICIAL.png"
-                              alt="Contratapa de UMBRAL"
+                              alt="UMBRAL - Contratapa Oficial"
                               width={400}
                               height={600}
-                              className="w-full h-full object-contain"
+                              className="w-full rounded-lg shadow-2xl border border-neon-cyan/30"
+                              style={{ objectFit: "contain" }}
                               priority
                             />
                           </figure>
                         </div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-neon-cyan/5 to-electric-pink/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg"></div>
                       </div>
                     </div>
                   </div>
@@ -436,72 +389,56 @@ export default function HeroSection() {
               {/* System Information */}
               <div className="order-1 lg:order-2 space-y-6 lg:space-y-8">
                 <div className="fade-in-sequence">
-                  <div
-                    className="system-panel p-6 sm:p-8 bg-void/90 backdrop-blur-xl"
-                    role="region"
-                    aria-labelledby="hero-title"
-                  >
+                  <div className="system-panel p-6 sm:p-8 bg-void/90 backdrop-blur-xl">
                     <div className="flex items-center mb-6 text-sm font-space-mono">
                       <div className="w-3 h-3 bg-neon-cyan rounded-full mr-3 animate-pulse flex-shrink-0"></div>
                       <span className="text-neon-cyan">SISTEMA_INICIADO</span>
                     </div>
 
                     <div className="mb-8">
-                      <div
-                        className="text-sm text-ghost/74 mb-3 font-inter leading-relaxed"
-                        style={{ fontSize: "clamp(14px, 0.9vw + 12px, 18px)" }}
-                      >
-                        "La puerta no es el destino. Es lo que uno se convierte al cruzarla."
-                      </div>
-
+                      <div className="text-xs text-electric-pink mb-2 font-space-mono">ARCHIVO_PRINCIPAL:</div>
+                      {/* Título con efecto glitch mejorado */}
                       <h1
-                        id="hero-title"
-                        className="text-neon-cyan font-orbitron font-bold leading-tight mb-4"
-                        style={{
-                          fontSize: "clamp(28px, 3vw + 12px, 48px)",
-                          lineHeight: "1.15",
-                          letterSpacing: "0.02em",
-                          textShadow: "0 0 18px rgba(0,255,255,0.12)",
-                          marginBottom: "clamp(12px, 2vw, 20px)",
-                        }}
+                        className="system-glitch font-orbitron text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 text-ghost leading-tight break-words"
+                        data-text="UMBRAL"
                       >
-                        ¿Te atreverías a cruzar el umbral?
+                        UMBRAL
                       </h1>
+                    </div>
+
+                    <div className="system-panel p-4 sm:p-6 mb-6 lg:mb-8 bg-void/50 border-electric-pink/20">
+                      <div className="text-xs text-electric-pink mb-2 font-space-mono">MENSAJE_PRINCIPAL:</div>
+                      <blockquote className="text-base sm:text-lg text-ghost italic font-inter leading-relaxed break-words">
+                        "La puerta no es el destino. Es lo que uno se convierte al cruzarla."
+                      </blockquote>
                     </div>
                   </div>
                 </div>
 
                 <div className="space-y-4 fade-in-sequence">
-                  <div className="cta-row">
-                    {/* Primary CTA - Amazon */}
-                    <a
-                      href="https://amazon.com/dp/B0DJQXQXQX"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="cta-primary"
-                      aria-label="Leer UMBRAL en Amazon"
-                    >
-                      <Download size={18} className="flex-shrink-0" />
-                      <span>Leer en Amazon</span>
-                      <ChevronRight
-                        size={14}
-                        className="group-hover:translate-x-1 transition-transform flex-shrink-0"
-                      />
-                    </a>
+                  {/* Unified Layout for all devices */}
+                  <div className="max-w-[600px] mx-auto">
+                    <div className="space-y-4">
+                      {/* Amazon CTA - Full width */}
+                      <button className="cta-button-amazon w-full text-void px-6 py-3 h-12 rounded-lg font-semibold text-sm transition-all duration-300 flex items-center justify-center space-x-2 group border border-transparent">
+                        <Download size={18} className="flex-shrink-0" />
+                        <span style={{ wordBreak: "keep-all", overflowWrap: "break-word" }}>COMPRAR EN AMAZON</span>
+                        <ChevronRight
+                          size={14}
+                          className="group-hover:translate-x-1 transition-transform flex-shrink-0"
+                        />
+                      </button>
 
-                    {/* Secondary CTA - Podcast */}
-                    <button
-                      onClick={scrollToPodcast}
-                      className="cta-secondary"
-                      aria-label="Escuchar el podcast de UMBRAL"
-                    >
-                      <Headphones size={18} className="flex-shrink-0" />
-                      <span>Escuchar el podcast</span>
-                      <ChevronRight
-                        size={14}
-                        className="group-hover:translate-x-1 transition-transform flex-shrink-0"
-                      />
-                    </button>
+                      {/* Podcast - Full width */}
+                      <button className="cta-button-podcast w-full text-electric-pink px-6 py-3 h-12 rounded-lg font-semibold text-sm transition-all duration-300 flex items-center justify-center space-x-2 group border border-electric-pink bg-electric-pink/10">
+                        <Headphones size={18} className="flex-shrink-0" />
+                        <span style={{ wordBreak: "keep-all", overflowWrap: "break-word" }}>ACCEDER A PODCAST</span>
+                        <ChevronRight
+                          size={14}
+                          className="group-hover:translate-x-1 transition-transform flex-shrink-0"
+                        />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

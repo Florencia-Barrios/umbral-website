@@ -61,8 +61,8 @@ export default function SynopsisSection() {
 
               <div className="sinopsis-meta">
                 <span className="chip">Thriller psicológico</span>
-                <span className="chip">320 páginas</span>
-                <span className="chip">2025</span>
+                <span className="chip">280 páginas</span>
+                <span className="chip">2024</span>
               </div>
 
               <button
