@@ -12,7 +12,6 @@ export default function HeroSection() {
   const [showScanning, setShowScanning] = useState(false)
   const [showBackCover, setShowBackCover] = useState(false)
   const [showSkipButton, setShowSkipButton] = useState(false)
-  const [showGuideModal, setShowGuideModal] = useState(false)
   const [showTooltip, setShowTooltip] = useState(false)
 
   // New Image Viewer Modal States
@@ -117,15 +116,11 @@ export default function HeroSection() {
             break
         }
       }
-
-      if (e.key === "Escape" && showGuideModal) {
-        closeGuideModal()
-      }
     }
 
     document.addEventListener("keydown", handleKeyDown)
     return () => document.removeEventListener("keydown", handleKeyDown)
-  }, [showImageModal, showGuideModal, currentImageIndex, systemReady])
+  }, [showImageModal, currentImageIndex, systemReady])
 
   useEffect(() => {
     if (!systemReady) return
@@ -263,14 +258,11 @@ export default function HeroSection() {
     setCurrentImageIndex(newIndex)
   }
 
-  const openGuideModal = () => {
-    setShowGuideModal(true)
-    document.body.style.overflow = "hidden"
-  }
-
-  const closeGuideModal = () => {
-    setShowGuideModal(false)
-    document.body.style.overflow = "unset"
+  const scrollToPodcast = () => {
+    const podcastSection = document.getElementById("podcast")
+    if (podcastSection) {
+      podcastSection.scrollIntoView({ behavior: "smooth" })
+    }
   }
 
   // Show scanning sequence
@@ -376,8 +368,8 @@ export default function HeroSection() {
 
           {/* Main Interface */}
           {systemReady && (
-            <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-              {/* Book Cover with Manual Controls and 3D Flip Effect */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 items-center max-w-6xl mx-auto">
+              {/* Book Cover with Manual Controls and 3D Effects */}
               <div className="order-2 lg:order-1 fade-in-sequence">
                 <div className="system-panel p-6 sm:p-8 bg-void/90 backdrop-blur-xl hologram-effect" aria-live="polite">
                   {/* Nueva barra de controles superior */}
@@ -401,8 +393,7 @@ export default function HeroSection() {
                   </div>
 
                   <div className="relative mb-4">
-                    <div className="relative group">
-                      <div className="absolute -inset-2 bg-gradient-to-r from-neon-cyan/20 to-electric-pink/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg"></div>
+                    <div className="cover-card group">
                       <div className="relative">
                         {/* New umbral-flip-stage structure */}
                         <div className={`umbral-flip-stage ${showBackCover ? "isBack" : ""}`}>
@@ -410,11 +401,10 @@ export default function HeroSection() {
                           <figure className="umbral-flip-card front">
                             <Image
                               src="/images/UMBRAL_PORTADA_OFICIAL.png"
-                              alt="UMBRAL - Portada Oficial"
+                              alt="Portada de UMBRAL"
                               width={400}
                               height={600}
-                              className="w-full rounded-lg shadow-2xl border border-neon-cyan/30"
-                              style={{ objectFit: "contain" }}
+                              className="w-full h-full object-contain"
                               priority
                             />
                           </figure>
@@ -422,16 +412,14 @@ export default function HeroSection() {
                           <figure className="umbral-flip-card back">
                             <Image
                               src="/images/CONTRATAPA_UMBRAL_OFICIAL.png"
-                              alt="UMBRAL - Contratapa Oficial"
+                              alt="Contratapa de UMBRAL"
                               width={400}
                               height={600}
-                              className="w-full rounded-lg shadow-2xl border border-neon-cyan/30"
-                              style={{ objectFit: "contain" }}
+                              className="w-full h-full object-contain"
                               priority
                             />
                           </figure>
                         </div>
-                        <div className="absolute inset-0 bg-gradient-to-t from-neon-cyan/5 to-electric-pink/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg"></div>
                       </div>
                     </div>
                   </div>
@@ -448,75 +436,67 @@ export default function HeroSection() {
               {/* System Information */}
               <div className="order-1 lg:order-2 space-y-6 lg:space-y-8">
                 <div className="fade-in-sequence">
-                  <div className="system-panel p-6 sm:p-8 bg-void/90 backdrop-blur-xl">
+                  <div
+                    className="system-panel p-6 sm:p-8 bg-void/90 backdrop-blur-xl"
+                    role="region"
+                    aria-labelledby="hero-title"
+                  >
                     <div className="flex items-center mb-6 text-sm font-space-mono">
                       <div className="w-3 h-3 bg-neon-cyan rounded-full mr-3 animate-pulse flex-shrink-0"></div>
                       <span className="text-neon-cyan">SISTEMA_INICIADO</span>
                     </div>
 
                     <div className="mb-8">
-                      <div className="text-xs text-electric-pink mb-2 font-space-mono">ARCHIVO_PRINCIPAL:</div>
-                      {/* Título con efecto glitch mejorado */}
-                      <h1
-                        className="system-glitch font-orbitron text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 text-ghost leading-tight break-words"
-                        data-text="UMBRAL"
+                      <div
+                        className="text-sm text-ghost/74 mb-3 font-inter leading-relaxed"
+                        style={{ fontSize: "clamp(14px, 0.9vw + 12px, 18px)" }}
                       >
-                        UMBRAL
-                      </h1>
-                    </div>
-
-                    <div className="system-panel p-4 sm:p-6 mb-6 lg:mb-8 bg-void/50 border-electric-pink/20">
-                      <div className="text-xs text-electric-pink mb-2 font-space-mono">MENSAJE_PRINCIPAL:</div>
-                      <blockquote className="text-base sm:text-lg text-ghost italic font-inter leading-relaxed break-words">
                         "La puerta no es el destino. Es lo que uno se convierte al cruzarla."
-                      </blockquote>
+                      </div>
+
+                      <h1
+                        id="hero-title"
+                        className="text-neon-cyan font-orbitron font-bold leading-tight mb-4"
+                        style={{
+                          fontSize: "clamp(28px, 3vw + 12px, 48px)",
+                          lineHeight: "1.15",
+                          letterSpacing: "0.02em",
+                          textShadow: "0 0 18px rgba(0,255,255,0.12)",
+                          marginBottom: "clamp(12px, 2vw, 20px)",
+                        }}
+                      >
+                        ¿Te atreverías a cruzar el umbral?
+                      </h1>
                     </div>
                   </div>
                 </div>
 
                 <div className="space-y-4 fade-in-sequence">
-                  {/* Unified Layout for all devices */}
-                  <div className="max-w-[600px] mx-auto">
-                    {/* Primera fila: Amazon + Guide Button - Grid Layout */}
-                    <div className="grid grid-cols-[1fr_auto] gap-2 mb-4">
-                      {/* Amazon CTA - Fixed size, no scale on hover */}
-                      <button className="cta-button-amazon text-void px-6 py-3 h-12 rounded-lg font-semibold text-sm transition-all duration-300 flex items-center justify-center space-x-2 group border border-transparent">
-                        <Download size={18} className="flex-shrink-0" />
-                        <span style={{ wordBreak: "keep-all", overflowWrap: "break-word" }}>COMPRAR EN AMAZON</span>
-                        <ChevronRight
-                          size={14}
-                          className="group-hover:translate-x-1 transition-transform flex-shrink-0"
-                        />
-                      </button>
+                  <div className="cta-row">
+                    {/* Primary CTA - Amazon */}
+                    <a
+                      href="https://amazon.com/dp/B0DJQXQXQX"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="cta-primary"
+                      aria-label="Leer UMBRAL en Amazon"
+                    >
+                      <Download size={18} className="flex-shrink-0" />
+                      <span>Leer en Amazon</span>
+                      <ChevronRight
+                        size={14}
+                        className="group-hover:translate-x-1 transition-transform flex-shrink-0"
+                      />
+                    </a>
 
-                      {/* Guide Button - Square, same height as Amazon, fixed size */}
-                      <div className="relative">
-                        <button
-                          onClick={openGuideModal}
-                          onMouseEnter={() => setShowTooltip(true)}
-                          onMouseLeave={() => setShowTooltip(false)}
-                          onFocus={() => setShowTooltip(true)}
-                          onBlur={() => setShowTooltip(false)}
-                          className="cta-button-guide w-12 h-12 text-void rounded-lg inline-flex items-center justify-center transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-neon-cyan/50 focus:ring-offset-2 focus:ring-offset-void border border-transparent"
-                          aria-label="Guía rápida"
-                        >
-                          <span className="text-lg font-bold">?</span>
-                        </button>
-
-                        {/* Tooltip - Hidden on mobile */}
-                        {showTooltip && (
-                          <div className="hidden sm:block absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 bg-void/95 border border-neon-cyan/25 rounded text-xs font-space-mono text-neon-cyan whitespace-nowrap animate-in fade-in-0 zoom-in-95 duration-150 shadow-lg shadow-neon-cyan/10">
-                            Guía rápida
-                            <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neon-cyan/25"></div>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Segunda fila: Podcast - Full width, fixed size */}
-                    <button className="cta-button-podcast w-full text-electric-pink px-6 py-3 h-12 rounded-lg font-semibold text-sm transition-all duration-300 flex items-center justify-center space-x-2 group border border-electric-pink bg-electric-pink/10">
+                    {/* Secondary CTA - Podcast */}
+                    <button
+                      onClick={scrollToPodcast}
+                      className="cta-secondary"
+                      aria-label="Escuchar el podcast de UMBRAL"
+                    >
                       <Headphones size={18} className="flex-shrink-0" />
-                      <span style={{ wordBreak: "keep-all", overflowWrap: "break-word" }}>ACCEDER A PODCAST</span>
+                      <span>Escuchar el podcast</span>
                       <ChevronRight
                         size={14}
                         className="group-hover:translate-x-1 transition-transform flex-shrink-0"
@@ -631,157 +611,6 @@ export default function HeroSection() {
                   placeholder="blur"
                   blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
                 />
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Guide Modal */}
-      {showGuideModal && (
-        <div
-          className="fixed inset-0 bg-void/95 backdrop-blur-xl z-50 flex items-center justify-center p-4"
-          onClick={closeGuideModal}
-        >
-          <div
-            className="relative w-full max-w-3xl max-h-[86vh] bg-void/90 border border-neon-cyan/30 rounded-2xl shadow-2xl overflow-hidden"
-            onClick={(e) => e.stopPropagation()}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="guide-title"
-          >
-            {/* Sticky Header */}
-            <div className="sticky top-0 bg-void/95 backdrop-blur-xl border-b border-neon-cyan/20 p-4 sm:p-6 flex items-center justify-between z-10">
-              <div className="flex items-center space-x-3">
-                <div className="w-3 h-3 bg-neon-cyan rounded-full animate-pulse"></div>
-                <h2 id="guide-title" className="text-lg sm:text-xl font-orbitron text-neon-cyan">
-                  GUÍA_RÁPIDA
-                </h2>
-              </div>
-              <button
-                onClick={closeGuideModal}
-                className="w-11 h-11 bg-void/60 hover:bg-void/80 border border-neon-cyan/30 hover:border-neon-cyan/50 text-ghost hover:text-neon-cyan rounded-full flex items-center justify-center transition-all duration-300 transform hover:-translate-y-px focus:outline-none focus:ring-2 focus:ring-neon-cyan/50"
-                aria-label="Cerrar guía"
-              >
-                <X size={20} />
-              </button>
-            </div>
-
-            {/* Content */}
-            <div className="overflow-y-auto max-h-[calc(86vh-80px)] p-4 sm:p-6">
-              <div className="system-panel p-4 sm:p-6 bg-void/50 border-neon-cyan/10">
-                <div className="flex items-center mb-4 text-sm font-space-mono text-neon-cyan">
-                  <span className="mr-2">{">"}</span>
-                  <span>cat guia_compra.txt</span>
-                </div>
-
-                <div
-                  className="font-space-mono text-sm leading-relaxed text-ghost space-y-4"
-                  style={{ wordBreak: "keep-all", overflowWrap: "break-word", whiteSpace: "pre-wrap", hyphens: "none" }}
-                >
-                  <div>
-                    <div className="text-electric-pink mb-3">Opción 1 – Versión Kindle</div>
-
-                    <div className="mb-4">
-                      <div className="text-neon-cyan mb-2 text-xs">{">"} A) Comprar en Amazon</div>
-                      <div className="space-y-1 ml-2">
-                        <div>1. Entrá a Amazon con el botón principal.</div>
-                        <div>2. Si no tenés cuenta de Amazon, creala (gratis).</div>
-                        <div className="ml-4 text-neon-cyan">→ Usá un email y contraseña que recuerdes.</div>
-                        <div>3. Elegí "Versión Kindle".</div>
-                        <div>4. Si hay promo de lanzamiento y el precio aparece en 0, tocá "Comprar ahora".</div>
-                        <div>
-                          5. Si Amazon te pide un método de pago, agregalo (lo solicita aunque el precio sea 0). No se
-                          te cobra si el precio es 0.
-                        </div>
-                        <div>6. Confirmá la compra. Listo.</div>
-                      </div>
-                    </div>
-
-                    <div className="mb-4">
-                      <div className="text-neon-cyan mb-2 text-xs">{">"} B) Leer en la App Kindle</div>
-                      <div className="space-y-1 ml-2">
-                        <div>1. Descargá la app Kindle (gratis):</div>
-                        <div className="ml-4 space-y-2">
-                          <div className="flex items-center min-h-[40px]">
-                            <span className="mr-2">•</span>
-                            <a
-                              href="https://play.google.com/store/apps/details?id=com.amazon.kindle"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-electric-pink hover:text-neon-cyan transition-colors duration-300 underline decoration-electric-pink/50 hover:decoration-neon-cyan/70 underline-offset-2 py-2"
-                              style={{ wordBreak: "keep-all", overflowWrap: "break-word" }}
-                            >
-                              Google Play — Descargar app Kindle
-                            </a>
-                          </div>
-                          <div className="flex items-center min-h-[40px]">
-                            <span className="mr-2">•</span>
-                            <a
-                              href="https://apps.apple.com/app/amazon-kindle/id302584613"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-electric-pink hover:text-neon-cyan transition-colors duration-300 underline decoration-electric-pink/50 hover:decoration-neon-cyan/70 underline-offset-2 py-2"
-                              style={{ wordBreak: "keep-all", overflowWrap: "break-word" }}
-                            >
-                              App Store — Descargar app Kindle
-                            </a>
-                          </div>
-                        </div>
-                        <div>2. Iniciá sesión con la MISMA cuenta de Amazon que usaste para comprar el libro.</div>
-                        <div>
-                          3. En "Biblioteca", esperá unos segundos y tocá "Sincronizar" (o arrastrá hacia abajo para
-                          refrescar).
-                        </div>
-                        <div>4. Abrí "UMBRAL".</div>
-                        <div>5. Opcional: Ajustá tamaño de letra, modo oscuro y márgenes.</div>
-                        <div>6. Para leer sin conexión: abrí el libro y dejá que se descargue por completo.</div>
-                      </div>
-                    </div>
-
-                    {/* Visual Divider */}
-                    <div className="w-full h-px bg-neon-cyan/25 my-4"></div>
-
-                    <div>
-                      <div className="text-electric-pink mb-3">Opción 2 – Libro en Papel</div>
-                      <div className="space-y-1">
-                        <div>• Disponible con envío internacional (desde USA o España).</div>
-                        <div>• Necesitás cuenta de Amazon para comprar.</div>
-                        <div>
-                          • Completá tu dirección real para que Amazon calcule el costo y confirme el envío antes de
-                          pagar.
-                        </div>
-                        <div>
-                          • El precio final (incluyendo posibles costos de importación) se muestra antes de confirmar la
-                          compra.
-                        </div>
-                        <div>
-                          • Disponibilidad y costos pueden variar según tu ubicación y el stock del marketplace.
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Visual Divider */}
-                    <div className="w-full h-px bg-neon-cyan/25 my-4"></div>
-
-                    <div>
-                      <div className="text-neon-cyan">
-                        {">"} Nota: No necesitás un Kindle físico. La app Kindle es gratis y funciona en celular, tablet
-                        o PC.
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Close Button */}
-                <div className="mt-6 text-center">
-                  <button
-                    onClick={closeGuideModal}
-                    className="bg-neon-cyan/10 hover:bg-neon-cyan/20 border border-neon-cyan text-neon-cyan px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-300 transform hover:-translate-y-px focus:outline-none focus:ring-2 focus:ring-neon-cyan/50 font-space-mono"
-                  >
-                    CERRAR
-                  </button>
-                </div>
               </div>
             </div>
           </div>
