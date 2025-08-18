@@ -125,13 +125,13 @@ export default function HowToReadSection() {
             {/* Expandable detailed guide */}
             {showDetailedGuide && (
               <div className="mt-6 system-panel p-4 sm:p-6 bg-void/50 border-neon-cyan/10 animate-in slide-in-from-top-2 duration-300">
-                <div className="font-space-mono text-xs sm:text-sm leading-relaxed text-ghost space-y-4">
+                <div className="font-space-mono text-xs sm:text-sm leading-relaxed text-ghost space-y-4 text-left">
                   <div>
                     <div className="text-electric-pink mb-3 font-semibold">Opción 1 – Versión Kindle</div>
 
                     <div className="mb-4">
                       <div className="text-neon-cyan mb-2 text-xs">{">"} A) Comprar en Amazon</div>
-                      <div className="space-y-1 ml-2 text-xs">
+                      <div className="space-y-1 ml-2 text-xs text-left">
                         <div>1. Entrá a Amazon con el botón principal.</div>
                         <div>2. Si no tenés cuenta de Amazon, creala (gratis).</div>
                         <div className="ml-4 text-neon-cyan">→ Usá un email y contraseña que recuerdes.</div>
@@ -146,7 +146,7 @@ export default function HowToReadSection() {
 
                     <div className="mb-4">
                       <div className="text-neon-cyan mb-2 text-xs">{">"} B) Leer en la App Kindle</div>
-                      <div className="space-y-1 ml-2 text-xs">
+                      <div className="space-y-1 ml-2 text-xs text-left">
                         <div>1. Descargá la app Kindle (gratis):</div>
                         <div className="ml-4 space-y-1">
                           <div>- Google Play – Descargar app Kindle</div>
@@ -167,7 +167,7 @@ export default function HowToReadSection() {
 
                     <div>
                       <div className="text-electric-pink mb-3 font-semibold">Opción 2 – Libro en Papel</div>
-                      <div className="space-y-1 text-xs">
+                      <div className="space-y-1 text-xs text-left">
                         <div>- Disponible con envío internacional (desde USA o España).</div>
                         <div>- Necesitás cuenta de Amazon para comprar.</div>
                         <div>
@@ -185,7 +185,7 @@ export default function HowToReadSection() {
 
                     <div className="w-full h-px bg-neon-cyan/25 my-4"></div>
 
-                    <div className="text-neon-cyan text-xs">
+                    <div className="text-neon-cyan text-xs text-left">
                       {">"} Nota: No necesitás un Kindle físico. La app Kindle es gratis y funciona en celular, tablet o
                       PC.
                     </div>
