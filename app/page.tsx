@@ -6,6 +6,7 @@ import AuthorSection from "./components/AuthorSection"
 import Footer from "./components/Footer"
 import SystemInterface from "./components/SystemInterface"
 import BackgroundEffects from "./components/BackgroundEffects"
+import NavigationHeader from "./components/NavigationHeader"
 
 export const metadata: Metadata = {
   title: "SISTEMA UMBRAL - Acceso Iniciado",
@@ -32,6 +33,7 @@ export default function Home() {
     <main className="min-h-screen bg-void text-ghost font-inter relative overflow-hidden">
       <BackgroundEffects />
       <SystemInterface />
+      <NavigationHeader isVisible={true} />
       <HeroSection />
       <SynopsisSection />
       <PodcastSection />

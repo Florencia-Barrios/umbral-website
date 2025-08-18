@@ -220,6 +220,18 @@ export default function HeroSection() {
     document.body.style.overflow = "unset"
   }
 
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId)
+    if (element) {
+      const headerOffset = 120
+      const elementPosition = element.offsetTop - headerOffset
+      window.scrollTo({
+        top: elementPosition,
+        behavior: "smooth",
+      })
+    }
+  }
+
   // Show scanning sequence
   if (showScanning && !systemReady) {
     return <ScanningSequence onComplete={handleScanningComplete} />
@@ -272,7 +284,7 @@ export default function HeroSection() {
                         {index === currentStep ? (
                           <>
                             {typedText}
-                            <span className="system-cursor"></span>
+                            <span className="animate-pulse ml-1 text-neon-cyan">▋</span>
                           </>
                         ) : (
                           step
@@ -323,154 +335,165 @@ export default function HeroSection() {
 
           {/* Main Interface */}
           {systemReady && (
-            <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-              {/* Book Cover with Manual Controls and 3D Flip Effect */}
-              <div className="order-2 lg:order-1 fade-in-sequence">
-                <div className="system-panel p-6 sm:p-8 bg-void/90 backdrop-blur-xl hologram-effect">
-                  {/* Nueva barra de controles superior */}
-                  <div className="flex items-center justify-between mb-4 text-xs font-space-mono">
-                    <button
-                      onClick={toggleCover}
-                      className="text-ghost hover:text-neon-cyan transition-colors duration-300 cursor-pointer"
-                    >
-                      <span>
-                        {">"} [{showBackCover ? "VER PORTADA" : "VER CONTRATAPA"}]
-                      </span>
-                    </button>
+            <div className="space-y-16">
+              {/* Hero/Portada section */}
+              <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+                {/* Book Cover with Manual Controls and 3D Flip Effect */}
+                <div className="order-2 lg:order-1 fade-in-sequence">
+                  <div className="system-panel p-6 sm:p-8 bg-void/90 backdrop-blur-xl hologram-effect">
+                    {/* Nueva barra de controles superior */}
+                    <div className="flex items-center justify-between mb-4 text-xs font-space-mono">
+                      <button
+                        onClick={toggleCover}
+                        className="text-ghost hover:text-neon-cyan transition-colors duration-300 cursor-pointer"
+                      >
+                        <span>
+                          {">"} [{showBackCover ? "VER PORTADA" : "VER CONTRATAPA"}]
+                        </span>
+                      </button>
 
-                    <button
-                      onClick={openImageModal}
-                      className="text-ghost hover:text-electric-pink transition-colors duration-300 cursor-pointer p-1"
-                    >
-                      <Maximize2 size={14} />
-                    </button>
-                  </div>
+                      <button
+                        onClick={openImageModal}
+                        className="text-ghost hover:text-electric-pink transition-colors duration-300 cursor-pointer p-1"
+                      >
+                        <Maximize2 size={14} />
+                      </button>
+                    </div>
 
-                  {/* 3D Flip Container */}
-                  <div className="relative mb-4">
-                    <div className="relative group">
-                      <div className="absolute -inset-2 bg-gradient-to-r from-neon-cyan/20 to-electric-pink/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg"></div>
-                      <div className="relative">
-                        {/* 3D Flip Book Container */}
-                        <div className="book-3d-container w-full max-w-sm mx-auto">
-                          <div className={`book-3d-inner ${showBackCover ? "is-flipped" : ""}`}>
-                            {/* Front Face - Portada */}
-                            <div className="book-face book-front">
-                              <Image
-                                src="/images/UMBRAL_PORTADA_OFICIAL.png"
-                                alt="UMBRAL - Portada Oficial"
-                                width={400}
-                                height={600}
-                                className="w-full rounded-lg shadow-2xl border border-neon-cyan/30"
-                                style={{ objectFit: "contain" }}
-                                priority
-                              />
-                            </div>
-                            {/* Back Face - Contratapa */}
-                            <div className="book-face book-back">
-                              <Image
-                                src="/images/CONTRATAPA_UMBRAL_OFICIAL.png"
-                                alt="UMBRAL - Contratapa Oficial"
-                                width={400}
-                                height={600}
-                                className="w-full rounded-lg shadow-2xl border border-neon-cyan/30"
-                                style={{ objectFit: "contain" }}
-                                priority
-                              />
+                    {/* 3D Flip Container */}
+                    <div className="relative mb-4">
+                      <div className="relative group">
+                        <div className="absolute -inset-2 bg-gradient-to-r from-neon-cyan/20 to-electric-pink/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg"></div>
+                        <div className="relative">
+                          {/* 3D Flip Book Container */}
+                          <div className="book-3d-container w-full max-w-sm mx-auto">
+                            <div className={`book-3d-inner ${showBackCover ? "is-flipped" : ""}`}>
+                              {/* Front Face - Portada */}
+                              <div className="book-face book-front">
+                                <Image
+                                  src="/images/UMBRAL_PORTADA_OFICIAL.png"
+                                  alt="UMBRAL - Portada Oficial"
+                                  width={400}
+                                  height={600}
+                                  className="w-full rounded-lg shadow-2xl border border-neon-cyan/30"
+                                  style={{ objectFit: "contain" }}
+                                  priority
+                                />
+                              </div>
+                              {/* Back Face - Contratapa */}
+                              <div className="book-face book-back">
+                                <Image
+                                  src="/images/CONTRATAPA_UMBRAL_OFICIAL.png"
+                                  alt="UMBRAL - Contratapa Oficial"
+                                  width={400}
+                                  height={600}
+                                  className="w-full rounded-lg shadow-2xl border border-neon-cyan/30"
+                                  style={{ objectFit: "contain" }}
+                                  priority
+                                />
+                              </div>
                             </div>
                           </div>
+                          <div className="absolute inset-0 bg-gradient-to-t from-neon-cyan/5 to-electric-pink/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg"></div>
                         </div>
-                        <div className="absolute inset-0 bg-gradient-to-t from-neon-cyan/5 to-electric-pink/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg"></div>
+                      </div>
+                    </div>
+
+                    <div className="data-stream space-y-1 text-xs break-words">
+                      <div>FORMATO: PNG | RESOLUCIÓN: ALTA</div>
+                      <div>ESTADO: PORTAL_ACTIVO</div>
+                      <div>AUTOR: FEDERICO_DANIEL_ARA</div>
+                      <div>VISTA: {showBackCover ? "CONTRATAPA" : "PORTADA"}</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* System Information */}
+                <div className="order-1 lg:order-2 space-y-6 lg:space-y-8">
+                  <div className="fade-in-sequence">
+                    <div className="system-panel p-6 sm:p-8 bg-void/90 backdrop-blur-xl">
+                      <div className="flex items-center mb-6 text-sm font-space-mono">
+                        <div className="w-3 h-3 bg-neon-cyan rounded-full mr-3 animate-pulse flex-shrink-0"></div>
+                        <span className="text-neon-cyan">SISTEMA_INICIADO</span>
+                      </div>
+
+                      <div className="mb-8">
+                        <div className="text-xs text-electric-pink mb-2 font-space-mono">ARCHIVO_PRINCIPAL:</div>
+                        {/* Título con efecto glitch mejorado */}
+                        <h1
+                          className="system-glitch font-orbitron text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 text-ghost leading-tight break-words"
+                          data-text="UMBRAL"
+                        >
+                          UMBRAL
+                        </h1>
+                      </div>
+
+                      <div className="system-panel p-4 sm:p-6 mb-6 lg:mb-8 bg-void/50 border-electric-pink/20">
+                        <div className="text-xs text-electric-pink mb-2 font-space-mono">MENSAJE_PRINCIPAL:</div>
+                        <blockquote className="text-base sm:text-lg text-ghost italic font-inter leading-relaxed break-words">
+                          "La puerta no es el destino. Es lo que uno se convierte al cruzarla."
+                        </blockquote>
                       </div>
                     </div>
                   </div>
 
-                  <div className="data-stream space-y-1 text-xs break-words">
-                    <div>FORMATO: PNG | RESOLUCIÓN: ALTA</div>
-                    <div>ESTADO: PORTAL_ACTIVO</div>
-                    <div>AUTOR: FEDERICO_DANIEL_ARA</div>
-                    <div>VISTA: {showBackCover ? "CONTRATAPA" : "PORTADA"}</div>
-                  </div>
-                </div>
-              </div>
+                  <div className="space-y-4 fade-in-sequence">
+                    {/* Unified Layout for all devices */}
+                    <div className="max-w-[600px] mx-auto">
+                      {/* Primera fila: Amazon + Guide Button - Grid Layout */}
+                      <div className="grid grid-cols-[1fr_auto] gap-2 mb-4">
+                        {/* Amazon CTA - Fixed size, no scale on hover */}
+                        <a
+                          href="https://www.amazon.com/dp/B0DQXBVQZX"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="cta-button-amazon text-void px-6 py-3 h-12 rounded-lg font-semibold text-sm transition-all duration-300 flex items-center justify-center space-x-2 group border border-transparent no-underline"
+                        >
+                          <Download size={18} className="flex-shrink-0" />
+                          <span style={{ wordBreak: "keep-all", overflowWrap: "break-word" }}>LEER EN AMAZON</span>
+                          <ChevronRight
+                            size={14}
+                            className="group-hover:translate-x-1 transition-transform flex-shrink-0"
+                          />
+                        </a>
 
-              {/* System Information */}
-              <div className="order-1 lg:order-2 space-y-6 lg:space-y-8">
-                <div className="fade-in-sequence">
-                  <div className="system-panel p-6 sm:p-8 bg-void/90 backdrop-blur-xl">
-                    <div className="flex items-center mb-6 text-sm font-space-mono">
-                      <div className="w-3 h-3 bg-neon-cyan rounded-full mr-3 animate-pulse flex-shrink-0"></div>
-                      <span className="text-neon-cyan">SISTEMA_INICIADO</span>
-                    </div>
+                        {/* Guide Button - Square, same height as Amazon, fixed size */}
+                        <div className="relative">
+                          <button
+                            onClick={openGuideModal}
+                            onMouseEnter={() => setShowTooltip(true)}
+                            onMouseLeave={() => setShowTooltip(false)}
+                            onFocus={() => setShowTooltip(true)}
+                            onBlur={() => setShowTooltip(false)}
+                            className="cta-button-guide w-12 h-12 text-void rounded-lg inline-flex items-center justify-center transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-neon-cyan/50 focus:ring-offset-2 focus:ring-offset-void border border-transparent"
+                            aria-label="Guía rápida"
+                          >
+                            <span className="text-lg font-bold">?</span>
+                          </button>
 
-                    <div className="mb-8">
-                      <div className="text-xs text-electric-pink mb-2 font-space-mono">ARCHIVO_PRINCIPAL:</div>
-                      {/* Título con efecto glitch mejorado */}
-                      <h1
-                        className="system-glitch font-orbitron text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 text-ghost leading-tight break-words"
-                        data-text="UMBRAL"
+                          {/* Tooltip - Hidden on mobile */}
+                          {showTooltip && (
+                            <div className="hidden sm:block absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 bg-void/95 border border-neon-cyan/25 rounded text-xs font-space-mono text-neon-cyan whitespace-nowrap animate-in fade-in-0 zoom-in-95 duration-150 shadow-lg shadow-neon-cyan/10">
+                              Guía rápida
+                              <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neon-cyan/25"></div>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Segunda fila: Podcast - Full width, fixed size */}
+                      <button
+                        onClick={() => scrollToSection("podcast")}
+                        className="cta-button-podcast w-full text-electric-pink px-6 py-3 h-12 rounded-lg font-semibold text-sm transition-all duration-300 flex items-center justify-center space-x-2 group border border-electric-pink bg-electric-pink/10"
                       >
-                        UMBRAL
-                      </h1>
-                    </div>
-
-                    <div className="system-panel p-4 sm:p-6 mb-6 lg:mb-8 bg-void/50 border-electric-pink/20">
-                      <div className="text-xs text-electric-pink mb-2 font-space-mono">MENSAJE_PRINCIPAL:</div>
-                      <blockquote className="text-base sm:text-lg text-ghost italic font-inter leading-relaxed break-words">
-                        "La puerta no es el destino. Es lo que uno se convierte al cruzarla."
-                      </blockquote>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-4 fade-in-sequence">
-                  {/* Unified Layout for all devices */}
-                  <div className="max-w-[600px] mx-auto">
-                    {/* Primera fila: Amazon + Guide Button - Grid Layout */}
-                    <div className="grid grid-cols-[1fr_auto] gap-2 mb-4">
-                      {/* Amazon CTA - Fixed size, no scale on hover */}
-                      <button className="cta-button-amazon text-void px-6 py-3 h-12 rounded-lg font-semibold text-sm transition-all duration-300 flex items-center justify-center space-x-2 group border border-transparent">
-                        <Download size={18} className="flex-shrink-0" />
-                        <span style={{ wordBreak: "keep-all", overflowWrap: "break-word" }}>COMPRAR EN AMAZON</span>
+                        <Headphones size={18} className="flex-shrink-0" />
+                        <span style={{ wordBreak: "keep-all", overflowWrap: "break-word" }}>ESCUCHAR PODCAST</span>
                         <ChevronRight
                           size={14}
                           className="group-hover:translate-x-1 transition-transform flex-shrink-0"
                         />
                       </button>
-
-                      {/* Guide Button - Square, same height as Amazon, fixed size */}
-                      <div className="relative">
-                        <button
-                          onClick={openGuideModal}
-                          onMouseEnter={() => setShowTooltip(true)}
-                          onMouseLeave={() => setShowTooltip(false)}
-                          onFocus={() => setShowTooltip(true)}
-                          onBlur={() => setShowTooltip(false)}
-                          className="cta-button-guide w-12 h-12 text-void rounded-lg inline-flex items-center justify-center transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-neon-cyan/50 focus:ring-offset-2 focus:ring-offset-void border border-transparent"
-                          aria-label="Guía rápida"
-                        >
-                          <span className="text-lg font-bold">?</span>
-                        </button>
-
-                        {/* Tooltip - Hidden on mobile */}
-                        {showTooltip && (
-                          <div className="hidden sm:block absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 bg-void/95 border border-neon-cyan/25 rounded text-xs font-space-mono text-neon-cyan whitespace-nowrap animate-in fade-in-0 zoom-in-95 duration-150 shadow-lg shadow-neon-cyan/10">
-                            Guía rápida
-                            <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neon-cyan/25"></div>
-                          </div>
-                        )}
-                      </div>
                     </div>
-
-                    {/* Segunda fila: Podcast - Full width, fixed size */}
-                    <button className="cta-button-podcast w-full text-electric-pink px-6 py-3 h-12 rounded-lg font-semibold text-sm transition-all duration-300 flex items-center justify-center space-x-2 group border border-electric-pink bg-electric-pink/10">
-                      <Headphones size={18} className="flex-shrink-0" />
-                      <span style={{ wordBreak: "keep-all", overflowWrap: "break-word" }}>ACCEDER A PODCAST</span>
-                      <ChevronRight
-                        size={14}
-                        className="group-hover:translate-x-1 transition-transform flex-shrink-0"
-                      />
-                    </button>
                   </div>
                 </div>
               </div>
@@ -579,7 +602,6 @@ export default function HeroSection() {
                   priority={false}
                   placeholder="blur"
                   blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
-                  sizes="(max-width: 767px) 92vw, (max-width: 1200px) 80vw, 980px"
                 />
               </div>
             </div>
@@ -688,48 +710,50 @@ export default function HeroSection() {
                         <div>6. Para leer sin conexión: abrí el libro y dejá que se descargue por completo.</div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Visual Divider */}
-                  <div className="w-full h-px bg-neon-cyan/25 my-4"></div>
+                    {/* Visual Divider */}
+                    <div className="w-full h-px bg-neon-cyan/25 my-4"></div>
 
-                  <div>
-                    <div className="text-electric-pink mb-3">Opción 2 – Libro en Papel</div>
-                    <div className="space-y-1">
-                      <div>• Disponible con envío internacional (desde USA o España).</div>
-                      <div>• Necesitás cuenta de Amazon para comprar.</div>
-                      <div>
-                        • Completá tu dirección real para que Amazon calcule el costo y confirme el envío antes de
-                        pagar.
+                    <div>
+                      <div className="text-electric-pink mb-3">Opción 2 – Libro en Papel</div>
+                      <div className="space-y-1">
+                        <div>• Disponible con envío internacional (desde USA o España).</div>
+                        <div>• Necesitás cuenta de Amazon para comprar.</div>
+                        <div>
+                          • Completá tu dirección real para que Amazon calcule el costo y confirme el envío antes de
+                          pagar.
+                        </div>
+                        <div>
+                          • El precio final (incluyendo posibles costos de importación) se muestra antes de confirmar la
+                          compra.
+                        </div>
+                        <div>
+                          • Disponibilidad y costos pueden variar según tu ubicación y el stock del marketplace.
+                        </div>
                       </div>
-                      <div>
-                        • El precio final (incluyendo posibles costos de importación) se muestra antes de confirmar la
-                        compra.
-                      </div>
-                      <div>• Disponibilidad y costos pueden variar según tu ubicación y el stock del marketplace.</div>
                     </div>
-                  </div>
 
-                  {/* Visual Divider */}
-                  <div className="w-full h-px bg-neon-cyan/25 my-4"></div>
+                    {/* Visual Divider */}
+                    <div className="w-full h-px bg-neon-cyan/25 my-4"></div>
 
-                  <div>
-                    <div className="text-neon-cyan">
-                      {">"} Nota: No necesitás un Kindle físico. La app Kindle es gratis y funciona en celular, tablet o
-                      PC.
+                    <div>
+                      <div className="text-neon-cyan">
+                        {">"} Nota: No necesitás un Kindle físico. La app Kindle es gratis y funciona en celular, tablet
+                        o PC.
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Close Button */}
-              <div className="mt-6 text-center">
-                <button
-                  onClick={closeGuideModal}
-                  className="bg-neon-cyan/10 hover:bg-neon-cyan/20 border border-neon-cyan text-neon-cyan px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-300 transform hover:-translate-y-px focus:outline-none focus:ring-2 focus:ring-neon-cyan/50 font-space-mono"
-                >
-                  CERRAR
-                </button>
+                {/* Close Button */}
+                <div className="mt-6 text-center">
+                  <button
+                    onClick={closeGuideModal}
+                    className="bg-neon-cyan/10 hover:bg-neon-cyan/20 border border-neon-cyan text-neon-cyan px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-300 transform hover:-translate-y-px focus:outline-none focus:ring-2 focus:ring-neon-cyan/50 font-space-mono"
+                  >
+                    CERRAR
+                  </button>
+                </div>
               </div>
             </div>
           </div>
