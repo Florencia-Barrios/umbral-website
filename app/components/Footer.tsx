@@ -1,105 +1,36 @@
-"use client"
-
-import { useEffect, useState } from "react"
-import { Terminal, Linkedin, Github, Youtube, ShoppingCart } from 'lucide-react'
-import { useClock } from "../../hooks/useClock"
-
 export default function Footer() {
-  const { timestamp } = useClock()
-  const [uptime, setUptime] = useState(0)
-
-  useEffect(() => {
-    const uptimeInterval = setInterval(() => setUptime((prev) => prev + 1), 1000)
-    return () => clearInterval(uptimeInterval)
-  }, [])
-
-  const formatUptime = (seconds: number) => {
-    const hours = Math.floor(seconds / 3600)
-    const minutes = Math.floor((seconds % 3600) / 60)
-    const secs = seconds % 60
-    return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`
-  }
-
   return (
-    <footer className="bg-void/80 backdrop-blur-xl border-t border-neon-cyan/20 py-12 sm:py-16 px-4 sm:px-6 lg:px-8">
+    <footer className="py-12 px-4 border-t border-neon-cyan/20 bg-void/80">
       <div className="container mx-auto max-w-4xl">
-        <div className="system-panel p-6 sm:p-8">
-          <div className="text-center mb-8 lg:mb-12">
-            <div
-              className="glitch-text text-2xl sm:text-3xl lg:text-4xl font-orbitron text-ghost mb-4 lg:mb-6"
-              data-text="ATRÉVETE A CRUZAR EL UMBRAL"
+        <div className="text-center space-y-6">
+          <div className="font-orbitron font-bold text-2xl text-neon-cyan">UMBRAL</div>
+
+          <div className="font-space-mono text-sm text-ghost/60 space-y-2">
+            <p>© 2024 Federico Daniel Ara. Todos los derechos reservados.</p>
+            <p>Thriller psicológico • Primera novela • Disponible en Amazon</p>
+          </div>
+
+          <div className="flex justify-center space-x-8 text-sm">
+            <a
+              href="https://amazon.com/dp/B0DJJQX8QY"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-ghost/60 hover:text-neon-cyan transition-colors"
             >
-              ATRÉVETE A CRUZAR EL UMBRAL
-            </div>
-            <div className="font-space-mono text-sm text-neon-cyan">SISTEMA_MENSAJE: EXPERIENCIA_COMPLETA_INICIADA</div>
+              Amazon
+            </a>
+            <a href="#podcast" className="text-ghost/60 hover:text-neon-cyan transition-colors">
+              Podcast
+            </a>
+            <a href="mailto:contacto@example.com" className="text-ghost/60 hover:text-neon-cyan transition-colors">
+              Contacto
+            </a>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 lg:gap-4 mb-8 lg:mb-12">
-            {/* Conexiones */}
-            <div className="system-panel p-3 lg:p-4 bg-neon-cyan/5 border-neon-cyan/20 text-center min-h-[80px] flex flex-col justify-center w-full">
-              <div className="text-xs font-space-mono text-neon-cyan mb-2">CONEXIONES</div>
-              <div className="flex justify-center space-x-2 lg:space-x-3">
-                <a href="https://www.linkedin.com/in/federico-daniel-ara/" className="text-neon-cyan hover:text-electric-pink transition-colors p-1">
-                  <Linkedin size={14} className="sm:w-4 sm:h-4" />
-                </a>
-                <a href="https://github.com/Lartweib" className="text-neon-cyan hover:text-electric-pink transition-colors p-1">
-                  <Github size={14} className="sm:w-4 sm:h-4" />
-                </a>
-                <a href="https://www.youtube.com/@federicodanielara2060" className="text-neon-cyan hover:text-electric-pink transition-colors p-1">
-                  <Youtube size={14} className="sm:w-4 sm:h-4" />
-                </a>
-                <a href="https://www.amazon.es/stores/Robin-Sharma/author/B000APEZCE" className="text-neon-cyan hover:text-electric-pink transition-colors p-1">
-                  <ShoppingCart size={14} className="sm:w-4 sm:h-4" />
-                </a>
-              </div>
-            </div>
-
-            {/* Estado */}
-            <div className="system-panel p-3 lg:p-4 bg-electric-pink/5 border-electric-pink/20 text-center min-h-[80px] flex flex-col justify-center w-full">
-              <div className="text-xs font-space-mono text-electric-pink mb-2">ESTADO</div>
-              <div className="flex items-center justify-center space-x-2">
-                <div className="w-2 h-2 bg-electric-pink rounded-full animate-pulse"></div>
-                <span className="text-sm font-orbitron text-electric-pink">ACTIVO</span>
-              </div>
-            </div>
-
-            {/* Uptime */}
-            <div className="system-panel p-3 lg:p-4 bg-ghost/5 border-ghost/20 text-center min-h-[80px] flex flex-col justify-center w-full max-w-full">
-              <div className="text-xs font-space-mono text-ghost mb-2">UPTIME</div>
-              <div className="text-sm font-space-mono text-ghost">{formatUptime(uptime)}</div>
-            </div>
-
-            {/* Timestamp */}
-            <div className="system-panel p-3 lg:p-4 bg-void/30 border-neon-cyan/10 text-center min-h-[80px] flex flex-col justify-center w-full max-w-full">
-              <div className="text-xs font-space-mono text-neon-cyan mb-2">TIMESTAMP</div>
-              <div 
-                className="text-xs font-space-mono text-neon-cyan leading-tight" 
-                data-timestamp
-                style={{
-                  wordBreak: 'keep-all',
-                  overflowWrap: 'break-word',
-                  whiteSpace: 'normal'
-                }}
-              >
-                {/* Mobile-specific layout for screens ≤ 460px */}
-                <span className="hidden max-[460px]:block">
-                  {timestamp.split(' ')[0]}<br />{timestamp.split(' ')[1]}
-                </span>
-                {/* Desktop and larger mobile layout */}
-                <span className="max-[460px]:hidden">
-                  {timestamp}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div className="text-center font-space-mono text-xs text-ghost space-y-2">
-            <div className="flex items-center justify-center space-x-2 mb-4">
-              <Terminal size={14} className="text-neon-cyan" />
-              <span>SISTEMA UMBRAL v2.1.0</span>
-            </div>
-            <div>© 2025 Federico Daniel Ara | TODOS LOS DERECHOS RESERVADOS</div>
-            <div className="text-neon-cyan">INTERFAZ WEB OPTIMIZADA | EXPERIENCIA INMERSIVA ACTIVADA</div>
+          <div className="pt-6 border-t border-neon-cyan/10">
+            <p className="font-space-mono text-xs text-ghost/40">
+              SISTEMA_NEURAL_v2.1 • CONEXIÓN_ESTABLE • UMBRAL_ACTIVO
+            </p>
           </div>
         </div>
       </div>
