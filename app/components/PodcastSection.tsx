@@ -5,7 +5,6 @@ import { Play } from "lucide-react"
 
 export default function PodcastSection() {
   const [isVisible, setIsVisible] = useState(false)
-  const [showHiddenMessage, setShowHiddenMessage] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
   const iframeRef = useRef<HTMLIFrameElement>(null)
 
@@ -33,9 +32,6 @@ export default function PodcastSection() {
     }
   }
 
-  const handleFocus = () => setShowHiddenMessage(true)
-  const handleMouseEnter = () => setShowHiddenMessage(true)
-
   return (
     <section
       ref={sectionRef}
@@ -44,15 +40,9 @@ export default function PodcastSection() {
       className={`py-16 sm:py-20 lg:py-24 transition-all duration-1000 ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       }`}
-      onMouseEnter={handleMouseEnter}
-      onFocus={handleFocus}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
-        <div
-          className="sinopsis-panel p-6 sm:p-8 lg:p-10 bg-void/90 backdrop-blur-xl border border-neon-cyan/20 rounded-2xl shadow-2xl shadow-neon-cyan/5"
-          onMouseEnter={handleMouseEnter}
-          onFocus={handleFocus}
-        >
+        <div className="umbralPanel podcast-box">
           {/* Header */}
           <div className="flex items-center mb-6 text-sm font-space-mono">
             <div className="w-3 h-3 bg-neon-cyan rounded-full mr-3 animate-pulse flex-shrink-0"></div>
@@ -70,10 +60,10 @@ export default function PodcastSection() {
 
           {/* Intro */}
           <div className="text-center mb-8">
-            <p className="text-base sm:text-lg text-ghost mb-2 font-inter leading-relaxed sinopsis-text">
+            <p className="podcast-text text-ghost mb-2 font-inter leading-relaxed">
               Un episodio especial donde dos inteligencias artificiales discuten:
             </p>
-            <p className="text-base sm:text-lg text-ghost font-inter leading-relaxed sinopsis-text">
+            <p className="podcast-text text-ghost font-inter leading-relaxed">
               ¿qué queda de lo humano cuando lo artificial empieza a hablar tu mismo idioma?
             </p>
           </div>
@@ -114,17 +104,7 @@ export default function PodcastSection() {
             </button>
           </div>
 
-          {/* Hidden Message */}
-          <div
-            className={`text-center font-space-mono text-sm text-electric-pink transition-all duration-200 ${
-              showHiddenMessage ? "opacity-100 transform-none" : "opacity-0 transform translate-y-1"
-            }`}
-            style={{
-              transitionProperty: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-                ? "opacity"
-                : "opacity, transform",
-            }}
-          >
+          <div className="text-center font-space-mono text-sm text-electric-pink podcast-secret">
             <span className="mr-2">{">"}</span>
             <span>mensaje_oculto: "El umbral no se cruza, se escucha."</span>
           </div>

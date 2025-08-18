@@ -41,7 +41,7 @@ export default function HowToReadSection() {
       }`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
-        <div className="sinopsis-panel p-6 sm:p-8 lg:p-10 bg-void/90 backdrop-blur-xl border border-neon-cyan/20 rounded-2xl shadow-2xl shadow-neon-cyan/5">
+        <div className="umbralPanel">
           {/* Header */}
           <div className="flex items-center mb-6 text-sm font-space-mono">
             <div className="w-3 h-3 bg-neon-cyan rounded-full mr-3 animate-pulse flex-shrink-0"></div>
@@ -49,23 +49,23 @@ export default function HowToReadSection() {
           </div>
 
           {/* Title */}
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-orbitron font-bold text-neon-cyan mb-4 glow-text">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-orbitron font-bold text-neon-cyan mb-4 glow-text text-center">
             CÓMO LEERLO
           </h2>
 
           {/* Subtitle */}
-          <p className="text-base sm:text-lg text-ghost mb-6 font-inter leading-relaxed sinopsis-text">
+          <p className="text-base sm:text-lg text-ghost mb-6 font-inter leading-relaxed text-center">
             Elegí cómo querés leer <em className="text-electric-pink">Umbral</em>: en versión digital (Kindle) o en
             papel.
           </p>
 
           {/* Brief description */}
-          <div className="mb-8">
-            <p className="text-sm sm:text-base text-ghost/90 font-inter leading-relaxed sinopsis-text mb-6">
+          <div className="mb-8 text-center">
+            <p className="text-sm sm:text-base text-ghost/90 font-inter leading-relaxed mb-6">
               Podés leer <em className="text-electric-pink">Umbral</em> en formato Kindle desde cualquier dispositivo
               con la app Kindle, o pedirlo en versión impresa con envío internacional.
             </p>
-            <p className="text-sm sm:text-base text-ghost/90 font-inter leading-relaxed sinopsis-text">
+            <p className="text-sm sm:text-base text-ghost/90 font-inter leading-relaxed">
               Seleccioná la opción que prefieras:
             </p>
           </div>

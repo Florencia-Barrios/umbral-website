@@ -25,6 +25,11 @@
   --radius: 0.5rem;
   --neon-cyan: #00faff;
   --electric-pink: #ff007a;
+  /* Panel variables for consistency */
+  --panel-bg: rgba(6, 12, 18, 0.72);
+  --panel-border: rgba(0, 225, 255, 0.16);
+  --panel-radius: 14px;
+  --panel-shadow: 0 0 32px rgba(0, 255, 255, 0.06);
 }
 
 @layer base {
@@ -753,6 +758,64 @@
 
   .italic {
     font-style: italic;
+  }
+
+  /* Reusable panel class matching SINOPSIS exactly */
+  .umbralPanel {
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: var(--panel-radius);
+    box-shadow: var(--panel-shadow);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    padding: clamp(16px, 2.5vw, 28px);
+    max-width: 960px;
+    margin-inline: auto;
+    margin-block: clamp(20px, 4vw, 40px);
+  }
+
+  /* Panel separators */
+  .umbralPanel hr {
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    margin: 16px 0;
+  }
+
+  /* Accessibility fallback for reduced transparency */
+  @media (prefers-reduced-transparency: reduce) {
+    .umbralPanel {
+      background: #0b1219;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+  }
+
+  /* Podcast-specific styles for UX improvements */
+  .podcast-secret {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+
+  .podcast-box:hover .podcast-secret,
+  .podcast-box:focus-within .podcast-secret {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .podcast-text {
+    text-wrap: balance;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    font-size: clamp(0.9rem, 2vw, 1.2rem);
+    line-height: 1.5;
+  }
+
+  /* Respect reduced motion for podcast secret message */
+  @media (prefers-reduced-motion: reduce) {
+    .podcast-secret {
+      transition: none;
+    }
   }
 }
 
