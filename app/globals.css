@@ -23,6 +23,8 @@
   --input: 240 3.7% 15.9%;
   --ring: 240 4.9% 83.9%;
   --radius: 0.5rem;
+  --neon-cyan: #00faff;
+  --electric-pink: #ff007a;
 }
 
 @layer base {
@@ -220,6 +222,15 @@
 
   .gradient-button:hover::before {
     left: 100%;
+  }
+
+  .gradient-button:focus {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px rgba(0, 250, 255, 0.3), 0 4px 15px rgba(255, 0, 122, 0.2);
+  }
+
+  .gradient-button:active {
+    transform: translateY(0px);
   }
 
   .fade-in-sequence {
@@ -676,6 +687,72 @@
 
   .duration-150 {
     animation-duration: 150ms;
+  }
+
+  /* Added sinopsis panel styles with improved visual hierarchy */
+  .sinopsis-panel {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: clamp(16px, 3vw, 28px);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-radius: 12px;
+    backdrop-filter: blur(2px);
+    background: linear-gradient(180deg, rgba(0, 10, 15, 0.6), rgba(0, 0, 0, 0.8));
+    text-align: center;
+    box-shadow: 0 0 18px rgba(0, 255, 255, 0.12);
+  }
+
+  .sinopsis-title {
+    color: var(--neon-cyan);
+    font-size: clamp(28px, 3vw + 8px, 40px);
+    text-shadow: 0 0 18px rgba(0, 255, 255, 0.12);
+    margin-bottom: 1.5rem;
+    font-family: var(--font-orbitron);
+    font-weight: 600;
+  }
+
+  .sinopsis-content p {
+    font-size: clamp(16px, 1.2vw + 12px, 18px);
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.84);
+    margin: 0 0 1.6rem 0;
+    max-width: 72ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .sinopsis-content p:last-of-type {
+    margin-bottom: 2rem;
+  }
+
+  .sinopsis-meta {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+  }
+
+  .chip {
+    border: 1px solid rgba(255, 0, 128, 0.5);
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    color: rgba(255, 255, 255, 0.9);
+    font-family: var(--font-space-mono);
+  }
+
+  .magenta {
+    color: var(--electric-pink);
+  }
+
+  .cyan {
+    color: var(--neon-cyan);
+  }
+
+  .italic {
+    font-style: italic;
   }
 }
 

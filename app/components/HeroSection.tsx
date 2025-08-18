@@ -404,7 +404,7 @@ export default function HeroSection() {
                     <div className="relative group">
                       <div className="absolute -inset-2 bg-gradient-to-r from-neon-cyan/20 to-electric-pink/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg"></div>
                       <div className="relative">
-                        {/* UMBRAL Flip Container */}
+                        {/* New umbral-flip-stage structure */}
                         <div className={`umbral-flip-stage ${showBackCover ? "isBack" : ""}`}>
                           {/* Front Face - Portada */}
                           <figure className="umbral-flip-card front">

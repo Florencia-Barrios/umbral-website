@@ -1,19 +1,36 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { ChevronDown, ChevronUp, FileText, Eye } from "lucide-react"
+import { ChevronDown, ChevronUp } from "lucide-react"
 
 export default function SynopsisSection() {
   const [isExpanded, setIsExpanded] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
 
-  // Text constants - no typewriter effect
-  const previewText =
-    "En una Buenos Aires hiperconectada y cada vez más desconfiada, un grupo de amigos transforma una vieja galería en un espacio inmersivo llamado Umbral. Lo que empieza como una propuesta artística y comercial, pronto se convierte en algo mucho más inquietante. Sin saberlo, activan un sistema que no solo observa, sino que predice emociones, manipula decisiones y reescribe recuerdos..."
+  const previewText = (
+    <>
+      John Johnson despierta en un vacío absoluto: sin luz, sin sonido, sin certezas. Apenas quedan fragmentos de lo que
+      parece haber sido una vida… y una pregunta que no lo suelta:{" "}
+      <span className="magenta italic">¿cómo carajo llegó acá?</span>
+    </>
+  )
 
-  const fullText =
-    "En una Buenos Aires hiperconectada y cada vez más desconfiada, un grupo de amigos transforma una vieja galería en un espacio inmersivo llamado Umbral. Lo que empieza como una propuesta artística y comercial, pronto se convierte en algo mucho más inquietante. Sin saberlo, activan un sistema que no solo observa, sino que predice emociones, manipula decisiones y reescribe recuerdos. Las líneas entre el yo real y el yo inducido comienzan a desdibujarse. Escrita con ritmo cinematográfico y lenguaje visceral, UMBRAL mezcla tecnología, paranoia, afecto e identidad. ¿Y si lo que sentís no es realmente tuyo?"
+  const fullText = (
+    <>
+      <p>
+        John Johnson despierta en un vacío absoluto: sin luz, sin sonido, sin certezas. Apenas quedan fragmentos de lo
+        que parece haber sido una vida… y una pregunta que no lo suelta:{" "}
+        <span className="magenta italic">¿cómo carajo llegó acá?</span>
+      </p>
+
+      <p>
+        En un mundo donde la tecnología observa, sugiere… y tal vez decide, la búsqueda de quién sos se vuelve un
+        laberinto. <span className="cyan italic">Umbral</span> es un thriller psicológico sobre identidad, memoria y lo
+        que pasa cuando lo humano y lo artificial empiezan a hablar el mismo lenguaje.
+      </p>
+    </>
+  )
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -37,35 +54,20 @@ export default function SynopsisSection() {
       <div className="container mx-auto max-w-4xl">
         {isVisible && (
           <div className="fade-in-sequence">
-            <div className="system-panel p-6 sm:p-8 hologram-effect">
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 lg:mb-8 gap-4">
-                <div className="flex items-center space-x-3">
-                  <FileText size={20} className="text-neon-cyan flex-shrink-0" />
-                  <span className="text-lg sm:text-xl font-orbitron text-neon-cyan">SINOPSIS_SISTEMA</span>
-                </div>
-                <div className="flex items-center space-x-2 text-xs font-space-mono">
-                  <Eye size={14} className="text-electric-pink" />
-                  <span className="text-electric-pink">NIVEL_ACCESO: PÚBLICO</span>
-                </div>
-              </div>
+            <section className="sinopsis-panel" id="sinopsis">
+              <h2 className="sinopsis-title">SINOPSIS</h2>
 
-              <div className="system-panel p-4 sm:p-6 mb-6 lg:mb-8 bg-void/30 border-neon-cyan/10">
-                <div className="flex items-center mb-4 text-xs font-space-mono text-neon-cyan">
-                  <span className="mr-2">{">"}</span>
-                  <span>cat descripcion_experiencia.txt</span>
-                </div>
+              <div className="sinopsis-content">{isExpanded ? fullText : <p>{previewText}</p>}</div>
 
-                {/* Static text container - no typewriter effect */}
-                <div className="text-ghost leading-relaxed text-base sm:text-lg">
-                  <p style={{ wordWrap: "break-word", overflowWrap: "break-word", hyphens: "auto" }}>
-                    {isExpanded ? fullText : previewText}
-                  </p>
-                </div>
+              <div className="sinopsis-meta">
+                <span className="chip">Thriller psicológico</span>
+                <span className="chip">280 páginas</span>
+                <span className="chip">2024</span>
               </div>
 
               <button
                 onClick={() => setIsExpanded(!isExpanded)}
-                className="flex items-center space-x-3 text-neon-cyan hover:text-electric-pink transition-colors duration-300 font-space-mono text-sm group"
+                className="flex items-center space-x-3 text-neon-cyan hover:text-electric-pink transition-colors duration-300 font-space-mono text-sm group mt-6"
               >
                 <span>{">"}</span>
                 {isExpanded ? (
@@ -80,7 +82,7 @@ export default function SynopsisSection() {
                   </>
                 )}
               </button>
-            </div>
+            </section>
           </div>
         )}
       </div>
