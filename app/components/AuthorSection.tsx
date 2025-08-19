@@ -9,39 +9,39 @@ export default function AuthorSection() {
         <section className="umbral-panel">
           <h2 className="sinopsis-title">AUTOR</h2>
 
-          <p className="mt-[14px] text-center text-lg italic text-white/90 font-light">
+          <p className="mt-[14px] text-center text-lg italic text-white/90 font-light max-w-prose mx-auto">
             "No soy escritor. Soy desarrollador. Esta es mi primera novela."
           </p>
 
-          <div className="mt-5 space-y-2 sm:space-y-3 text-center">
-            <div className="author-console-line">
-              <span className="author-console-label">autor</span>
-              <span className="author-console-arrow"> → </span>
-              <span className="author-console-value">Federico Daniel Ara</span>
+          <div className="mt-5 author-info-grid">
+            <div className="author-info-row">
+              <span className="author-info-label">autor</span>
+              <span className="author-info-arrow">→</span>
+              <span className="author-info-value">Federico Daniel Ara</span>
             </div>
-            <div className="author-console-line">
-              <span className="author-console-label">origen</span>
-              <span className="author-console-arrow"> → </span>
-              <span className="author-console-value">Argentina (residencia en España)</span>
+            <div className="author-info-row">
+              <span className="author-info-label">origen</span>
+              <span className="author-info-arrow">→</span>
+              <span className="author-info-value">Argentina (residencia en España)</span>
             </div>
-            <div className="author-console-line">
-              <span className="author-console-label">background</span>
-              <span className="author-console-arrow"> → </span>
-              <span className="author-console-value">desarrollo tecnológico</span>
+            <div className="author-info-row">
+              <span className="author-info-label">background</span>
+              <span className="author-info-arrow">→</span>
+              <span className="author-info-value">desarrollo tecnológico</span>
             </div>
-            <div className="author-console-line">
-              <span className="author-console-label">inspiración</span>
-              <span className="author-console-arrow"> → </span>
-              <span className="author-console-value">la intersección entre mente y máquinas</span>
+            <div className="author-info-row">
+              <span className="author-info-label">inspiración</span>
+              <span className="author-info-arrow">→</span>
+              <span className="author-info-value">la intersección entre mente y máquinas</span>
             </div>
-            <div className="author-console-line">
-              <span className="author-console-label">primera_obra</span>
-              <span className="author-console-arrow"> → </span>
-              <span className="author-console-value">UMBRAL (2025)</span>
+            <div className="author-info-row">
+              <span className="author-info-label">primera_obra</span>
+              <span className="author-info-arrow">→</span>
+              <span className="author-info-value">UMBRAL (2025)</span>
             </div>
           </div>
 
-          <div className="mt-5 space-y-4 text-[1.05rem] leading-relaxed text-white/85 max-w-prose mx-auto">
+          <div className="mt-5 space-y-3 text-[1.05rem] leading-[1.65] text-white/85 max-w-[60ch] text-left">
             <p>Federico es un autor argentino con residencia en España.</p>
             <p>
               Su obra <span className="italic">Umbral</span> indaga en cómo la tecnología se incrusta en la vida
@@ -58,7 +58,7 @@ export default function AuthorSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn del autor"
-                className="author-btn author-btn--cyan"
+                className="author-connection-btn author-connection-btn--linkedin"
               >
                 <Linkedin aria-hidden="true" className="h-5 w-5" />
                 <span>LinkedIn</span>
@@ -69,7 +69,7 @@ export default function AuthorSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub del autor"
-                className="author-btn author-btn--fucsia"
+                className="author-connection-btn author-connection-btn--github"
               >
                 <Github aria-hidden="true" className="h-5 w-5" />
                 <span>GitHub</span>

@@ -510,15 +510,99 @@
     font-size: 0.95rem;
   }
 
-  /* Responsive: apilan en mobile con buen tacto */
+  /* Author info grid layout */
+  .author-info-grid {
+    display: grid;
+    gap: 12px 14px;
+    grid-template-columns: 160px 24px minmax(0, 1fr);
+    text-align: left;
+    max-width: fit-content;
+  }
+
   @media (max-width: 640px) {
-    .author-btn {
-      width: 100%;
-      justify-content: center;
+    .author-info-grid {
+      gap: 10px 12px;
+      grid-template-columns: 128px 24px minmax(0, 1fr);
     }
   }
 
-  /* Image Viewer Modal - Final Responsive Styles */
+  .author-info-row {
+    display: contents;
+  }
+
+  .author-info-label {
+    font-weight: 600;
+    color: #00ffff;
+    white-space: nowrap;
+    text-align: left;
+  }
+
+  .author-info-arrow {
+    color: rgba(0, 255, 255, 0.6);
+    text-align: center;
+  }
+
+  .author-info-value {
+    color: rgba(255, 255, 255, 0.9);
+    text-align: left;
+    word-wrap: break-word;
+  }
+
+  /* New unified connection button styles */
+  .author-connection-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 16px;
+    height: 48px;
+    border-radius: 14px;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.04);
+    transition: background 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, transform 0.06s ease;
+    word-break: keep-all;
+    hyphens: none;
+  }
+
+  .author-connection-btn:hover {
+    background: rgba(255, 255, 255, 0.06);
+    transform: translateY(-1px);
+  }
+
+  .author-connection-btn:active {
+    transform: translateY(0);
+  }
+
+  .author-connection-btn--linkedin {
+    --btn-accent: rgba(0, 255, 255, 0.55);
+    border: 1px solid rgba(0, 255, 255, 0.35);
+    color: rgba(0, 255, 255, 0.9);
+  }
+
+  .author-connection-btn--linkedin:hover {
+    box-shadow: 0 0 0 2px var(--btn-accent) inset, 0 0 24px var(--btn-accent);
+  }
+
+  .author-connection-btn--linkedin:focus-visible {
+    outline: 2px solid var(--btn-accent);
+    outline-offset: 2px;
+  }
+
+  .author-connection-btn--github {
+    --btn-accent: rgba(255, 0, 127, 0.55);
+    border: 1px solid rgba(255, 0, 127, 0.35);
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .author-connection-btn--github:hover {
+    box-shadow: 0 0 0 2px var(--btn-accent) inset, 0 0 24px var(--btn-accent);
+  }
+
+  .author-connection-btn--github:focus-visible {
+    outline: 2px solid var(--btn-accent);
+    outline-offset: 2px;
+  }
+
+  /* Responsive: apilan en mobile con buen tacto */
   @media (max-width: 767px) {
     /* Mobile: 12-14px padding, compact title */
     .image-viewer-modal .image-container {
