@@ -43,19 +43,16 @@ export default function PodcastSection() {
     >
       <div className="container mx-auto max-w-4xl">
         <div className="umbral-panel podcast-box">
-          {/* Header */}
           <div className="flex items-center mb-6 text-sm font-space-mono">
             <div className="w-3 h-3 bg-neon-cyan rounded-full mr-3 animate-pulse flex-shrink-0"></div>
-            <span className="text-neon-cyan">SISTEMA_PODCAST</span>
+            <span className="text-neon-cyan">STREAM_AUDIO</span>
           </div>
 
-          {/* Title */}
           <h2
             id="podcast_title"
             className="text-2xl sm:text-3xl lg:text-4xl font-orbitron font-bold text-neon-cyan mb-4 glow-text text-center"
           >
-            <span className="font-space-mono text-electric-pink mr-2">{">"}</span>
-            stream_iniciado: PODCAST_UMBRAL.exe
+            PODCAST
           </h2>
 
           {/* Intro */}

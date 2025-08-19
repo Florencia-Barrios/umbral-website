@@ -871,6 +871,67 @@
     transform: scale(1.05);
     box-shadow: 0 0 20px rgba(255, 0, 128, 0.6);
   }
+
+  /* base */
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 22px;
+    border-radius: 12px; /* mismo radio que paneles */
+    font-family: var(--font-space-mono);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    transition: all 180ms ease;
+    outline: none;
+    position: relative;
+    backdrop-filter: blur(2px);
+    text-decoration: none;
+  }
+
+  /* turquesa (Amazon) */
+  .btn-ghost-cyan {
+    color: rgba(0, 255, 255, 0.92);
+    border: 1px solid rgba(0, 255, 255, 0.45);
+    background: rgba(0, 20, 24, 0.18); /* translúcido */
+    box-shadow: 0 0 0 rgba(0, 255, 255, 0); /* sin glow inicial fuerte */
+  }
+  .btn-ghost-cyan:hover,
+  .btn-ghost-cyan:focus-visible {
+    background: rgba(0, 255, 255, 0.12);
+    box-shadow: 0 0 18px rgba(0, 255, 255, 0.35);
+    transform: translateY(-1px);
+  }
+
+  /* fucsia (Kindle) */
+  .btn-ghost-pink {
+    color: rgba(255, 0, 128, 0.95);
+    border: 1px solid rgba(255, 0, 128, 0.5);
+    background: rgba(32, 0, 20, 0.18);
+    box-shadow: 0 0 0 rgba(255, 0, 128, 0);
+  }
+  .btn-ghost-pink:hover,
+  .btn-ghost-pink:focus-visible {
+    background: rgba(255, 0, 128, 0.12);
+    box-shadow: 0 0 18px rgba(255, 0, 128, 0.35);
+    transform: translateY(-1px);
+  }
+
+  /* accesibilidad */
+  .btn-ghost:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.35);
+    outline-offset: 2px;
+  }
+
+  /* mobile: ocupar ancho cuando es necesario */
+  @media (max-width: 640px) {
+    .btn-ghost {
+      width: 100%;
+    }
+  }
 }
 
 @keyframes subtle-glitch {

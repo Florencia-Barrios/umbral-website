@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { ChevronRight, ExternalLink } from "lucide-react"
 
 export default function HowToReadSection() {
   const [isVisible, setIsVisible] = useState(false)
@@ -65,30 +64,26 @@ export default function HowToReadSection() {
               Podés leer <em className="text-electric-pink">Umbral</em> en formato Kindle desde cualquier dispositivo
               con la app Kindle, o pedirlo en versión impresa con envío internacional.
             </p>
-            <p className="text-sm sm:text-base text-ghost/90 font-inter leading-relaxed">
-              Seleccioná la opción que prefieras:
-            </p>
           </div>
 
           {/* Action Buttons */}
-          <div className="grid sm:grid-cols-2 gap-4 mb-8">
+          <div className="flex flex-wrap justify-center gap-4 mt-6">
+            {/* Amazon */}
             <a
               href="https://amazon.com/dp/B0DJJQX8VH"
               target="_blank"
               rel="noopener noreferrer"
-              className="neon-button-amazon text-void px-6 py-4 rounded-lg font-semibold text-sm transition-all duration-300 flex items-center justify-center space-x-2 group border border-transparent hover:scale-105 active:scale-95"
+              className="btn-ghost btn-ghost-cyan"
+              aria-label="Ir a Amazon"
             >
-              <ExternalLink size={18} className="flex-shrink-0" />
-              <span>IR A AMAZON</span>
-              <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform flex-shrink-0" />
+              ↗ IR A AMAZON
             </a>
 
+            {/* App Kindle */}
             <div className="relative group">
-              <button className="neon-button-kindle w-full text-void px-6 py-4 rounded-lg font-semibold text-sm transition-all duration-300 flex items-center justify-center space-x-2 border border-transparent hover:scale-105 active:scale-95">
-                <ExternalLink size={18} className="flex-shrink-0" />
-                <span>DESCARGAR APP KINDLE</span>
-                <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform flex-shrink-0" />
-              </button>
+              <a href="#descargar-app-kindle" className="btn-ghost btn-ghost-pink" aria-label="Descargar app Kindle">
+                ↗ DESCARGAR APP KINDLE
+              </a>
 
               {/* Dropdown for Kindle apps */}
               <div className="absolute top-full left-0 right-0 mt-2 bg-void/95 border border-neon-cyan/30 rounded-lg shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-10">
