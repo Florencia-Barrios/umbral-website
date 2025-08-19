@@ -620,7 +620,9 @@
 
   .cta-button-guide:hover {
     transform: translateY(-1px);
-    box-shadow: 0 8px 25px rgba(0, 250, 255, 0.3), 0 4px 15px rgba(255, 0, 122, 0.2);
+    border-color: rgba(0, 255, 255, 0.7);
+    box-shadow: 0 0 16px rgba(0, 255, 255, 0.25);
+    background: rgba(0, 30, 36, 0.55);
   }
 
   .cta-button-guide:hover::before {
@@ -811,166 +813,343 @@
     line-height: 1.5;
   }
 
-  /* Respect reduced motion for podcast secret message */
-  @media (prefers-reduced-motion: reduce) {
-    .podcast-secret {
-      transition: none;
-    }
+  .podcast-arrow {
+    color: rgba(0, 255, 255, 0.6);
+    margin: 0 4px;
   }
 
-  /* Creating reusable umbral-panel class matching SINOPSIS exactly */
-  .umbral-panel {
-    max-width: 760px;
-    margin: 0 auto;
-    padding: clamp(16px, 3vw, 28px);
-    border: 1px solid rgba(0, 255, 255, 0.3);
-    border-radius: 12px;
-    backdrop-filter: blur(2px);
-    background: linear-gradient(180deg, rgba(0, 10, 15, 0.6), rgba(0, 0, 0, 0.8));
+  .podcast-value {
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.95);
+  }
+
+  .podcast-bio {
+    margin-top: 20px;
+    margin-bottom: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
     text-align: center;
-    box-shadow: 0 0 18px rgba(0, 255, 255, 0.12);
   }
 
-  /* Adding neon button styles for CÓMO LEERLO section */
-  .neon-button-amazon {
-    background: var(--neon-cyan);
-    color: #000;
-    border: none;
-    border-radius: 8px;
-    padding: 12px 24px;
-    font-family: var(--font-space-mono);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
-    cursor: pointer;
+  .podcast-bio p {
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 40ch;
+    margin: 0 auto;
+    opacity: 0.94;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    hyphens: none;
   }
 
-  .neon-button-amazon:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
-  }
-
-  .neon-button-kindle {
-    background: var(--electric-pink);
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 12px 24px;
-    font-family: var(--font-space-mono);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 10px rgba(255, 0, 128, 0.3);
-    cursor: pointer;
-  }
-
-  .neon-button-kindle:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px rgba(255, 0, 128, 0.6);
-  }
-
-  /* base */
-  .btn-ghost {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 14px 22px;
-    border-radius: 12px; /* mismo radio que paneles */
-    font-family: var(--font-space-mono);
-    font-size: 0.95rem;
-    font-weight: 700;
+  .podcast-connections-header {
+    text-align: center;
+    font-family: var(--font-space-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+    font-size: 0.85rem;
+    color: rgba(0, 255, 255, 0.8);
+    margin-bottom: 16px;
     letter-spacing: 0.02em;
-    text-transform: uppercase;
-    transition: all 180ms ease;
-    outline: none;
-    position: relative;
-    backdrop-filter: blur(2px);
-    text-decoration: none;
   }
 
-  /* turquesa (Amazon) */
-  .btn-ghost-cyan {
-    color: rgba(0, 255, 255, 0.92);
-    border: 1px solid rgba(0, 255, 255, 0.45);
-    background: rgba(0, 20, 24, 0.18); /* translúcido */
-    box-shadow: 0 0 0 rgba(0, 255, 255, 0); /* sin glow inicial fuerte */
-  }
-  .btn-ghost-cyan:hover,
-  .btn-ghost-cyan:focus-visible {
-    background: rgba(0, 255, 255, 0.12);
-    box-shadow: 0 0 18px rgba(0, 255, 255, 0.35);
-    transform: translateY(-1px);
+  .podcast-connections {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
   }
 
-  /* fucsia (Kindle) */
-  .btn-ghost-pink {
-    color: rgba(255, 0, 128, 0.95);
-    border: 1px solid rgba(255, 0, 128, 0.5);
-    background: rgba(32, 0, 20, 0.18);
-    box-shadow: 0 0 0 rgba(255, 0, 128, 0);
-  }
-  .btn-ghost-pink:hover,
-  .btn-ghost-pink:focus-visible {
-    background: rgba(255, 0, 128, 0.12);
-    box-shadow: 0 0 18px rgba(255, 0, 128, 0.35);
-    transform: translateY(-1px);
-  }
-
-  /* accesibilidad */
-  .btn-ghost:focus-visible {
-    outline: 2px solid rgba(255, 255, 255, 0.35);
-    outline-offset: 2px;
-  }
-
-  /* mobile: ocupar ancho cuando es necesario */
-  @media (max-width: 640px) {
-    .btn-ghost {
-      width: 100%;
-    }
-  }
-
-  /* Botones de conexiones del autor */
-  .author-link-btn {
+  .podcast-chip {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    padding: 12px 18px;
-    border-radius: 12px;
-    border: 1px solid rgba(0, 255, 255, 0.35);
-    background: rgba(0, 20, 24, 0.35); /* translúcido, como los otros */
+    height: 46px;
+    padding: 0 18px;
+    border-radius: 14px;
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    background: rgba(0, 255, 255, 0.06);
     color: rgba(255, 255, 255, 0.92);
     text-decoration: none;
-    font-family: var(--font-space-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
-    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, background 180ms ease;
+    font-size: 0.95rem;
+    transition: all 180ms ease;
+    position: relative;
+    overflow: hidden;
+    outline-offset: 2px;
+    width: 200px;
+    justify-content: center;
   }
 
-  .author-link-btn:hover {
+  .podcast-chip:focus-visible {
+    outline: 2px solid rgba(0, 255, 255, 0.6);
+  }
+
+  .podcast-chip:hover {
+    background: rgba(0, 255, 255, 0.08);
+    box-shadow: 0 0 12px rgba(0, 255, 255, 0.2);
     transform: translateY(-1px);
-    border-color: rgba(0, 255, 255, 0.7);
-    box-shadow: 0 0 16px rgba(0, 255, 255, 0.25);
-    background: rgba(0, 30, 36, 0.55);
   }
 
-  .author-link-btn--pink {
-    border-color: rgba(255, 0, 128, 0.35);
-    background: rgba(32, 0, 24, 0.35);
+  .podcast-chip:hover::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      60deg,
+      transparent 0%,
+      rgba(0, 255, 255, 0.18) 45%,
+      rgba(255, 255, 255, 0.28) 50%,
+      rgba(0, 255, 255, 0.18) 55%,
+      transparent 100%
+    );
+    background-size: 200% 120%;
+    animation: umbralShimmer 1200ms linear 1;
+    pointer-events: none;
+    mix-blend-mode: screen;
   }
 
-  .author-link-btn--pink:hover {
-    border-color: rgba(255, 0, 128, 0.75);
-    box-shadow: 0 0 16px rgba(255, 0, 128, 0.25);
-    background: rgba(48, 0, 36, 0.55);
+  .podcast-chip-github {
+    border-color: rgba(255, 0, 128, 0.3);
+    background: rgba(255, 0, 128, 0.06);
   }
 
-  /* Responsive: apilan en mobile con buen tacto */
-  @media (max-width: 640px) {
-    .author-link-btn {
-      width: 100%;
-      justify-content: center;
+  .podcast-chip-github:hover {
+    background: rgba(255, 0, 128, 0.08);
+    box-shadow: 0 0 12px rgba(255, 0, 128, 0.2);
+  }
+
+  .podcast-chip-github:hover::before {
+    background: linear-gradient(
+      60deg,
+      transparent 0%,
+      rgba(255, 0, 128, 0.18) 45%,
+      rgba(255, 255, 255, 0.28) 50%,
+      rgba(255, 0, 128, 0.18) 55%,
+      transparent 100%
+    );
+    background-size: 200% 120%;
+    animation: umbralShimmer 1200ms linear 1;
+  }
+
+  /* Disable hover animations for reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .podcast-chip:hover::before,
+    .podcast-chip-github:hover::before {
+      animation: none;
+      opacity: 0;
+    }
+  }
+
+  /* Mobile-optimized author section styles */
+  .author-panel-mobile {
+    max-width: min(92vw, 520px);
+    padding: 20px 24px;
+    border-radius: 16px;
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(0, 255, 255, 0.06);
+    box-shadow: 0 0 0 1px rgba(0, 255, 255, 0.06), 0 10px 30px rgba(0, 0, 0, 0.35);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Subtle shimmer overlay for mobile */
+  .author-panel-mobile::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      60deg,
+      transparent 0%,
+      rgba(0, 255, 255, 0.18) 45%,
+      rgba(255, 255, 255, 0.28) 50%,
+      rgba(0, 255, 255, 0.18) 55%,
+      transparent 100%
+    );
+    animation: umbralShimmer 2.8s linear infinite;
+    opacity: 1;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    will-change: transform;
+  }
+
+  /* Disable shimmer for reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .author-panel-mobile::before {
+      animation: none;
+      opacity: 0;
+    }
+  }
+
+  .author-title-mobile {
+    margin-bottom: 12px;
+    letter-spacing: 0.05em;
+  }
+
+  .author-quote-mobile {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    text-align: center;
+    font-style: italic;
+    opacity: 0.9;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .author-commands-mobile {
+    margin-top: 16px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .author-command-line {
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    hyphens: none;
+  }
+
+  .author-prompt {
+    font-family: var(--font-space-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+    color: rgba(0, 255, 255, 0.8);
+    font-size: 0.9rem;
+  }
+
+  .author-arrow {
+    color: rgba(0, 255, 255, 0.6);
+    margin: 0 4px;
+  }
+
+  .author-value {
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.95);
+  }
+
+  .author-bio-mobile {
+    margin-top: 20px;
+    margin-bottom: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .author-bio-mobile p {
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 40ch;
+    margin: 0 auto;
+    opacity: 0.94;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    hyphens: none;
+  }
+
+  .author-connections-header {
+    text-align: center;
+    font-family: var(--font-space-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+    font-size: 0.85rem;
+    color: rgba(0, 255, 255, 0.8);
+    margin-bottom: 16px;
+    letter-spacing: 0.02em;
+  }
+
+  .author-connections-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .author-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    height: 46px;
+    padding: 0 18px;
+    border-radius: 14px;
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    background: rgba(0, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.92);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: all 180ms ease;
+    position: relative;
+    overflow: hidden;
+    outline-offset: 2px;
+    width: 200px;
+    justify-content: center;
+  }
+
+  .author-chip:focus-visible {
+    outline: 2px solid rgba(0, 255, 255, 0.6);
+  }
+
+  .author-chip:hover {
+    background: rgba(0, 255, 255, 0.08);
+    box-shadow: 0 0 12px rgba(0, 255, 255, 0.2);
+    transform: translateY(-1px);
+  }
+
+  .author-chip:hover::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      60deg,
+      transparent 0%,
+      rgba(0, 255, 255, 0.18) 45%,
+      rgba(255, 255, 255, 0.28) 50%,
+      rgba(0, 255, 255, 0.18) 55%,
+      transparent 100%
+    );
+    background-size: 200% 120%;
+    animation: umbralShimmer 1200ms linear 1;
+    pointer-events: none;
+    mix-blend-mode: screen;
+  }
+
+  .author-chip-github {
+    border-color: rgba(255, 0, 128, 0.3);
+    background: rgba(255, 0, 128, 0.06);
+  }
+
+  .author-chip-github:hover {
+    background: rgba(255, 0, 128, 0.08);
+    box-shadow: 0 0 12px rgba(255, 0, 128, 0.2);
+  }
+
+  .author-chip-github:hover::before {
+    background: linear-gradient(
+      60deg,
+      transparent 0%,
+      rgba(255, 0, 128, 0.18) 45%,
+      rgba(255, 255, 255, 0.28) 50%,
+      rgba(255, 0, 128, 0.18) 55%,
+      transparent 100%
+    );
+    background-size: 200% 120%;
+    animation: umbralShimmer 1200ms linear 1;
+  }
+
+  /* Disable hover animations for reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .author-chip:hover::before,
+    .author-chip-github:hover::before {
+      animation: none;
+      opacity: 0;
     }
   }
 }
@@ -1146,5 +1325,14 @@
   40% {
     opacity: 0.5;
     transform: translateX(1px) scaleY(0.95);
+  }
+}
+
+@keyframes umbralShimmer {
+  0% {
+    transform: translateX(-150%);
+  }
+  100% {
+    transform: translateX(150%);
   }
 }
