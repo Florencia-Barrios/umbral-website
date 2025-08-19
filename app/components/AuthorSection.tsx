@@ -69,7 +69,7 @@ export default function AuthorSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub del autor"
-                className="author-btn author-btn--violet"
+                className="author-btn author-btn--fucsia"
               >
                 <Github aria-hidden="true" className="h-5 w-5" />
                 <span>GitHub</span>

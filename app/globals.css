@@ -461,6 +461,23 @@
     box-shadow: 0 0 16px rgba(138, 43, 226, 0.25);
   }
 
+  /* Adding fucsia chip-style button for GitHub */
+  .author-btn--fucsia {
+    border: 1px solid #ff007f;
+    background: rgba(255, 255, 255, 0.04);
+    color: #fff;
+  }
+
+  .author-btn--fucsia:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: #ff007f;
+  }
+
+  .author-btn--fucsia:focus-visible {
+    outline: 2px solid rgba(255, 0, 127, 0.6);
+    outline-offset: 2px;
+  }
+
   /* Estilos para las líneas de consola del autor */
   .author-console-line {
     text-align: center;
