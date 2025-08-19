@@ -359,42 +359,145 @@
     object-fit: contain;
   }
 
-  /* Fallback accesible */
-  @media (prefers-reduced-motion: reduce) {
-    .umbral-flip-stage {
-      transition: none;
-      transform: none !important;
-    }
-    .umbral-flip-card.front,
-    .umbral-flip-card.back {
-      transform: none !important;
-      transition: opacity 0.32s ease;
-    }
-    .umbral-flip-stage:not(.isBack) .back {
-      opacity: 0;
-    }
-    .umbral-flip-stage.isBack .front {
-      opacity: 0;
+  /* Accessibility fallback for reduced transparency */
+  @media (prefers-reduced-transparency: reduce) {
+    .umbralPanel {
+      background: #0b1219;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
     }
   }
 
-  /* Reduced motion fallback */
+  /* Podcast-specific styles for UX improvements */
+  .podcast-secret {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+
+  .podcast-box:hover .podcast-secret,
+  .podcast-box:focus-within .podcast-secret {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .podcast-text {
+    text-wrap: balance;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    font-size: clamp(0.9rem, 2vw, 1.2rem);
+    line-height: 1.5;
+  }
+
+  /* Respect reduced motion for podcast secret message */
   @media (prefers-reduced-motion: reduce) {
-    .book-3d-inner {
-      transition: opacity 400ms ease-in-out;
-      transform: none !important;
+    .podcast-secret {
+      transition: none;
     }
+  }
 
-    .book-3d-inner.is-flipped .book-front {
-      opacity: 0;
+  /* Creating reusable umbral-panel class matching SINOPSIS exactly */
+  .umbral-panel {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: clamp(16px, 3vw, 28px);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-radius: 12px;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    background: linear-gradient(180deg, rgba(0, 10, 15, 0.6), rgba(0, 0, 0, 0.8));
+    text-align: center;
+    box-shadow: 0 0 18px rgba(0, 255, 255, 0.12);
+  }
+
+  /* Panel separators */
+  .umbralPanel hr {
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    margin: 16px 0;
+  }
+
+  /* Botones de conexiones del autor */
+  .author-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 18px;
+    height: 46px;
+    border-radius: 14px;
+    text-decoration: none;
+    font-family: var(--font-space-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+    transition: background-color 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+    word-break: keep-all;
+    hyphens: none;
+  }
+
+  .author-btn:focus-visible {
+    outline: 2px solid rgba(0, 255, 255, 0.6);
+    outline-offset: 2px;
+  }
+
+  .author-btn--cyan {
+    border: 1px solid rgba(0, 255, 255, 0.35);
+    background: rgba(0, 20, 24, 0.35);
+    color: rgba(255, 255, 255, 0.92);
+  }
+
+  .author-btn--cyan:hover {
+    background: rgba(0, 30, 36, 0.55);
+    border-color: rgba(0, 255, 255, 0.7);
+    box-shadow: 0 0 16px rgba(0, 255, 255, 0.25);
+  }
+
+  .author-btn--violet {
+    border: 1px solid rgba(138, 43, 226, 0.35);
+    background: rgba(32, 0, 24, 0.35);
+    color: rgba(255, 255, 255, 0.92);
+  }
+
+  .author-btn--violet:hover {
+    background: rgba(48, 0, 36, 0.55);
+    border-color: rgba(138, 43, 226, 0.75);
+    box-shadow: 0 0 16px rgba(138, 43, 226, 0.25);
+  }
+
+  /* Estilos para las líneas de consola del autor */
+  .author-console-line {
+    text-align: center;
+    margin: 8px 0;
+    word-break: keep-all;
+    hyphens: none;
+    overflow-wrap: anywhere;
+  }
+
+  @media (min-width: 640px) {
+    .author-console-line {
+      margin: 12px 0;
     }
+  }
 
-    .book-3d-inner:not(.is-flipped) .book-back {
-      opacity: 0;
-    }
+  .author-console-label {
+    font-family: var(--font-space-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+    color: #00ffff;
+    font-size: 0.95rem;
+  }
 
-    .book-back {
-      transform: none;
+  .author-console-arrow {
+    color: rgba(0, 255, 255, 0.6);
+    font-family: var(--font-space-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  }
+
+  .author-console-value {
+    color: rgba(255, 255, 255, 0.9);
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+  }
+
+  /* Responsive: apilan en mobile con buen tacto */
+  @media (max-width: 640px) {
+    .author-btn {
+      width: 100%;
+      justify-content: center;
     }
   }
 
@@ -620,9 +723,7 @@
 
   .cta-button-guide:hover {
     transform: translateY(-1px);
-    border-color: rgba(0, 255, 255, 0.7);
-    box-shadow: 0 0 16px rgba(0, 255, 255, 0.25);
-    background: rgba(0, 30, 36, 0.55);
+    box-shadow: 0 8px 25px rgba(0, 250, 255, 0.3), 0 4px 15px rgba(255, 0, 122, 0.2);
   }
 
   .cta-button-guide:hover::before {
@@ -657,43 +758,6 @@
 
   .cta-button-podcast:active {
     transform: translateY(0px);
-  }
-
-  /* Image viewer modal animations */
-  @keyframes fade-in-0 {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes zoom-in-95 {
-    from {
-      transform: scale(0.95);
-    }
-    to {
-      transform: scale(1);
-    }
-  }
-
-  .animate-in {
-    animation-duration: 150ms;
-    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    animation-fill-mode: both;
-  }
-
-  .fade-in-0 {
-    animation-name: fade-in-0;
-  }
-
-  .zoom-in-95 {
-    animation-name: zoom-in-95;
-  }
-
-  .duration-150 {
-    animation-duration: 150ms;
   }
 
   /* Added sinopsis panel styles with improved visual hierarchy */
@@ -760,397 +824,6 @@
 
   .italic {
     font-style: italic;
-  }
-
-  /* Reusable panel class matching SINOPSIS exactly */
-  .umbralPanel {
-    background: var(--panel-bg);
-    border: 1px solid var(--panel-border);
-    border-radius: var(--panel-radius);
-    box-shadow: var(--panel-shadow);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    padding: clamp(16px, 2.5vw, 28px);
-    max-width: 960px;
-    margin-inline: auto;
-    margin-block: clamp(20px, 4vw, 40px);
-  }
-
-  /* Panel separators */
-  .umbralPanel hr {
-    border: 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-    margin: 16px 0;
-  }
-
-  /* Accessibility fallback for reduced transparency */
-  @media (prefers-reduced-transparency: reduce) {
-    .umbralPanel {
-      background: #0b1219;
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
-    }
-  }
-
-  /* Podcast-specific styles for UX improvements */
-  .podcast-secret {
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    pointer-events: none;
-  }
-
-  .podcast-box:hover .podcast-secret,
-  .podcast-box:focus-within .podcast-secret {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .podcast-text {
-    text-wrap: balance;
-    overflow-wrap: break-word;
-    hyphens: auto;
-    font-size: clamp(0.9rem, 2vw, 1.2rem);
-    line-height: 1.5;
-  }
-
-  .podcast-arrow {
-    color: rgba(0, 255, 255, 0.6);
-    margin: 0 4px;
-  }
-
-  .podcast-value {
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.95);
-  }
-
-  .podcast-bio {
-    margin-top: 20px;
-    margin-bottom: 22px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    text-align: center;
-  }
-
-  .podcast-bio p {
-    font-size: 15px;
-    line-height: 1.6;
-    max-width: 40ch;
-    margin: 0 auto;
-    opacity: 0.94;
-    word-break: keep-all;
-    overflow-wrap: anywhere;
-    hyphens: none;
-  }
-
-  .podcast-connections-header {
-    text-align: center;
-    font-family: var(--font-space-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
-    font-size: 0.85rem;
-    color: rgba(0, 255, 255, 0.8);
-    margin-bottom: 16px;
-    letter-spacing: 0.02em;
-  }
-
-  .podcast-connections {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    align-items: center;
-  }
-
-  .podcast-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    height: 46px;
-    padding: 0 18px;
-    border-radius: 14px;
-    border: 1px solid rgba(0, 255, 255, 0.3);
-    background: rgba(0, 255, 255, 0.06);
-    color: rgba(255, 255, 255, 0.92);
-    text-decoration: none;
-    font-size: 0.95rem;
-    transition: all 180ms ease;
-    position: relative;
-    overflow: hidden;
-    outline-offset: 2px;
-    width: 200px;
-    justify-content: center;
-  }
-
-  .podcast-chip:focus-visible {
-    outline: 2px solid rgba(0, 255, 255, 0.6);
-  }
-
-  .podcast-chip:hover {
-    background: rgba(0, 255, 255, 0.08);
-    box-shadow: 0 0 12px rgba(0, 255, 255, 0.2);
-    transform: translateY(-1px);
-  }
-
-  .podcast-chip:hover::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-      60deg,
-      transparent 0%,
-      rgba(0, 255, 255, 0.18) 45%,
-      rgba(255, 255, 255, 0.28) 50%,
-      rgba(0, 255, 255, 0.18) 55%,
-      transparent 100%
-    );
-    background-size: 200% 120%;
-    animation: umbralShimmer 1200ms linear 1;
-    pointer-events: none;
-    mix-blend-mode: screen;
-  }
-
-  .podcast-chip-github {
-    border-color: rgba(255, 0, 128, 0.3);
-    background: rgba(255, 0, 128, 0.06);
-  }
-
-  .podcast-chip-github:hover {
-    background: rgba(255, 0, 128, 0.08);
-    box-shadow: 0 0 12px rgba(255, 0, 128, 0.2);
-  }
-
-  .podcast-chip-github:hover::before {
-    background: linear-gradient(
-      60deg,
-      transparent 0%,
-      rgba(255, 0, 128, 0.18) 45%,
-      rgba(255, 255, 255, 0.28) 50%,
-      rgba(255, 0, 128, 0.18) 55%,
-      transparent 100%
-    );
-    background-size: 200% 120%;
-    animation: umbralShimmer 1200ms linear 1;
-  }
-
-  /* Disable hover animations for reduced motion */
-  @media (prefers-reduced-motion: reduce) {
-    .podcast-chip:hover::before,
-    .podcast-chip-github:hover::before {
-      animation: none;
-      opacity: 0;
-    }
-  }
-
-  /* Mobile-optimized author section styles */
-  .author-panel-mobile {
-    max-width: min(92vw, 520px);
-    padding: 20px 24px;
-    border-radius: 16px;
-    backdrop-filter: blur(6px);
-    border: 1px solid rgba(0, 255, 255, 0.06);
-    box-shadow: 0 0 0 1px rgba(0, 255, 255, 0.06), 0 10px 30px rgba(0, 0, 0, 0.35);
-    position: relative;
-    overflow: hidden;
-  }
-
-  /* Subtle shimmer overlay for mobile */
-  .author-panel-mobile::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-      60deg,
-      transparent 0%,
-      rgba(0, 255, 255, 0.18) 45%,
-      rgba(255, 255, 255, 0.28) 50%,
-      rgba(0, 255, 255, 0.18) 55%,
-      transparent 100%
-    );
-    animation: umbralShimmer 2.8s linear infinite;
-    opacity: 1;
-    pointer-events: none;
-    mix-blend-mode: screen;
-    will-change: transform;
-  }
-
-  /* Disable shimmer for reduced motion */
-  @media (prefers-reduced-motion: reduce) {
-    .author-panel-mobile::before {
-      animation: none;
-      opacity: 0;
-    }
-  }
-
-  .author-title-mobile {
-    margin-bottom: 12px;
-    letter-spacing: 0.05em;
-  }
-
-  .author-quote-mobile {
-    margin-top: 16px;
-    margin-bottom: 16px;
-    text-align: center;
-    font-style: italic;
-    opacity: 0.9;
-    font-size: 1.1rem;
-    line-height: 1.5;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .author-commands-mobile {
-    margin-top: 16px;
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .author-command-line {
-    word-break: keep-all;
-    overflow-wrap: anywhere;
-    hyphens: none;
-  }
-
-  .author-prompt {
-    font-family: var(--font-space-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
-    color: rgba(0, 255, 255, 0.8);
-    font-size: 0.9rem;
-  }
-
-  .author-arrow {
-    color: rgba(0, 255, 255, 0.6);
-    margin: 0 4px;
-  }
-
-  .author-value {
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.95);
-  }
-
-  .author-bio-mobile {
-    margin-top: 20px;
-    margin-bottom: 22px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    text-align: center;
-  }
-
-  .author-bio-mobile p {
-    font-size: 15px;
-    line-height: 1.6;
-    max-width: 40ch;
-    margin: 0 auto;
-    opacity: 0.94;
-    word-break: keep-all;
-    overflow-wrap: anywhere;
-    hyphens: none;
-  }
-
-  .author-connections-header {
-    text-align: center;
-    font-family: var(--font-space-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
-    font-size: 0.85rem;
-    color: rgba(0, 255, 255, 0.8);
-    margin-bottom: 16px;
-    letter-spacing: 0.02em;
-  }
-
-  .author-connections-mobile {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    align-items: center;
-  }
-
-  .author-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    height: 46px;
-    padding: 0 18px;
-    border-radius: 14px;
-    border: 1px solid rgba(0, 255, 255, 0.3);
-    background: rgba(0, 255, 255, 0.06);
-    color: rgba(255, 255, 255, 0.92);
-    text-decoration: none;
-    font-size: 0.95rem;
-    transition: all 180ms ease;
-    position: relative;
-    overflow: hidden;
-    outline-offset: 2px;
-    width: 200px;
-    justify-content: center;
-  }
-
-  .author-chip:focus-visible {
-    outline: 2px solid rgba(0, 255, 255, 0.6);
-  }
-
-  .author-chip:hover {
-    background: rgba(0, 255, 255, 0.08);
-    box-shadow: 0 0 12px rgba(0, 255, 255, 0.2);
-    transform: translateY(-1px);
-  }
-
-  .author-chip:hover::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-      60deg,
-      transparent 0%,
-      rgba(0, 255, 255, 0.18) 45%,
-      rgba(255, 255, 255, 0.28) 50%,
-      rgba(0, 255, 255, 0.18) 55%,
-      transparent 100%
-    );
-    background-size: 200% 120%;
-    animation: umbralShimmer 1200ms linear 1;
-    pointer-events: none;
-    mix-blend-mode: screen;
-  }
-
-  .author-chip-github {
-    border-color: rgba(255, 0, 128, 0.3);
-    background: rgba(255, 0, 128, 0.06);
-  }
-
-  .author-chip-github:hover {
-    background: rgba(255, 0, 128, 0.08);
-    box-shadow: 0 0 12px rgba(255, 0, 128, 0.2);
-  }
-
-  .author-chip-github:hover::before {
-    background: linear-gradient(
-      60deg,
-      transparent 0%,
-      rgba(255, 0, 128, 0.18) 45%,
-      rgba(255, 255, 255, 0.28) 50%,
-      rgba(255, 0, 128, 0.18) 55%,
-      transparent 100%
-    );
-    background-size: 200% 120%;
-    animation: umbralShimmer 1200ms linear 1;
-  }
-
-  /* Disable hover animations for reduced motion */
-  @media (prefers-reduced-motion: reduce) {
-    .author-chip:hover::before,
-    .author-chip-github:hover::before {
-      animation: none;
-      opacity: 0;
-    }
   }
 }
 
@@ -1325,14 +998,5 @@
   40% {
     opacity: 0.5;
     transform: translateX(1px) scaleY(0.95);
-  }
-}
-
-@keyframes umbralShimmer {
-  0% {
-    transform: translateX(-150%);
-  }
-  100% {
-    transform: translateX(150%);
   }
 }
