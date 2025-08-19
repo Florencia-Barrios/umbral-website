@@ -6,38 +6,42 @@ export default function AuthorSection() {
   return (
     <section id="autor" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 relative">
       <div className="container mx-auto max-w-4xl">
-        <section className="sinopsis-panel">
-          {" "}
-          {/* Using same panel style as SINOPSIS */}
-          {/* Encabezado */}
+        <section className="umbral-panel">
           <h2 className="sinopsis-title">AUTOR</h2>
-          {/* Ficha técnica */}
-          <div className="space-y-2 font-mono text-[0.95rem] leading-relaxed text-cyan-200/90">
+
+          <p className="mt-4 text-center text-lg italic text-white/90 font-light">
+            "No soy escritor. Soy desarrollador. Esta es mi primera novela."
+          </p>
+
+          <div className="mt-8 space-y-2 font-mono text-[0.95rem] leading-relaxed text-cyan-200/90">
             <div>
-              &gt; autor: <span className="text-white/90">Federico Daniel Ara</span>
+              umbral@system/$ autor → <span className="text-white/90">Federico Daniel Ara</span>
             </div>
             <div>
-              &gt; origen: <span className="text-white/90">Argentina</span>
+              umbral@system/$ origen → <span className="text-white/90">Argentina (residencia en España)</span>
             </div>
             <div>
-              &gt; background: <span className="text-white/90">desarrollo tecnológico</span>
+              umbral@system/$ background → <span className="text-white/90">desarrollo tecnológico</span>
             </div>
             <div>
-              &gt; inspiración: <span className="text-white/90">la intersección entre mente y máquinas</span>
+              umbral@system/$ inspiración →{" "}
+              <span className="text-white/90">la intersección entre mente y máquinas</span>
             </div>
             <div>
-              &gt; primera obra: <span className="text-white/90">UMBRAL (2025)</span>
+              umbral@system/$ primera_obra → <span className="text-white/90">UMBRAL (2025)</span>
             </div>
           </div>
-          {/* Mini bio */}
-          <p className="mt-6 text-[1.05rem] leading-relaxed text-white/85 max-w-prose mx-auto">
-            Federico es un autor argentino con residencia en España. Su obra <span className="italic">Umbral</span>{" "}
-            indaga en cómo la tecnología se incrusta en la vida cotidiana, la mente y las emociones, explorando la
-            frontera entre lo humano y lo digital.
-          </p>
-          {/* Conexiones */}
+
+          <div className="mt-8 space-y-4 text-[1.05rem] leading-relaxed text-white/85 max-w-prose mx-auto">
+            <p>Federico es un autor argentino con residencia en España.</p>
+            <p>
+              Su obra <span className="italic">Umbral</span> indaga en cómo la tecnología se incrusta en la vida
+              cotidiana, la mente y las emociones, explorando la frontera entre lo humano y lo digital.
+            </p>
+          </div>
+
           <div className="mt-8">
-            <div className="text-center font-mono text-sm text-cyan-300/80 mb-4">&gt; conexiones_activas()</div>
+            <div className="text-center font-mono text-sm text-cyan-300/80 mb-4">Conexiones</div>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
               <a
