@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState, useEffect, useRef } from "react"
 import { ChevronDown, ChevronUp } from "lucide-react"
 
@@ -84,7 +83,7 @@ export default function SynopsisSection() {
               <button
                 onClick={handleToggleExpansion}
                 onKeyDown={handleKeyDown}
-                className="flex items-center space-x-3 text-neon-cyan hover:text-electric-pink transition-colors duration-300 font-space-mono text-sm group mt-6"
+                className="sinopsis-trigger"
                 aria-expanded={isExpanded}
                 aria-controls="sinopsis-detalle"
                 type="button"
@@ -92,12 +91,12 @@ export default function SynopsisSection() {
                 <span>{">"}</span>
                 {isExpanded ? (
                   <>
-                    <ChevronUp size={16} className="group-hover:-translate-y-1 transition-transform" />
+                    <ChevronUp size={16} className="transition-transform" />
                     <span>contraer_descripcion()</span>
                   </>
                 ) : (
                   <>
-                    <ChevronDown size={16} className="group-hover:translate-y-1 transition-transform" />
+                    <ChevronDown size={16} className="transition-transform" />
                     <span>expandir_descripcion()</span>
                   </>
                 )}

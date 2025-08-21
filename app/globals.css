@@ -732,25 +732,27 @@
   /* Adding expandable content styles for SINOPSIS and CÓMO LEERLO */
   .sinopsis-content {
     overflow: hidden;
-    transition: max-height 0.4s ease-out;
+    transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: left;
+    margin-bottom: 20px;
   }
 
   .sinopsis-content:not(.is-open) {
-    max-height: 200px;
+    max-height: 120px;
   }
 
   .sinopsis-content.is-open {
-    max-height: 1000px;
+    max-height: 800px;
   }
 
-  .detailed-guide {
-    overflow: hidden;
-    transition: max-height 0.4s ease-out;
-    max-height: 0;
+  .sinopsis-content p {
+    margin-bottom: 16px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
   }
 
-  .detailed-guide.is-open {
-    max-height: 2000px;
+  .sinopsis-content p:last-child {
+    margin-bottom: 0;
   }
 
   /* Adding how-to-read panel specific styles to prevent cutting */
@@ -769,6 +771,134 @@
       overflow-wrap: anywhere;
       hyphens: none;
     }
+  }
+
+  /* SINOPSIS section styles */
+  .sinopsis-panel {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: clamp(16px, 3vw, 28px);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-radius: 12px;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    background: linear-gradient(180deg, rgba(0, 10, 15, 0.6), rgba(0, 0, 0, 0.8));
+    text-align: center;
+    box-shadow: 0 0 18px rgba(0, 255, 255, 0.12);
+  }
+
+  .sinopsis-title {
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    font-weight: 700;
+    color: #00ffff;
+    margin-bottom: 24px;
+    font-family: var(--font-space-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* Adding proper chip styles with fucsia border and dark translucent background */
+  .chip {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid #ff007f;
+    border-radius: 10px;
+    padding: 6px 14px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin: 0 6px 8px 0;
+    transition: all 0.3s ease;
+    word-break: keep-all;
+    white-space: nowrap;
+  }
+
+  .chip:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: #ff007f;
+    box-shadow: 0 0 12px rgba(255, 0, 127, 0.2);
+  }
+
+  /* Responsive chip layout for mobile */
+  .sinopsis-meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin: 20px 0;
+  }
+
+  @media (max-width: 640px) {
+    .sinopsis-meta {
+      gap: 6px;
+    }
+
+    .chip {
+      margin: 0;
+      font-size: 0.8rem;
+      padding: 5px 12px;
+    }
+  }
+
+  /* Improved expand/collapse animation for both desktop and mobile */
+  .sinopsis-content {
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: left;
+    margin-bottom: 20px;
+  }
+
+  .sinopsis-content:not(.is-open) {
+    max-height: 120px;
+  }
+
+  .sinopsis-content.is-open {
+    max-height: 800px;
+  }
+
+  .sinopsis-content p {
+    margin-bottom: 16px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .sinopsis-content p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Console-style trigger button styling */
+  .sinopsis-trigger {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: none;
+    color: #00ffff;
+    font-family: var(--font-space-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 8px 0;
+    text-align: left;
+  }
+
+  .sinopsis-trigger:hover {
+    color: #ff007a;
+  }
+
+  .sinopsis-trigger:focus-visible {
+    outline: 2px solid rgba(0, 255, 255, 0.6);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Special styling for fucsia text and cyan text */
+  .magenta {
+    color: #ff007a;
+  }
+
+  .cyan {
+    color: #00ffff;
   }
 }
 
