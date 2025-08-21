@@ -1,5 +1,7 @@
 "use client"
 
+import type React from "react"
+
 import { useEffect, useState } from "react"
 import Image from "next/image"
 import { Download, Headphones, ChevronRight, Play, Maximize2, ChevronLeft, X } from "lucide-react"
@@ -171,7 +173,8 @@ export default function HeroSection() {
     setShowScanning(true)
   }
 
-  const handleSkipToContent = () => {
+  const handleSkipToContent = (e: React.MouseEvent) => {
+    e.stopPropagation()
     // Skip scanning and go directly to main content (portada section)
     document.body.style.overflow = "unset"
     setSystemReady(true)
@@ -300,11 +303,14 @@ export default function HeroSection() {
                       />
                     </button>
 
-                    {/* Skip Button - Rediseñado */}
+                    {/* Skip Button - Fixed to work properly on mobile and desktop */}
                     {showSkipButton && (
                       <button
                         onClick={handleSkipToContent}
-                        className="bg-transparent text-gray-400 px-4 py-2 rounded font-space-mono text-sm transition-colors duration-300 hover:text-neon-cyan cursor-pointer mx-auto block"
+                        type="button"
+                        className="bg-transparent text-gray-400 px-4 py-2 rounded font-space-mono text-sm transition-colors duration-300 hover:text-neon-cyan cursor-pointer mx-auto block focus:outline-none focus:ring-2 focus:ring-neon-cyan/50"
+                        aria-label="Ingresar sin iniciar protocolo (omitir escaneo)"
+                        style={{ pointerEvents: "auto" }}
                       >
                         Ingresar sin iniciar protocolo
                       </button>

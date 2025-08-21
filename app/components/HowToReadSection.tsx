@@ -1,5 +1,7 @@
 "use client"
 
+import type React from "react"
+
 import { useState, useEffect } from "react"
 
 export default function HowToReadSection() {
@@ -28,8 +30,16 @@ export default function HowToReadSection() {
     }
   }, [])
 
-  const toggleDetailedGuide = () => {
+  const handleToggleGuide = (e: React.MouseEvent | React.KeyboardEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
     setShowDetailedGuide(!showDetailedGuide)
+  }
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      handleToggleGuide(e)
+    }
   }
 
   return (
@@ -40,7 +50,7 @@ export default function HowToReadSection() {
       }`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
-        <div className="umbral-panel">
+        <div className="umbral-panel how-to-read-panel">
           {/* Header */}
           <div className="flex items-center mb-6 text-sm font-space-mono">
             <div className="w-3 h-3 bg-neon-cyan rounded-full mr-3 animate-pulse flex-shrink-0"></div>
@@ -66,60 +76,44 @@ export default function HowToReadSection() {
             </p>
           </div>
 
-          {/* Action Buttons */}
           <div className="flex flex-wrap justify-center gap-4 mt-6">
-            {/* Amazon */}
             <a
               href="https://amazon.com/dp/B0DJJQX8VH"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-ghost btn-ghost-cyan"
+              className="umbral-command-btn"
               aria-label="Ir a Amazon"
             >
-              ↗ IR A AMAZON
+              <span>IR A AMAZON</span>
             </a>
 
-            {/* App Kindle */}
-            <div className="relative group">
-              <a href="#descargar-app-kindle" className="btn-ghost btn-ghost-pink" aria-label="Descargar app Kindle">
-                ↗ DESCARGAR APP KINDLE
-              </a>
-
-              {/* Dropdown for Kindle apps */}
-              <div className="absolute top-full left-0 right-0 mt-2 bg-void/95 border border-neon-cyan/30 rounded-lg shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-10">
-                <a
-                  href="https://play.google.com/store/apps/details?id=com.amazon.kindle"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block px-4 py-3 text-sm text-ghost hover:text-neon-cyan hover:bg-neon-cyan/10 transition-colors duration-300 border-b border-neon-cyan/20"
-                >
-                  Google Play Store
-                </a>
-                <a
-                  href="https://apps.apple.com/app/amazon-kindle/id302584613"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block px-4 py-3 text-sm text-ghost hover:text-neon-cyan hover:bg-neon-cyan/10 transition-colors duration-300"
-                >
-                  Apple App Store
-                </a>
-              </div>
-            </div>
+            <a
+              href="https://play.google.com/store/apps/details?id=com.amazon.kindle"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="umbral-command-btn"
+              aria-label="Descargar app Kindle"
+            >
+              <span>DESCARGAR APP KINDLE</span>
+            </a>
           </div>
 
           {/* Console-style expandable guide */}
           <div className="border-t border-neon-cyan/20 pt-6">
             <button
-              onClick={toggleDetailedGuide}
+              onClick={handleToggleGuide}
+              onKeyDown={handleKeyDown}
               className="text-electric-pink hover:text-neon-cyan transition-colors duration-300 font-space-mono text-sm cursor-pointer group"
+              aria-expanded={showDetailedGuide}
+              aria-controls="guia-detalle"
+              type="button"
             >
               <span className="mr-2">{">"}</span>
               <span className="group-hover:underline">ver_guía_detallada()</span>
             </button>
 
-            {/* Expandable detailed guide */}
-            {showDetailedGuide && (
-              <div className="mt-6 system-panel p-4 sm:p-6 bg-void/50 border-neon-cyan/10 animate-in slide-in-from-top-2 duration-300">
+            <div id="guia-detalle" className={`detailed-guide ${showDetailedGuide ? "is-open" : ""}`}>
+              <div className="mt-6 system-panel p-4 sm:p-6 bg-void/50 border-neon-cyan/10">
                 <div className="font-space-mono text-xs sm:text-sm leading-relaxed text-ghost space-y-4 text-left">
                   <div>
                     <div className="text-electric-pink mb-3 font-semibold">Opción 1 – Versión Kindle</div>
@@ -187,7 +181,7 @@ export default function HowToReadSection() {
                   </div>
                 </div>
               </div>
-            )}
+            </div>
           </div>
         </div>
       </div>

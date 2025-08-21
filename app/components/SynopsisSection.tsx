@@ -1,5 +1,7 @@
 "use client"
 
+import type React from "react"
+
 import { useState, useEffect, useRef } from "react"
 import { ChevronDown, ChevronUp } from "lucide-react"
 
@@ -49,6 +51,18 @@ export default function SynopsisSection() {
     return () => observer.disconnect()
   }, [])
 
+  const handleToggleExpansion = (e: React.MouseEvent | React.KeyboardEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setIsExpanded(!isExpanded)
+  }
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      handleToggleExpansion(e)
+    }
+  }
+
   return (
     <section ref={sectionRef} className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 relative">
       <div className="container mx-auto max-w-4xl">
@@ -57,7 +71,9 @@ export default function SynopsisSection() {
             <section className="sinopsis-panel" id="sinopsis">
               <h2 className="sinopsis-title">SINOPSIS</h2>
 
-              <div className="sinopsis-content">{isExpanded ? fullText : <p>{previewText}</p>}</div>
+              <div className={`sinopsis-content ${isExpanded ? "is-open" : ""}`} id="sinopsis-detalle">
+                {isExpanded ? fullText : <p>{previewText}</p>}
+              </div>
 
               <div className="sinopsis-meta">
                 <span className="chip">Thriller psicológico</span>
@@ -66,8 +82,12 @@ export default function SynopsisSection() {
               </div>
 
               <button
-                onClick={() => setIsExpanded(!isExpanded)}
+                onClick={handleToggleExpansion}
+                onKeyDown={handleKeyDown}
                 className="flex items-center space-x-3 text-neon-cyan hover:text-electric-pink transition-colors duration-300 font-space-mono text-sm group mt-6"
+                aria-expanded={isExpanded}
+                aria-controls="sinopsis-detalle"
+                type="button"
               >
                 <span>{">"}</span>
                 {isExpanded ? (

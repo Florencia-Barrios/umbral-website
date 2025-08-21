@@ -511,423 +511,6 @@
   }
 
   /* Author info grid layout */
-  .author-info-grid {
-    display: grid;
-    gap: 12px 14px;
-    grid-template-columns: 160px 24px minmax(0, 1fr);
-    text-align: left;
-    max-width: fit-content;
-  }
-
-  @media (max-width: 640px) {
-    .author-info-grid {
-      gap: 10px 12px;
-      grid-template-columns: 128px 24px minmax(0, 1fr);
-    }
-  }
-
-  .author-info-row {
-    display: contents;
-  }
-
-  .author-info-label {
-    font-weight: 600;
-    color: #00ffff;
-    white-space: nowrap;
-    text-align: left;
-  }
-
-  .author-info-arrow {
-    color: rgba(0, 255, 255, 0.6);
-    text-align: center;
-  }
-
-  .author-info-value {
-    color: rgba(255, 255, 255, 0.9);
-    text-align: left;
-    word-wrap: break-word;
-  }
-
-  /* New unified connection button styles */
-  .author-connection-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 0 16px;
-    height: 48px;
-    border-radius: 14px;
-    text-decoration: none;
-    background: rgba(255, 255, 255, 0.04);
-    transition: background 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, transform 0.06s ease;
-    word-break: keep-all;
-    hyphens: none;
-  }
-
-  .author-connection-btn:hover {
-    background: rgba(255, 255, 255, 0.06);
-    transform: translateY(-1px);
-  }
-
-  .author-connection-btn:active {
-    transform: translateY(0);
-  }
-
-  .author-connection-btn--linkedin {
-    --btn-accent: rgba(0, 255, 255, 0.55);
-    border: 1px solid rgba(0, 255, 255, 0.35);
-    color: rgba(0, 255, 255, 0.9);
-  }
-
-  .author-connection-btn--linkedin:hover {
-    box-shadow: 0 0 0 2px var(--btn-accent) inset, 0 0 24px var(--btn-accent);
-  }
-
-  .author-connection-btn--linkedin:focus-visible {
-    outline: 2px solid var(--btn-accent);
-    outline-offset: 2px;
-  }
-
-  .author-connection-btn--github {
-    --btn-accent: rgba(255, 0, 127, 0.55);
-    border: 1px solid rgba(255, 0, 127, 0.35);
-    color: rgba(255, 255, 255, 0.9);
-  }
-
-  .author-connection-btn--github:hover {
-    box-shadow: 0 0 0 2px var(--btn-accent) inset, 0 0 24px var(--btn-accent);
-  }
-
-  .author-connection-btn--github:focus-visible {
-    outline: 2px solid var(--btn-accent);
-    outline-offset: 2px;
-  }
-
-  /* Responsive: apilan en mobile con buen tacto */
-  @media (max-width: 767px) {
-    /* Mobile: 12-14px padding, compact title */
-    .image-viewer-modal .image-container {
-      padding: 0.75rem 0.875rem; /* 12px top/bottom, 14px left/right */
-    }
-
-    #image-viewer-title {
-      font-size: 0.8rem !important;
-      letter-spacing: -0.01em;
-      line-height: 1.3;
-    }
-  }
-
-  @media (max-width: 480px) {
-    #image-viewer-title {
-      font-size: 0.75rem !important;
-      letter-spacing: -0.02em;
-    }
-  }
-
-  @media (min-width: 768px) {
-    /* Desktop: 16-20px padding */
-    .image-viewer-modal .image-container {
-      padding: 1rem 1.25rem; /* 16px top/bottom, 20px left/right */
-    }
-  }
-
-  @media (max-width: 768px) {
-    .desktop-only {
-      display: none;
-    }
-
-    .mobile-only {
-      display: block;
-    }
-
-    .system-panel {
-      @apply p-4;
-      max-width: 100%;
-      overflow-x: hidden;
-    }
-
-    .container {
-      @apply px-4;
-      max-width: 100%;
-      overflow-x: hidden;
-    }
-
-    .glitch-text {
-      font-size: clamp(2rem, 8vw, 4rem);
-      line-height: 1.1;
-      word-break: break-word;
-      hyphens: auto;
-    }
-
-    .system-glitch {
-      font-size: clamp(2rem, 8vw, 4rem);
-      line-height: 1.1;
-      word-break: break-word;
-      hyphens: auto;
-    }
-
-    .data-stream {
-      font-size: 0.7rem;
-      line-height: 1.3;
-      word-break: break-word;
-    }
-
-    .gradient-button {
-      @apply py-4 px-6 text-sm;
-      min-height: 56px;
-      word-break: break-word;
-      hyphens: auto;
-    }
-
-    /* Ensure text doesn't overflow */
-    * {
-      word-wrap: break-word;
-      overflow-wrap: break-word;
-      max-width: 100%;
-    }
-
-    /* Fix for long text in mobile */
-    .font-space-mono {
-      word-break: break-all;
-      overflow-wrap: anywhere;
-    }
-
-    .typing-container {
-      min-height: 100px; /* Smaller reserved height on mobile */
-    }
-  }
-
-  @media (max-width: 480px) {
-    .system-panel {
-      @apply p-3;
-      margin: 0 auto;
-    }
-
-    .glitch-text {
-      font-size: clamp(1.5rem, 10vw, 3rem);
-      word-break: break-word;
-    }
-
-    .system-glitch {
-      font-size: clamp(1.5rem, 10vw, 3rem);
-      word-break: break-word;
-    }
-
-    /* Extra small screens */
-    .container {
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
-
-    .typing-container {
-      min-height: 80px; /* Even smaller on very small screens */
-    }
-
-    /* Mejoras para evitar cortes de palabras antinaturales */
-    .font-space-mono {
-      word-break: keep-all;
-      overflow-wrap: break-word;
-      hyphens: none;
-    }
-
-    /* Específico para el timestamp en mobile muy pequeño */
-    @media (max-width: 460px) {
-      [data-timestamp] {
-        line-height: 1.2;
-        word-spacing: -0.1em;
-      }
-    }
-
-    /* Asegurar que los textos del sistema no se corten mal */
-    .system-panel .font-space-mono {
-      white-space: normal;
-      word-break: keep-all;
-      overflow-wrap: break-word;
-    }
-  }
-
-  /* Specific mobile header adjustments */
-  @media (max-width: 640px) {
-    .system-interface-mobile {
-      padding: 0.75rem 1rem;
-    }
-
-    .system-interface-mobile .font-orbitron {
-      font-size: 0.75rem;
-      font-weight: 600;
-    }
-
-    .system-interface-mobile .text-xs {
-      font-size: 0.7rem;
-      line-height: 1.2;
-    }
-  }
-
-  /* Mejora global para evitar cortes antinaturales */
-  .system-panel {
-    word-break: keep-all;
-    overflow-wrap: break-word;
-    hyphens: none;
-  }
-
-  /* Fixed-size CTA buttons with unified hover effects */
-  .cta-button-amazon {
-    background: linear-gradient(135deg, #00faff 0%, #ff007a 100%);
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-  }
-
-  .cta-button-amazon::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s;
-  }
-
-  .cta-button-amazon:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 8px 25px rgba(0, 250, 255, 0.3), 0 4px 15px rgba(255, 0, 122, 0.2);
-  }
-
-  .cta-button-amazon:focus {
-    transform: translateY(-1px);
-    box-shadow: 0 8px 25px rgba(0, 250, 255, 0.3), 0 4px 15px rgba(255, 0, 122, 0.2);
-  }
-
-  .cta-button-amazon:active {
-    transform: translateY(0px);
-  }
-
-  .cta-button-guide {
-    background: linear-gradient(135deg, #00faff 0%, #ff007a 100%);
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
-  }
-
-  .cta-button-guide::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s;
-  }
-
-  .cta-button-guide:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 8px 25px rgba(0, 250, 255, 0.3), 0 4px 15px rgba(255, 0, 122, 0.2);
-  }
-
-  .cta-button-guide:hover::before {
-    left: 100%;
-  }
-
-  .cta-button-guide:focus {
-    transform: translateY(-1px);
-    box-shadow: 0 8px 25px rgba(0, 250, 255, 0.3), 0 4px 15px rgba(255, 0, 122, 0.2);
-  }
-
-  .cta-button-guide:active {
-    transform: translateY(0px);
-  }
-
-  .cta-button-podcast {
-    transition: all 0.3s ease;
-    position: relative;
-  }
-
-  .cta-button-podcast:hover {
-    transform: translateY(-1px);
-    background: rgba(255, 0, 122, 0.2);
-    box-shadow: 0 8px 25px rgba(255, 0, 122, 0.3), 0 4px 15px rgba(255, 0, 122, 0.1);
-  }
-
-  .cta-button-podcast:focus {
-    transform: translateY(-1px);
-    background: rgba(255, 0, 122, 0.2);
-    box-shadow: 0 8px 25px rgba(255, 0, 122, 0.3), 0 4px 15px rgba(255, 0, 122, 0.1);
-  }
-
-  .cta-button-podcast:active {
-    transform: translateY(0px);
-  }
-
-  /* Added sinopsis panel styles with improved visual hierarchy */
-  .sinopsis-panel {
-    max-width: 760px;
-    margin: 0 auto;
-    padding: clamp(16px, 3vw, 28px);
-    border: 1px solid rgba(0, 255, 255, 0.3);
-    border-radius: 12px;
-    backdrop-filter: blur(2px);
-    background: linear-gradient(180deg, rgba(0, 10, 15, 0.6), rgba(0, 0, 0, 0.8));
-    text-align: center;
-    box-shadow: 0 0 18px rgba(0, 255, 255, 0.12);
-  }
-
-  .sinopsis-title {
-    color: var(--neon-cyan);
-    font-size: clamp(28px, 3vw + 8px, 40px);
-    text-shadow: 0 0 18px rgba(0, 255, 255, 0.12);
-    margin-bottom: 1.5rem;
-    font-family: var(--font-orbitron);
-    font-weight: 600;
-  }
-
-  .sinopsis-content p {
-    font-size: clamp(16px, 1.2vw + 12px, 18px);
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.84);
-    margin: 0 0 1.6rem 0;
-    max-width: 72ch;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .sinopsis-content p:last-of-type {
-    margin-bottom: 2rem;
-  }
-
-  .sinopsis-meta {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 1.5rem;
-  }
-
-  .chip {
-    border: 1px solid rgba(255, 0, 128, 0.5);
-    border-radius: 8px;
-    padding: 6px 12px;
-    font-size: 0.85rem;
-    letter-spacing: 0.05em;
-    color: rgba(255, 255, 255, 0.9);
-    font-family: var(--font-space-mono);
-  }
-
-  .magenta {
-    color: var(--electric-pink);
-  }
-
-  .cyan {
-    color: var(--neon-cyan);
-  }
-
-  .italic {
-    font-style: italic;
-  }
-
-  /* Adding new author section layout styles for two-column desktop and single-column mobile */
   .author-layout {
     display: flex;
     flex-direction: column;
@@ -1037,6 +620,155 @@
 
   .author-bio p:last-child {
     margin-bottom: 0;
+  }
+
+  /* Adding author header styles for quote and layout */
+  .author-header {
+    margin-bottom: 20px;
+  }
+
+  .author-quote {
+    margin-top: 14px;
+    text-align: center;
+    font-size: 1.125rem;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 300;
+    max-width: 60ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .author-connections-title {
+    font-size: 0.875rem;
+    color: rgba(0, 255, 255, 0.7);
+    margin-top: 16px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .author-connections-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  /* Adding author console styles for the 5-row data structure */
+  .author-console {
+    display: grid;
+    grid-template-columns: max-content 24px minmax(0, 1fr);
+    gap: 12px 20px;
+    text-align: left;
+    font-family: var(--font-space-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 640px) {
+    .author-console {
+      gap: 10px 14px;
+    }
+  }
+
+  .author-console-row {
+    display: contents;
+  }
+
+  .author-console-label {
+    font-weight: 600;
+    color: #00ffff;
+    white-space: nowrap;
+  }
+
+  .author-console-arrow {
+    color: rgba(0, 255, 255, 0.6);
+    text-align: center;
+  }
+
+  .author-console-value {
+    color: rgba(255, 255, 255, 0.9);
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+  }
+
+  /* Adding UMBRAL command button styles for CÓMO LEERLO section */
+  .umbral-command-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    padding: 0 16px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    font-family: var(--font-space-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all 0.3s ease;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  .umbral-command-btn:hover {
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 0 24px rgba(0, 255, 255, 0.25);
+    transform: translateY(-1px);
+  }
+
+  .umbral-command-btn:active {
+    transform: translateY(0);
+    border: 2px solid rgba(0, 255, 255, 0.5) inset;
+  }
+
+  .umbral-command-btn:focus-visible {
+    outline: 2px solid rgba(0, 255, 255, 0.6);
+    outline-offset: 2px;
+  }
+
+  /* Adding expandable content styles for SINOPSIS and CÓMO LEERLO */
+  .sinopsis-content {
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+  }
+
+  .sinopsis-content:not(.is-open) {
+    max-height: 200px;
+  }
+
+  .sinopsis-content.is-open {
+    max-height: 1000px;
+  }
+
+  .detailed-guide {
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+    max-height: 0;
+  }
+
+  .detailed-guide.is-open {
+    max-height: 2000px;
+  }
+
+  /* Adding how-to-read panel specific styles to prevent cutting */
+  .how-to-read-panel {
+    position: relative;
+    overflow: visible;
+    padding-top: clamp(20px, 4vw, 32px);
+  }
+
+  /* Ensuring proper text wrapping for mobile */
+  @media (max-width: 640px) {
+    .umbral-command-btn,
+    .author-console-value,
+    .author-quote {
+      word-break: normal;
+      overflow-wrap: anywhere;
+      hyphens: none;
+    }
   }
 }
 

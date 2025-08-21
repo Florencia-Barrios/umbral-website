@@ -7,13 +7,14 @@ export default function AuthorSection() {
     <section id="autor" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 relative">
       <div className="container mx-auto max-w-4xl">
         <section className="umbral-panel">
-          <h2 className="sinopsis-title">AUTOR</h2>
+          {/* Header with title and quote */}
+          <div className="author-header">
+            <h2 className="sinopsis-title">AUTOR</h2>
+            <p className="author-quote">"No soy escritor. Soy desarrollador. Esta es mi primera novela."</p>
+          </div>
 
-          <p className="mt-[14px] text-center text-lg italic text-white/90 font-light max-w-prose mx-auto">
-            "No soy escritor. Soy desarrollador. Esta es mi primera novela."
-          </p>
-
-          <div className="mt-8 author-layout">
+          {/* Two-column layout */}
+          <div className="author-layout">
             {/* Left column: Avatar + Connection buttons */}
             <div className="author-left-column">
               <div className="author-avatar">
@@ -41,57 +42,60 @@ export default function AuthorSection() {
               </div>
 
               <div className="author-connections">
-                <a
-                  href="https://www.linkedin.com/in/federico-daniel-ara/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="LinkedIn del autor"
-                  className="author-connection-btn author-connection-btn--linkedin"
-                >
-                  <Linkedin aria-hidden="true" className="h-5 w-5" />
-                  <span>LinkedIn</span>
-                </a>
+                <h3 className="author-connections-title">Conexiones</h3>
+                <div className="author-connections-buttons">
+                  <a
+                    href="https://www.linkedin.com/in/federico-daniel-ara/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="LinkedIn del autor"
+                    className="author-connection-btn author-connection-btn--linkedin"
+                  >
+                    <Linkedin aria-hidden="true" className="h-5 w-5" />
+                    <span>LinkedIn</span>
+                  </a>
 
-                <a
-                  href="https://github.com/Lartweib"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="GitHub del autor"
-                  className="author-connection-btn author-connection-btn--github"
-                >
-                  <Github aria-hidden="true" className="h-5 w-5" />
-                  <span>GitHub</span>
-                </a>
+                  <a
+                    href="https://github.com/Lartweib"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="GitHub del autor"
+                    className="author-connection-btn author-connection-btn--github"
+                  >
+                    <Github aria-hidden="true" className="h-5 w-5" />
+                    <span>GitHub</span>
+                  </a>
+                </div>
               </div>
             </div>
 
-            {/* Right column: Data + Bio text */}
+            {/* Right column: Console data + Bio text */}
             <div className="author-right-column">
-              <div className="author-info-grid">
-                <div className="author-info-row">
-                  <span className="author-info-label">autor</span>
-                  <span className="author-info-arrow">→</span>
-                  <span className="author-info-value">Federico Daniel Ara</span>
+              <div className="author-console">
+                <div className="author-console-row">
+                  <span className="author-console-label">autor</span>
+                  <span className="author-console-arrow">→</span>
+                  <span className="author-console-value">Federico Daniel Ara</span>
                 </div>
-                <div className="author-info-row">
-                  <span className="author-info-label">origen</span>
-                  <span className="author-info-arrow">→</span>
-                  <span className="author-info-value">Argentina (residencia en España)</span>
+                <div className="author-console-row">
+                  <span className="author-console-label">origen</span>
+                  <span className="author-console-arrow">→</span>
+                  <span className="author-console-value">Argentina (residencia en España)</span>
                 </div>
-                <div className="author-info-row">
-                  <span className="author-info-label">background</span>
-                  <span className="author-info-arrow">→</span>
-                  <span className="author-info-value">desarrollo tecnológico</span>
+                <div className="author-console-row">
+                  <span className="author-console-label">background</span>
+                  <span className="author-console-arrow">→</span>
+                  <span className="author-console-value">desarrollo tecnológico</span>
                 </div>
-                <div className="author-info-row">
-                  <span className="author-info-label">inspiración</span>
-                  <span className="author-info-arrow">→</span>
-                  <span className="author-info-value">la intersección entre mente y máquinas</span>
+                <div className="author-console-row">
+                  <span className="author-console-label">inspiración</span>
+                  <span className="author-console-arrow">→</span>
+                  <span className="author-console-value">la intersección entre mente y máquinas</span>
                 </div>
-                <div className="author-info-row">
-                  <span className="author-info-label">primera_obra</span>
-                  <span className="author-info-arrow">→</span>
-                  <span className="author-info-value">UMBRAL (2025)</span>
+                <div className="author-console-row">
+                  <span className="author-console-label">primera_obra</span>
+                  <span className="author-console-arrow">→</span>
+                  <span className="author-console-value">UMBRAL (2025)</span>
                 </div>
               </div>
 
