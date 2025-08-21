@@ -2,7 +2,6 @@
 
 import type React from "react"
 import { useState, useEffect, useRef } from "react"
-import { ChevronDown, ChevronUp } from "lucide-react"
 
 export default function SynopsisSection() {
   const [isExpanded, setIsExpanded] = useState(false)
@@ -89,17 +88,7 @@ export default function SynopsisSection() {
                 type="button"
               >
                 <span>{">"}</span>
-                {isExpanded ? (
-                  <>
-                    <ChevronUp size={16} className="transition-transform" />
-                    <span>contraer_descripcion()</span>
-                  </>
-                ) : (
-                  <>
-                    <ChevronDown size={16} className="transition-transform" />
-                    <span>expandir_descripcion()</span>
-                  </>
-                )}
+                <span>{isExpanded ? "contraer_descripcion()" : "expandir_descripcion()"}</span>
               </button>
             </section>
           </div>
