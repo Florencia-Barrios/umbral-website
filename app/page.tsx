@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import HeroSection from "./components/HeroSection"
 import SynopsisSection from "./components/SynopsisSection"
+import HowToReadSection from "./components/HowToReadSection"
 import PodcastSection from "./components/PodcastSection"
 import AuthorSection from "./components/AuthorSection"
 import Footer from "./components/Footer"
@@ -34,6 +35,7 @@ export default function Home() {
       <SystemInterface />
       <HeroSection />
       <SynopsisSection />
+      <HowToReadSection />
       <PodcastSection />
       <AuthorSection />
       <Footer />

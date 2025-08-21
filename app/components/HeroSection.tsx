@@ -1,5 +1,7 @@
 "use client"
 
+import type React from "react"
+
 import { useEffect, useState } from "react"
 import Image from "next/image"
 import { Download, Headphones, ChevronRight, Play, Maximize2, ChevronLeft, X } from "lucide-react"
@@ -12,8 +14,6 @@ export default function HeroSection() {
   const [showScanning, setShowScanning] = useState(false)
   const [showBackCover, setShowBackCover] = useState(false)
   const [showSkipButton, setShowSkipButton] = useState(false)
-  const [showGuideModal, setShowGuideModal] = useState(false)
-  const [showTooltip, setShowTooltip] = useState(false)
 
   // New Image Viewer Modal States
   const [showImageModal, setShowImageModal] = useState(false)
@@ -75,7 +75,7 @@ export default function HeroSection() {
                 }
               }, 30) // Faster typing
             },
-            i === 0 ? 500 : 800, // Faster sequence
+            i === 0 ? 500 : 800, // Faster sequence,
           )
         })
       }
@@ -89,7 +89,6 @@ export default function HeroSection() {
     }
   }, [])
 
-  // Image Modal Keyboard Navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (showImageModal) {
@@ -106,18 +105,25 @@ export default function HeroSection() {
             navigateImage(1)
             break
         }
-      }
-
-      if (e.key === "Escape" && showGuideModal) {
-        closeGuideModal()
+      } else if (systemReady) {
+        switch (e.key) {
+          case "ArrowLeft":
+            e.preventDefault()
+            setShowBackCover(false)
+            break
+          case "ArrowRight":
+            e.preventDefault()
+            setShowBackCover(true)
+            break
+        }
       }
     }
 
     document.addEventListener("keydown", handleKeyDown)
     return () => document.removeEventListener("keydown", handleKeyDown)
-  }, [showImageModal, showGuideModal, currentImageIndex])
+  }, [showImageModal, currentImageIndex, systemReady])
 
-  // Touch/Swipe handling for mobile
+  // Touch/Swipe handling for image modal
   useEffect(() => {
     if (!showImageModal) return
 
@@ -167,7 +173,8 @@ export default function HeroSection() {
     setShowScanning(true)
   }
 
-  const handleSkipToContent = () => {
+  const handleSkipToContent = (e: React.MouseEvent) => {
+    e.stopPropagation()
     // Skip scanning and go directly to main content (portada section)
     document.body.style.overflow = "unset"
     setSystemReady(true)
@@ -208,16 +215,6 @@ export default function HeroSection() {
   const navigateImage = (direction: number) => {
     const newIndex = (currentImageIndex + direction + images.length) % images.length
     setCurrentImageIndex(newIndex)
-  }
-
-  const openGuideModal = () => {
-    setShowGuideModal(true)
-    document.body.style.overflow = "hidden"
-  }
-
-  const closeGuideModal = () => {
-    setShowGuideModal(false)
-    document.body.style.overflow = "unset"
   }
 
   // Show scanning sequence
@@ -306,11 +303,14 @@ export default function HeroSection() {
                       />
                     </button>
 
-                    {/* Skip Button - Rediseñado */}
+                    {/* Skip Button - Fixed to work properly on mobile and desktop */}
                     {showSkipButton && (
                       <button
                         onClick={handleSkipToContent}
-                        className="bg-transparent text-gray-400 px-4 py-2 rounded font-space-mono text-sm transition-colors duration-300 hover:text-neon-cyan cursor-pointer mx-auto block"
+                        type="button"
+                        className="bg-transparent text-gray-400 px-4 py-2 rounded font-space-mono text-sm transition-colors duration-300 hover:text-neon-cyan cursor-pointer mx-auto block focus:outline-none focus:ring-2 focus:ring-neon-cyan/50"
+                        aria-label="Ingresar sin iniciar protocolo (omitir escaneo)"
+                        style={{ pointerEvents: "auto" }}
                       >
                         Ingresar sin iniciar protocolo
                       </button>
@@ -324,14 +324,15 @@ export default function HeroSection() {
           {/* Main Interface */}
           {systemReady && (
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-              {/* Book Cover with Manual Controls */}
+              {/* Book Cover with Manual Controls and 3D Flip Effect */}
               <div className="order-2 lg:order-1 fade-in-sequence">
-                <div className="system-panel p-6 sm:p-8 bg-void/90 backdrop-blur-xl hologram-effect">
+                <div className="system-panel p-6 sm:p-8 bg-void/90 backdrop-blur-xl hologram-effect" aria-live="polite">
                   {/* Nueva barra de controles superior */}
                   <div className="flex items-center justify-between mb-4 text-xs font-space-mono">
                     <button
                       onClick={toggleCover}
                       className="text-ghost hover:text-neon-cyan transition-colors duration-300 cursor-pointer"
+                      aria-pressed={showBackCover ? "true" : "false"}
                     >
                       <span>
                         {">"} [{showBackCover ? "VER PORTADA" : "VER CONTRATAPA"}]
@@ -346,35 +347,36 @@ export default function HeroSection() {
                     </button>
                   </div>
 
-                  {/* Image Container - ajustado */}
                   <div className="relative mb-4">
                     <div className="relative group">
                       <div className="absolute -inset-2 bg-gradient-to-r from-neon-cyan/20 to-electric-pink/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg"></div>
                       <div className="relative">
-                        {/* Pre-loaded images - only one visible at a time */}
-                        <div className="relative w-full max-w-sm mx-auto">
-                          <Image
-                            src="/images/UMBRAL_PORTADA_OFICIAL.png"
-                            alt="UMBRAL - Portada Oficial"
-                            width={400}
-                            height={600}
-                            className={`w-full rounded-lg shadow-2xl border border-neon-cyan/30 transition-all duration-500 ${
-                              showBackCover ? "opacity-0 absolute inset-0" : "opacity-100"
-                            }`}
-                            style={{ objectFit: "contain" }}
-                            priority
-                          />
-                          <Image
-                            src="/images/CONTRATAPA_UMBRAL_OFICIAL.png"
-                            alt="UMBRAL - Contratapa Oficial"
-                            width={400}
-                            height={600}
-                            className={`w-full rounded-lg shadow-2xl border border-neon-cyan/30 transition-all duration-500 ${
-                              showBackCover ? "opacity-100" : "opacity-0 absolute inset-0"
-                            }`}
-                            style={{ objectFit: "contain" }}
-                            priority
-                          />
+                        {/* New umbral-flip-stage structure */}
+                        <div className={`umbral-flip-stage ${showBackCover ? "isBack" : ""}`}>
+                          {/* Front Face - Portada */}
+                          <figure className="umbral-flip-card front">
+                            <Image
+                              src="/images/UMBRAL_PORTADA_OFICIAL.png"
+                              alt="UMBRAL - Portada Oficial"
+                              width={400}
+                              height={600}
+                              className="w-full rounded-lg shadow-2xl border border-neon-cyan/30"
+                              style={{ objectFit: "contain" }}
+                              priority
+                            />
+                          </figure>
+                          {/* Back Face - Contratapa */}
+                          <figure className="umbral-flip-card back">
+                            <Image
+                              src="/images/CONTRATAPA_UMBRAL_OFICIAL.png"
+                              alt="UMBRAL - Contratapa Oficial"
+                              width={400}
+                              height={600}
+                              className="w-full rounded-lg shadow-2xl border border-neon-cyan/30"
+                              style={{ objectFit: "contain" }}
+                              priority
+                            />
+                          </figure>
                         </div>
                         <div className="absolute inset-0 bg-gradient-to-t from-neon-cyan/5 to-electric-pink/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg"></div>
                       </div>
@@ -422,10 +424,9 @@ export default function HeroSection() {
                 <div className="space-y-4 fade-in-sequence">
                   {/* Unified Layout for all devices */}
                   <div className="max-w-[600px] mx-auto">
-                    {/* Primera fila: Amazon + Guide Button - Grid Layout */}
-                    <div className="grid grid-cols-[1fr_auto] gap-2 mb-4">
-                      {/* Amazon CTA - Fixed size, no scale on hover */}
-                      <button className="cta-button-amazon text-void px-6 py-3 h-12 rounded-lg font-semibold text-sm transition-all duration-300 flex items-center justify-center space-x-2 group border border-transparent">
+                    <div className="space-y-4">
+                      {/* Amazon CTA - Full width */}
+                      <button className="cta-button-amazon w-full text-void px-6 py-3 h-12 rounded-lg font-semibold text-sm transition-all duration-300 flex items-center justify-center space-x-2 group border border-transparent">
                         <Download size={18} className="flex-shrink-0" />
                         <span style={{ wordBreak: "keep-all", overflowWrap: "break-word" }}>COMPRAR EN AMAZON</span>
                         <ChevronRight
@@ -434,39 +435,16 @@ export default function HeroSection() {
                         />
                       </button>
 
-                      {/* Guide Button - Square, same height as Amazon, fixed size */}
-                      <div className="relative">
-                        <button
-                          onClick={openGuideModal}
-                          onMouseEnter={() => setShowTooltip(true)}
-                          onMouseLeave={() => setShowTooltip(false)}
-                          onFocus={() => setShowTooltip(true)}
-                          onBlur={() => setShowTooltip(false)}
-                          className="cta-button-guide w-12 h-12 text-void rounded-lg inline-flex items-center justify-center transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-neon-cyan/50 focus:ring-offset-2 focus:ring-offset-void border border-transparent"
-                          aria-label="Guía rápida"
-                        >
-                          <span className="text-lg font-bold">?</span>
-                        </button>
-
-                        {/* Tooltip - Hidden on mobile */}
-                        {showTooltip && (
-                          <div className="hidden sm:block absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 bg-void/95 border border-neon-cyan/25 rounded text-xs font-space-mono text-neon-cyan whitespace-nowrap animate-in fade-in-0 zoom-in-95 duration-150 shadow-lg shadow-neon-cyan/10">
-                            Guía rápida
-                            <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neon-cyan/25"></div>
-                          </div>
-                        )}
-                      </div>
+                      {/* Podcast - Full width */}
+                      <button className="cta-button-podcast w-full text-electric-pink px-6 py-3 h-12 rounded-lg font-semibold text-sm transition-all duration-300 flex items-center justify-center space-x-2 group border border-electric-pink bg-electric-pink/10">
+                        <Headphones size={18} className="flex-shrink-0" />
+                        <span style={{ wordBreak: "keep-all", overflowWrap: "break-word" }}>ACCEDER A PODCAST</span>
+                        <ChevronRight
+                          size={14}
+                          className="group-hover:translate-x-1 transition-transform flex-shrink-0"
+                        />
+                      </button>
                     </div>
-
-                    {/* Segunda fila: Podcast - Full width, fixed size */}
-                    <button className="cta-button-podcast w-full text-electric-pink px-6 py-3 h-12 rounded-lg font-semibold text-sm transition-all duration-300 flex items-center justify-center space-x-2 group border border-electric-pink bg-electric-pink/10">
-                      <Headphones size={18} className="flex-shrink-0" />
-                      <span style={{ wordBreak: "keep-all", overflowWrap: "break-word" }}>ACCEDER A PODCAST</span>
-                      <ChevronRight
-                        size={14}
-                        className="group-hover:translate-x-1 transition-transform flex-shrink-0"
-                      />
-                    </button>
                   </div>
                 </div>
               </div>
@@ -575,157 +553,7 @@ export default function HeroSection() {
                   priority={false}
                   placeholder="blur"
                   blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
-                  sizes="(max-width: 767px) 92vw, (max-width: 1200px) 80vw, 980px"
                 />
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Guide Modal */}
-      {showGuideModal && (
-        <div
-          className="fixed inset-0 bg-void/95 backdrop-blur-xl z-50 flex items-center justify-center p-4"
-          onClick={closeGuideModal}
-        >
-          <div
-            className="relative w-full max-w-3xl max-h-[86vh] bg-void/90 border border-neon-cyan/30 rounded-2xl shadow-2xl overflow-hidden"
-            onClick={(e) => e.stopPropagation()}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="guide-title"
-          >
-            {/* Sticky Header */}
-            <div className="sticky top-0 bg-void/95 backdrop-blur-xl border-b border-neon-cyan/20 p-4 sm:p-6 flex items-center justify-between z-10">
-              <div className="flex items-center space-x-3">
-                <div className="w-3 h-3 bg-neon-cyan rounded-full animate-pulse"></div>
-                <h2 id="guide-title" className="text-lg sm:text-xl font-orbitron text-neon-cyan">
-                  GUÍA_RÁPIDA
-                </h2>
-              </div>
-              <button
-                onClick={closeGuideModal}
-                className="w-11 h-11 bg-void/60 hover:bg-void/80 border border-neon-cyan/30 hover:border-neon-cyan/50 text-ghost hover:text-neon-cyan rounded-full flex items-center justify-center transition-all duration-300 transform hover:-translate-y-px focus:outline-none focus:ring-2 focus:ring-neon-cyan/50"
-                aria-label="Cerrar guía"
-              >
-                <X size={20} />
-              </button>
-            </div>
-
-            {/* Content */}
-            <div className="overflow-y-auto max-h-[calc(86vh-80px)] p-4 sm:p-6">
-              <div className="system-panel p-4 sm:p-6 bg-void/50 border-neon-cyan/10">
-                <div className="flex items-center mb-4 text-sm font-space-mono text-neon-cyan">
-                  <span className="mr-2">{">"}</span>
-                  <span>cat guia_compra.txt</span>
-                </div>
-
-                <div
-                  className="font-space-mono text-sm leading-relaxed text-ghost space-y-4"
-                  style={{ wordBreak: "keep-all", overflowWrap: "break-word", whiteSpace: "pre-wrap", hyphens: "none" }}
-                >
-                  <div>
-                    <div className="text-electric-pink mb-3">Opción 1 – Versión Kindle</div>
-
-                    <div className="mb-4">
-                      <div className="text-neon-cyan mb-2 text-xs">{">"} A) Comprar en Amazon</div>
-                      <div className="space-y-1 ml-2">
-                        <div>1. Entrá a Amazon con el botón principal.</div>
-                        <div>2. Si no tenés cuenta de Amazon, creala (gratis).</div>
-                        <div className="ml-4 text-neon-cyan">→ Usá un email y contraseña que recuerdes.</div>
-                        <div>3. Elegí "Versión Kindle".</div>
-                        <div>4. Si hay promo de lanzamiento y el precio aparece en 0, tocá "Comprar ahora".</div>
-                        <div>
-                          5. Si Amazon te pide un método de pago, agregalo (lo solicita aunque el precio sea 0). No se
-                          te cobra si el precio es 0.
-                        </div>
-                        <div>6. Confirmá la compra. Listo.</div>
-                      </div>
-                    </div>
-
-                    <div className="mb-4">
-                      <div className="text-neon-cyan mb-2 text-xs">{">"} B) Leer en la App Kindle</div>
-                      <div className="space-y-1 ml-2">
-                        <div>1. Descargá la app Kindle (gratis):</div>
-                        <div className="ml-4 space-y-2">
-                          <div className="flex items-center min-h-[40px]">
-                            <span className="mr-2">•</span>
-                            <a
-                              href="https://play.google.com/store/apps/details?id=com.amazon.kindle"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-electric-pink hover:text-neon-cyan transition-colors duration-300 underline decoration-electric-pink/50 hover:decoration-neon-cyan/70 underline-offset-2 py-2"
-                              style={{ wordBreak: "keep-all", overflowWrap: "break-word" }}
-                            >
-                              Google Play — Descargar app Kindle
-                            </a>
-                          </div>
-                          <div className="flex items-center min-h-[40px]">
-                            <span className="mr-2">•</span>
-                            <a
-                              href="https://apps.apple.com/app/amazon-kindle/id302584613"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-electric-pink hover:text-neon-cyan transition-colors duration-300 underline decoration-electric-pink/50 hover:decoration-neon-cyan/70 underline-offset-2 py-2"
-                              style={{ wordBreak: "keep-all", overflowWrap: "break-word" }}
-                            >
-                              App Store — Descargar app Kindle
-                            </a>
-                          </div>
-                        </div>
-                        <div>2. Iniciá sesión con la MISMA cuenta de Amazon que usaste para comprar el libro.</div>
-                        <div>
-                          3. En "Biblioteca", esperá unos segundos y tocá "Sincronizar" (o arrastrá hacia abajo para
-                          refrescar).
-                        </div>
-                        <div>4. Abrí "UMBRAL".</div>
-                        <div>5. Opcional: Ajustá tamaño de letra, modo oscuro y márgenes.</div>
-                        <div>6. Para leer sin conexión: abrí el libro y dejá que se descargue por completo.</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Visual Divider */}
-                  <div className="w-full h-px bg-neon-cyan/25 my-4"></div>
-
-                  <div>
-                    <div className="text-electric-pink mb-3">Opción 2 – Libro en Papel</div>
-                    <div className="space-y-1">
-                      <div>• Disponible con envío internacional (desde USA o España).</div>
-                      <div>• Necesitás cuenta de Amazon para comprar.</div>
-                      <div>
-                        • Completá tu dirección real para que Amazon calcule el costo y confirme el envío antes de
-                        pagar.
-                      </div>
-                      <div>
-                        • El precio final (incluyendo posibles costos de importación) se muestra antes de confirmar la
-                        compra.
-                      </div>
-                      <div>• Disponibilidad y costos pueden variar según tu ubicación y el stock del marketplace.</div>
-                    </div>
-                  </div>
-
-                  {/* Visual Divider */}
-                  <div className="w-full h-px bg-neon-cyan/25 my-4"></div>
-
-                  <div>
-                    <div className="text-neon-cyan">
-                      {">"} Nota: No necesitás un Kindle físico. La app Kindle es gratis y funciona en celular, tablet o
-                      PC.
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Close Button */}
-              <div className="mt-6 text-center">
-                <button
-                  onClick={closeGuideModal}
-                  className="bg-neon-cyan/10 hover:bg-neon-cyan/20 border border-neon-cyan text-neon-cyan px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-300 transform hover:-translate-y-px focus:outline-none focus:ring-2 focus:ring-neon-cyan/50 font-space-mono"
-                >
-                  CERRAR
-                </button>
               </div>
             </div>
           </div>

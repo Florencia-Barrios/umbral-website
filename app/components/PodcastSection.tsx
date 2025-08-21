@@ -1,11 +1,12 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { Radio, ExternalLink, Cpu, Activity, Play } from 'lucide-react'
+import { Play } from "lucide-react"
 
 export default function PodcastSection() {
   const [isVisible, setIsVisible] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
+  const iframeRef = useRef<HTMLIFrameElement>(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -24,112 +25,87 @@ export default function PodcastSection() {
     return () => observer.disconnect()
   }, [])
 
+  const handleListenNow = () => {
+    if (iframeRef.current) {
+      iframeRef.current.scrollIntoView({ behavior: "smooth", block: "center" })
+      iframeRef.current.focus()
+    }
+  }
+
   return (
-    <section ref={sectionRef} className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-void/50">
+    <section
+      ref={sectionRef}
+      role="region"
+      aria-labelledby="podcast_title"
+      className={`py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+      }`}
+    >
       <div className="container mx-auto max-w-4xl">
-        {isVisible && (
-          <div className="fade-in-sequence">
-            <div className="system-panel p-6 sm:p-8 hologram-effect">
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 lg:mb-8 gap-4">
-                <div className="flex items-center space-x-3">
-                  <Radio size={20} className="sm:w-6 sm:h-6 text-electric-pink flex-shrink-0" />
-                  <span className="text-lg sm:text-xl font-orbitron text-electric-pink">ANÁLISIS_VISUAL</span>
-                </div>
-                <div className="flex items-center space-x-2 text-xs font-space-mono">
-                  <Cpu size={14} className="text-neon-cyan" />
-                  <span className="text-neon-cyan">IA_CONVERSACIÓN_VIDEO</span>
-                </div>
-              </div>
+        <div className="umbral-panel podcast-box">
+          <div className="flex items-center mb-6 text-sm font-space-mono">
+            <div className="w-3 h-3 bg-neon-cyan rounded-full mr-3 animate-pulse flex-shrink-0"></div>
+            <span className="text-neon-cyan">STREAM_AUDIO</span>
+          </div>
 
-              {/* AI Analysis Module */}
-              <div className="system-panel p-4 sm:p-6 mb-6 lg:mb-8 bg-void/30 border-electric-pink/10">
-                {/* Header */}
-                <div className="flex items-center mb-4 text-sm font-space-mono text-electric-pink">
-                  <span className="mr-2">{">"}</span>
-                  <span className="flex items-center space-x-2">
-                    <Play size={16} className="flex-shrink-0" />
-                    <span>REPRODUCIENDO_ANÁLISIS_VISUAL.mp4</span>
-                  </span>
-                </div>
+          <h2
+            id="podcast_title"
+            className="text-2xl sm:text-3xl lg:text-4xl font-orbitron font-bold text-neon-cyan mb-4 glow-text text-center"
+          >
+            PODCAST
+          </h2>
 
-                {/* Description */}
-                <p className="text-ghost mb-6 leading-relaxed text-base sm:text-lg">
-                  Dos inteligencias artificiales mantuvieron una conversación visual sobre el libro. Un análisis
-                  profundo desde la perspectiva de sistemas autónomos que exploran los límites entre realidad y
-                  simulación.
-                </p>
+          {/* Intro */}
+          <div className="text-center mb-8">
+            <p className="podcast-text text-ghost mb-2 font-inter leading-relaxed">
+              Un episodio especial donde dos inteligencias artificiales discuten:
+            </p>
+            <p className="podcast-text text-ghost font-inter leading-relaxed">
+              ¿qué queda de lo humano cuando lo artificial empieza a hablar tu mismo idioma?
+            </p>
+          </div>
 
-                {/* Technical Info Panel */}
-                <div className="system-panel p-4 sm:p-5 bg-void/50 border-neon-cyan/20 mb-6">
-                  <div className="flex items-center mb-3">
-                    <Activity size={16} className="text-neon-cyan mr-2 flex-shrink-0" />
-                    <span className="text-xs font-space-mono text-neon-cyan">ESPECIFICACIONES_TÉCNICAS</span>
-                  </div>
-                  <div className="data-stream space-y-1 text-xs">
-                    <div>FORMATO: MP4 | RESOLUCIÓN: HD</div>
-                    <div>PARTICIPANTES: IA_ALPHA, IA_BETA</div>
-                    <div>TEMA: ANÁLISIS_UMBRAL.exe</div>
-                    <div>PLATAFORMA: YOUTUBE_EMBED</div>
-                  </div>
-                </div>
+          {/* File label */}
+          <div className="mb-4 font-space-mono text-sm text-electric-pink">
+            <span className="mr-2">{">"}</span>
+            <span>reproduciendo_podcast_umbral.mp4</span>
+          </div>
+          <div className="mb-6 text-xs text-ghost font-space-mono">
+            Formato: VIDEO | Fuente: YouTube | Duración: 3:32 min
+          </div>
 
-                {/* YouTube Player Container */}
-                <div className="system-panel p-4 sm:p-5 bg-void/60 border-electric-pink/20 mb-6">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center space-x-2">
-                      <div className="w-2 h-2 bg-electric-pink rounded-full animate-pulse"></div>
-                      <span className="text-xs font-space-mono text-electric-pink">STREAM_ACTIVO: ANÁLISIS_VISUAL.IA</span>
-                    </div>
-                    <div className="text-xs font-space-mono text-neon-cyan">YOUTUBE_EMBED</div>
-                  </div>
-
-                  {/* YouTube iframe */}
-                  <div className="border border-neon-cyan/30 p-2 rounded-lg bg-void/30">
-                    <iframe
-                      width="100%"
-                      height="240"
-                      src="https://www.youtube.com/embed/DNHeVYk2oJE"
-                      title="Análisis IA - UMBRAL"
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowFullScreen
-                      className="rounded-lg"
-                      style={{
-                        minHeight: '200px'
-                      }}
-                    />
-                  </div>
-                </div>
-
-                {/* Access Button */}
-                <button
-                  onClick={() =>
-                    window.open(
-                      "https://www.youtube.com/watch?v=DNHeVYk2oJE",
-                      "_blank",
-                    )
-                  }
-                  className="w-full bg-electric-pink/10 hover:bg-electric-pink/20 border border-electric-pink text-electric-pink px-6 sm:px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center justify-center space-x-3 group electric-glow"
-                >
-                  <span className="text-sm sm:text-base">ACCEDER_A_YOUTUBE()</span>
-                  <ExternalLink size={16} className="group-hover:scale-110 transition-transform flex-shrink-0" />
-                </button>
-              </div>
-
-              {/* System Status */}
-              <div className="flex items-center justify-center space-x-4 text-xs font-space-mono text-neon-cyan/70">
-                <div className="flex items-center space-x-1">
-                  <div className="w-1 h-1 bg-neon-cyan rounded-full animate-pulse"></div>
-                  <span>ANÁLISIS_COMPLETADO</span>
-                </div>
-                <div className="flex items-center space-x-1">
-                  <div className="w-1 h-1 bg-electric-pink rounded-full animate-pulse"></div>
-                  <span>VIDEO_DISPONIBLE</span>
-                </div>
-              </div>
+          {/* YouTube Embed */}
+          <div className="mb-8">
+            <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
+              <iframe
+                ref={iframeRef}
+                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                title="Reproductor del podcast Umbral en YouTube"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                className="absolute top-0 left-0 w-full h-full rounded-lg border border-neon-cyan/30"
+              />
             </div>
           </div>
-        )}
+
+          {/* CTA Button */}
+          <div className="text-center mb-6">
+            <button
+              onClick={handleListenNow}
+              aria-label="Reproducir el podcast ahora"
+              className="bg-electric-pink/10 hover:bg-electric-pink/20 border border-electric-pink text-electric-pink px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center justify-center space-x-3 mx-auto group electric-glow"
+            >
+              <Play size={18} className="flex-shrink-0" />
+              <span>🎧 ESCUCHAR AHORA</span>
+            </button>
+          </div>
+
+          <div className="text-center font-space-mono text-sm text-electric-pink podcast-secret">
+            <span className="mr-2">{">"}</span>
+            <span>mensaje_oculto: "El umbral no se cruza, se escucha."</span>
+          </div>
+        </div>
       </div>
     </section>
   )
